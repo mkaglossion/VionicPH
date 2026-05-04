@@ -51,18 +51,11 @@
           <article id="block-{{ block.id }}" class="expert-card">
             <div class="logo-wrap">
               {% if block.settings.logo_image != blank %}
-                {% comment %} If logo_image is an asset or image handle, use img_url; if it's a full URL, output directly {% endcomment %}
+                {% comment %} Render uploaded image only. No default/fallback images are provided. {% endcomment %}
                 {% if block.settings.logo_image contains 'http' %}
                   <img class="logo" src="{{ block.settings.logo_image }}" alt="{{ block.settings.logo_alt }}">
                 {% else %}
                   <img class="logo" src="{{ block.settings.logo_image | img_url: 'master' }}" alt="{{ block.settings.logo_alt }}">
-                {% endif %}
-              {% else %}
-                {% comment %} Provide default CDN logos for common presets when no image is uploaded in the block {% endcomment %}
-                {% if block.settings.card_title == 'Trusted by Podiatric Specialist' %}
-                  <img class="logo" src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/logo-apma.png?v=1755243368" alt="American Podiatric Medical Association Seal of Acceptance">
-                {% elsif block.settings.card_title == 'The Source of Our Innovation' %}
-                  <img class="logo" src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/violab.png?v=1755243368" alt="VioLab">
                 {% endif %}
               {% endif %}
             </div>
@@ -109,41 +102,11 @@
         { "type": "text", "id": "card_title", "label": "Card title", "default": "Trusted by Podiatric Specialist" },
         { "type": "textarea", "id": "card_text", "label": "Description", "default": "Short description text for this card." },
         { "type": "text", "id": "button_text", "label": "Button text", "default": "Learn More" },
-        { "type": "url", "id": "button_link", "label": "Button link", "default": "/" },
+        { "type": "text", "id": "button_link", "label": "Button link (paste full URL)", "default": "/" },
         { "type": "checkbox", "id": "open_in_new_tab", "label": "Open link in new tab", "default": false }
       ]
     }
   ],
-  "max_blocks": 4,
-  "presets": [
-    {
-      "name": "Vio-motion Support - two cards",
-      "category": "Custom",
-      "blocks": [
-        {
-          "type": "card",
-          "settings": {
-            "logo_alt": "American Podiatric Medical Association Seal of Acceptance",
-            "card_title": "Trusted by Podiatric Specialist",
-            "card_text": "The American Podiatric Medical Association is the leading resource for foot health information. Many Vionic products carry the APMA Seal of Acceptance.",
-            "button_text": "Learn More",
-            "button_link": "/pages/apma",
-            "open_in_new_tab": false
-          }
-        },
-        {
-          "type": "card",
-          "settings": {
-            "logo_alt": "VioLab",
-            "card_title": "The Source of Our Innovation",
-            "card_text": "Vionic benefits from the expertise of some of the finest minds in health and lower limb biomechanics with our VioLab.",
-            "button_text": "Learn More",
-            "button_link": "/pages/violab",
-            "open_in_new_tab": false
-          }
-        }
-      ]
-    }
-  ]
+  "max_blocks": 4
 }
 {% endschema %}

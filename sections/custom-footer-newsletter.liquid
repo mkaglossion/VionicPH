@@ -1,0 +1,358 @@
+<style>
+  .cfn-{{ section.id }} {
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    padding: {{ section.settings.padding_desktop }};
+  }
+
+  .cfn-{{ section.id }} .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cfn-{{ section.id }} .footer-section {
+    flex: 1;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cfn-{{ section.id }} .footer-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .cfn-{{ section.id }} .footer-section p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #fff;
+  }
+
+  .cfn-{{ section.id }} .footer-section a {
+    color: #8FA19A;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  .cfn-{{ section.id }} .footer-section form {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border: 1px solid #8FA19A;
+    width: 100%;
+    max-width: 430px;
+  }
+
+  .cfn-{{ section.id }} .footer-section input[type="email"] {
+    padding: 10px;
+    border: none;
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    min-width: 0;
+  }
+
+  .cfn-{{ section.id }} .footer-section button {
+    padding: 10px 20px;
+    background-color: #8FA19A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .cfn-{{ section.id }} .footer-section .social-icons {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .cfn-{{ section.id }} .footer-section .social-icons a {
+    margin-right: 10px;
+    margin-top: 0;
+  }
+
+  .cfn-{{ section.id }} .footer-section .social-icons img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .cfn-{{ section.id }} .footer .vertical-line {
+    width: 1px;
+    background-color: #fff;
+    margin: 0 20px;
+  }
+
+  .cfn-{{ section.id }} .form-success {
+    margin-top: 12px;
+    color: #b6f3bd;
+    font-size: 13px;
+  }
+
+  .cfn-{{ section.id }} .errors {
+    margin-top: 12px;
+    color: #ffb9b9;
+    font-size: 12px;
+  }
+
+  .cfn-{{ section.id }} .mobile-footer {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .cfn-{{ section.id }} {
+      padding: {{ section.settings.padding_mobile }};
+    }
+
+    .cfn-{{ section.id }} .footer {
+      display: none;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer {
+      display: block;
+      text-align: center;
+      background-color: #333;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer h2 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer p {
+      font-size: 14px;
+      margin: 5px 0;
+      color: #fff;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer p.phone-number {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer p.operating-hours {
+      font-size: 15px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer h2.follow-us {
+      margin-bottom: 0;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer a {
+      display: block;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: transparent;
+      border: 1px solid #8FA19A;
+      color: #8FA19A;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .social-icons {
+      display: flex;
+      justify-content: center;
+      margin-top: 0;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .social-icons a {
+      margin: 0;
+      border: none;
+      padding: 0;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .social-icons img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .spacing-links {
+      margin: 35px auto;
+      width: 200px;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer a.spacing-links {
+      width: 200px;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .email-signup-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .email-signup-form p {
+      margin-bottom: 10px;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .email-signup-form form {
+      display: flex;
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #8FA19A;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .email-signup-form input[type="email"] {
+      padding: 10px;
+      margin-right: 0;
+      flex: 1;
+      border: none;
+      width: 70%;
+      font-size: 14px;
+      color: #333;
+      min-width: 0;
+    }
+
+    .cfn-{{ section.id }} .mobile-footer .email-signup-form button {
+      padding: 10px 20px;
+      background-color: #8FA19A;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      width: 30%;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+  }
+</style>
+
+<section class="cfn-{{ section.id }}">
+  <div class="footer">
+    <div class="footer-section">
+      <h2>{{ section.settings.service_title }}</h2>
+      <p>{{ section.settings.ring_title }}</p>
+      <p>{{ section.settings.phone_text }}</p>
+      <p>{{ section.settings.days_text }}</p>
+      <p style="margin-top: 20px;">{{ section.settings.note_title }}</p>
+      <p><a href="mailto:{{ section.settings.email_address }}" style="color: #fff; text-decoration: underline;">{{ section.settings.email_address }}</a></p>
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="footer-section">
+      <h2>{{ section.settings.store_title }}</h2>
+      <a href="{{ section.settings.store_link }}">{{ section.settings.store_text }}</a>
+      <h2 style="margin-top: 20px;">{{ section.settings.follow_title }}</h2>
+      <p>{{ section.settings.social_handle }}</p>
+      <div class="social-icons">
+        <a href="{% if section.settings.facebook_link != blank %}{{ section.settings.facebook_link }}{% else %}https://www.facebook.com/vionicshoesph{% endif %}" aria-label="Facebook">
+          <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_facebook_1.webp" alt="Facebook">
+        </a>
+        <a href="{% if section.settings.instagram_link != blank %}{{ section.settings.instagram_link }}{% else %}https://www.instagram.com/vionicshoesph/{% endif %}" aria-label="Instagram">
+          <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_instagram_1.webp" alt="Instagram">
+        </a>
+      </div>
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="footer-section">
+      <h2>{{ section.settings.newsletter_title }}</h2>
+      <p>{{ section.settings.newsletter_text }}</p>
+      {%- form 'customer' -%}
+        {{ form.errors | default_errors }}
+        {%- if form.posted_successfully? -%}
+          <div class="form-success">Thank you for signing up for emails!</div>
+        {%- else -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <form class="contact-form">
+            <input type="email" name="contact[email]" id="Email-{{ section.id }}" placeholder="{{ section.settings.email_placeholder }}" aria-label="{{ section.settings.email_placeholder }}" required>
+            <button type="submit" name="commit">{{ section.settings.submit_text }}</button>
+          </form>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+
+  <div class="mobile-footer">
+    <h2>{{ section.settings.service_title }}</h2>
+    <p>{{ section.settings.mobile_care_title }}</p>
+    <p class="phone-number">{{ section.settings.phone_text }}</p>
+    <p class="operating-hours">{{ section.settings.days_text }}</p>
+
+    <a href="mailto:{{ section.settings.email_address }}" class="spacing-links">{{ section.settings.note_title }}</a>
+    <a href="{{ section.settings.store_link }}" class="spacing-links">{{ section.settings.store_title }}</a>
+
+    <div class="email-signup-form">
+      <p>{{ section.settings.newsletter_title }}</p>
+      <p>{{ section.settings.newsletter_text }}</p>
+      {%- form 'customer' -%}
+        {{ form.errors | default_errors }}
+        {%- if form.posted_successfully? -%}
+          <div class="form-success">Thank you for signing up for emails!</div>
+        {%- else -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <form class="contact-form">
+            <input type="email" name="contact[email]" id="mobile-Email-{{ section.id }}" placeholder="{{ section.settings.email_placeholder }}" aria-label="{{ section.settings.email_placeholder }}" required>
+            <button type="submit" name="commit">{{ section.settings.submit_text }}</button>
+          </form>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <h2 class="follow-us" style="margin-top: 20px;">{{ section.settings.follow_title }}</h2>
+    <div class="social-icons">
+      <a href="{% if section.settings.facebook_link != blank %}{{ section.settings.facebook_link }}{% else %}https://www.facebook.com/vionicshoesph{% endif %}" aria-label="Facebook">
+        <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_facebook_1.webp" alt="Facebook">
+      </a>
+      <a href="{% if section.settings.instagram_link != blank %}{{ section.settings.instagram_link }}{% else %}https://www.instagram.com/vionicshoesph/{% endif %}" aria-label="Instagram">
+        <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_instagram_1.webp" alt="Instagram">
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Footer Custom Newsletter",
+  "class": "index-section",
+  "settings": [
+    { "type": "text", "id": "padding_desktop", "label": "Padding desktop", "default": "20px" },
+    { "type": "text", "id": "padding_mobile", "label": "Padding mobile", "default": "20px" },
+
+    { "type": "text", "id": "service_title", "label": "Service title", "default": "AT YOUR SERVICE" },
+    { "type": "text", "id": "ring_title", "label": "Ring title", "default": "GIVE US A RING" },
+    { "type": "textarea", "id": "phone_text", "label": "Phone text", "default": "+639177013367 or +639177018367 and +639171023218" },
+    { "type": "text", "id": "days_text", "label": "Days text", "default": "Monday to Sunday" },
+    { "type": "text", "id": "note_title", "label": "Note title", "default": "DROP US A NOTE" },
+    { "type": "text", "id": "email_address", "label": "Email address", "default": "customerservice@vionicshoes.com.ph" },
+    { "type": "text", "id": "mobile_care_title", "label": "Mobile care title", "default": "CUSTOMER CARE" },
+
+    { "type": "text", "id": "store_title", "label": "Store title", "default": "FIND A STORE" },
+    { "type": "text", "id": "store_text", "label": "Store text", "default": "Visit one of our stores nationwide." },
+    { "type": "url", "id": "store_link", "label": "Store link" },
+
+    { "type": "text", "id": "follow_title", "label": "Follow title", "default": "FOLLOW US" },
+    { "type": "text", "id": "social_handle", "label": "Social handle", "default": "@vionicshoesph" },
+    { "type": "url", "id": "facebook_link", "label": "Facebook link" },
+    { "type": "url", "id": "instagram_link", "label": "Instagram link" },
+
+    { "type": "text", "id": "newsletter_title", "label": "Newsletter title", "default": "Sign up for our email list." },
+    { "type": "textarea", "id": "newsletter_text", "label": "Newsletter text", "default": "You'll be the first to know about the latest styles and promotions." },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Enter email" },
+    { "type": "text", "id": "submit_text", "label": "Submit text", "default": "SUBMIT" }
+  ],
+  "presets": [
+    { "name": "Custom Footer Newsletter" }
+  ],
+  "enabled_on": {
+    "templates": ["*"]
+  }
+}
+{% endschema %}

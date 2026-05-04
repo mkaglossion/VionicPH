@@ -1,0 +1,149 @@
+{% comment %} Vio-motion Support custom section - configurable cards with logo, title, description and CTA {% endcomment %}
+<section class="experts-section" aria-labelledby="experts-title-{{ section.id }}">
+  <style>
+    :root{ --text:#1f1f1f; --muted:#555; --border:#444; --bg:transparent; }
+    .experts-section{ padding: clamp(28px, 6vw, 72px) 16px; background: {{ section.settings.bg_color }}; }
+    .experts-title{ margin:0 0 clamp(18px,4vw,48px); font-weight:400; letter-spacing:.20em; text-transform:uppercase; font-size: clamp(18px, 1.1rem + 1.0vw, 34px); color: {{ section.settings.title_color }}; text-align:center }
+
+    .experts-grid{ max-width:1200px; margin:0 auto; display:grid; grid-template-columns: repeat(2, minmax(260px,1fr)); gap: clamp(20px, 4vw, 64px); justify-items:center; text-align:center; align-items:start; }
+    .expert-card{ max-width:520px; padding: 0 8px; }
+
+    /* Logo area: keep logos centered and scaled */
+    .logo-wrap{ height:120px; display:flex; align-items:center; justify-content:center; margin:0 0 12px; }
+    .logo{ display:block; height:auto; width:100%; max-width:220px; max-height:110px; object-fit:contain; }
+
+    .expert-title{ margin:6px 0 12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; font-size: clamp(13px,0.8rem + 0.4vw,18px); color: {{ section.settings.heading_color }} }
+    .expert-description{ margin:0 auto 18px; font-size:15px; color: var(--muted); max-width:440px; }
+
+    .expert-button{ display:inline-block; text-decoration:none; text-transform:uppercase; letter-spacing:.14em; font-weight:600; font-size:13px; padding:12px 28px; border:1px solid var(--border); background:transparent; color:var(--text); transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
+    .expert-button:hover, .expert-button:focus-visible{ background:var(--border); color:#fff; border-color:var(--border); }
+
+    /* Mobile adjustments */
+    @media (max-width:1024px){
+      .experts-grid{ gap: clamp(20px, 5vw, 48px); }
+      .logo-wrap{ height:100px; }
+    }
+
+    @media (max-width:820px){
+      .experts-grid{ grid-template-columns:1fr; gap:24px; padding:0; }
+      .logo-wrap{ height:92px; }
+      .experts-title{ letter-spacing:.12em; font-size: clamp(16px, 1rem + 1vw, 24px); }
+      .expert-description{ padding: 0 12px; max-width:620px; }
+      .expert-button{ display:block; width:70%; margin:12px auto 0; }
+    }
+
+    @media (max-width:480px){
+      .experts-section{ padding: clamp(18px, 6vw, 36px) 12px; }
+      .logo-wrap{ height:80px; }
+      .experts-title{ letter-spacing:.08em; font-size: clamp(14px, 0.95rem, 20px); }
+      .expert-title{ font-size:14px; }
+      .expert-description{ font-size:14px; padding:0 6px; }
+      .expert-button{ width:84%; padding:10px 18px; }
+    }
+  </style>
+
+  <div class="section-inner">
+    <h2 id="experts-title-{{ section.id }}" class="experts-title">{{ section.settings.section_heading }}</h2>
+
+    <div class="experts-grid">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <article id="block-{{ block.id }}" class="expert-card">
+            <div class="logo-wrap">
+              {% if block.settings.logo_image != blank %}
+                {% comment %} If logo_image is an asset or image handle, use img_url; if it's a full URL, output directly {% endcomment %}
+                {% if block.settings.logo_image contains 'http' %}
+                  <img class="logo" src="{{ block.settings.logo_image }}" alt="{{ block.settings.logo_alt }}">
+                {% else %}
+                  <img class="logo" src="{{ block.settings.logo_image | img_url: 'master' }}" alt="{{ block.settings.logo_alt }}">
+                {% endif %}
+              {% else %}
+                {% comment %} Provide default CDN logos for common presets when no image is uploaded in the block {% endcomment %}
+                {% if block.settings.card_title == 'Trusted by Podiatric Specialist' %}
+                  <img class="logo" src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/logo-apma.png?v=1755243368" alt="American Podiatric Medical Association Seal of Acceptance">
+                {% elsif block.settings.card_title == 'The Source of Our Innovation' %}
+                  <img class="logo" src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/violab.png?v=1755243368" alt="VioLab">
+                {% endif %}
+              {% endif %}
+            </div>
+            <h3 class="expert-title">{{ block.settings.card_title }}</h3>
+            {% if block.settings.card_text != blank %}
+              <p class="expert-description">{{ block.settings.card_text }}</p>
+            {% endif %}
+            {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+              {% assign target = '_self' %}
+              {% if block.settings.open_in_new_tab %}{% assign target = '_blank' %}{% endif %}
+              <a href="{{ block.settings.button_link }}" class="expert-button" target="{{ target }}">{{ block.settings.button_text }}</a>
+            {% endif %}
+          </article>
+        {% endfor %}
+      {% else %}
+        {% comment %} Show a simple editor-only placeholder when no blocks are present. This prevents publishing placeholder content on live store. {% endcomment %}
+        {% if shopify.design_mode %}
+          <div class="experts-placeholder" style="max-width:720px;margin:0 auto;padding:28px 12px;border:1px dashed #ddd;color:#666;">
+            <strong style="display:block;margin-bottom:6px;">Vio-motion Support — add cards</strong>
+            <div style="font-size:14px;line-height:1.4">Add 1–4 cards in the section settings. Each card should include a logo image, title, short description, and an optional CTA button.</div>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vio-motion Support",
+  "settings": [
+    { "type": "text", "id": "section_heading", "label": "Section heading", "default": "Vio-motion Support" },
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#ffffff" },
+    { "type": "color", "id": "title_color", "label": "Title color", "default": "#1f1f1f" },
+    { "type": "color", "id": "heading_color", "label": "Card heading color", "default": "#1f1f1f" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
+        { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Logo" },
+        { "type": "text", "id": "card_title", "label": "Card title", "default": "Trusted by Podiatric Specialist" },
+        { "type": "textarea", "id": "card_text", "label": "Description", "default": "Short description text for this card." },
+        { "type": "text", "id": "button_text", "label": "Button text", "default": "Learn More" },
+        { "type": "url", "id": "button_link", "label": "Button link", "default": "/" },
+        { "type": "checkbox", "id": "open_in_new_tab", "label": "Open link in new tab", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Vio-motion Support - two cards",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "logo_alt": "American Podiatric Medical Association Seal of Acceptance",
+            "card_title": "Trusted by Podiatric Specialist",
+            "card_text": "The American Podiatric Medical Association is the leading resource for foot health information. Many Vionic products carry the APMA Seal of Acceptance.",
+            "button_text": "Learn More",
+            "button_link": "/pages/apma",
+            "open_in_new_tab": false
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "logo_alt": "VioLab",
+            "card_title": "The Source of Our Innovation",
+            "card_text": "Vionic benefits from the expertise of some of the finest minds in health and lower limb biomechanics with our VioLab.",
+            "button_text": "Learn More",
+            "button_link": "/pages/violab",
+            "open_in_new_tab": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

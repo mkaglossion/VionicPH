@@ -1,0 +1,371 @@
+<style>
+  .vio-motion-support-v2-{{ section.id }} {
+    width: 100%;
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_desktop }};
+  }
+
+  .vio-motion-support-v2-{{ section.id }} .vms2-inner {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .vio-motion-support-v2-{{ section.id }} .vms2-image-wrap {
+    margin: 0 auto 20px;
+    max-width: {{ section.settings.image_max_width }}px;
+  }
+
+  .vio-motion-support-v2-{{ section.id }} .vms2-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .vio-motion-support-v2-{{ section.id }} .vms2-title {
+    margin: 0 0 16px;
+    font-size: {{ section.settings.title_size }}px;
+    line-height: 1.08;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: {{ section.settings.title_color }};
+    text-transform: uppercase;
+  }
+
+  .vio-motion-support-v2-{{ section.id }} .vms2-text {
+    margin: 0 auto 26px;
+    max-width: {{ section.settings.text_max_width }}px;
+    font-size: {{ section.settings.text_size }}px;
+    line-height: 1.55;
+    font-weight: 400;
+    color: {{ section.settings.text_color }};
+  }
+
+  .vio-motion-support-v2-{{ section.id }} .vms2-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: {{ section.settings.button_min_width }}px;
+    min-height: 44px;
+    padding: 12px 28px;
+    border: 2px solid {{ section.settings.button_border_color }};
+    color: {{ section.settings.button_text_color }};
+    background: {{ section.settings.button_bg_color }};
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: {{ section.settings.button_text_size }}px;
+    line-height: 1;
+    letter-spacing: .04em;
+    transition: all .2s ease;
+  }
+
+  .vio-motion-support-v2-{{ section.id }} .vms2-btn:hover {
+    background: {{ section.settings.button_hover_bg_color }};
+    color: {{ section.settings.button_hover_text_color }};
+    border-color: {{ section.settings.button_hover_border_color }};
+  }
+
+  @media (max-width: 767px) {
+    .vio-motion-support-v2-{{ section.id }} {
+      padding: {{ section.settings.padding_mobile }};
+    }
+
+    .vio-motion-support-v2-{{ section.id }} .vms2-image-wrap {
+      margin-bottom: 14px;
+      max-width: {{ section.settings.image_max_width_mobile }}px;
+    }
+
+    .vio-motion-support-v2-{{ section.id }} .vms2-title {
+      font-size: {{ section.settings.title_size_mobile }}px;
+      margin-bottom: 12px;
+    }
+
+    .vio-motion-support-v2-{{ section.id }} .vms2-text {
+      font-size: {{ section.settings.text_size_mobile }}px;
+      margin-bottom: 20px;
+      padding: 0 4px;
+    }
+
+    .vio-motion-support-v2-{{ section.id }} .vms2-btn {
+      min-width: {{ section.settings.button_min_width_mobile }}px;
+      font-size: {{ section.settings.button_text_size_mobile }}px;
+      padding: 11px 20px;
+    }
+  }
+</style>
+
+<section class="vio-motion-support-v2-{{ section.id }}">
+  <div class="vms2-inner">
+    {% if section.settings.image != blank %}
+      <div class="vms2-image-wrap">
+        <img
+          class="vms2-image"
+          src="{{ section.settings.image | image_url: width: 2000 }}"
+          alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
+          loading="lazy"
+        >
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="vms2-title">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.body_text != blank %}
+      <div class="vms2-text">{{ section.settings.body_text }}</div>
+    {% endif %}
+
+    {% if section.settings.button_text != blank %}
+      <a
+        class="vms2-btn"
+        href="{{ section.settings.button_link | default: '#' }}"
+        aria-label="{{ section.settings.button_text | escape }}"
+      >
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vio Motion Support V2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Top image / logo"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "label": "Image max width (desktop)",
+      "min": 120,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 360
+    },
+    {
+      "type": "range",
+      "id": "image_max_width_mobile",
+      "label": "Image max width (mobile)",
+      "min": 90,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 240
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "30 DAY GUARANTEE"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "Wear your new shoes in, out, and all around. Really. You've got 30 days to put the Vio Motion Technology to the test."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "LEARN MORE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "text_max_width",
+      "label": "Text max width",
+      "min": 500,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1000
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Section padding (desktop)",
+      "default": "48px 24px 36px"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Section padding (mobile)",
+      "default": "32px 16px 26px"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size (desktop)",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title size (mobile)",
+      "min": 20,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Body text size (desktop)",
+      "min": 14,
+      "max": 34,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "label": "Body text size (mobile)",
+      "min": 13,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "range",
+      "id": "button_min_width",
+      "label": "Button min width (desktop)",
+      "min": 120,
+      "max": 360,
+      "step": 10,
+      "unit": "px",
+      "default": 210
+    },
+    {
+      "type": "range",
+      "id": "button_min_width_mobile",
+      "label": "Button min width (mobile)",
+      "min": 120,
+      "max": 320,
+      "step": 10,
+      "unit": "px",
+      "default": 170
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Button text size (desktop)",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "button_text_size_mobile",
+      "label": "Button text size (mobile)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#1f1f1f"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Button hover border",
+      "default": "#111111"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vio Motion Support V2"
+    }
+  ]
+}
+{% endschema %}

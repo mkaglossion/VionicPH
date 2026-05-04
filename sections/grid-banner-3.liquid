@@ -14,18 +14,32 @@
       margin: {{ section.settings.marginmobile }} !important;
     }
     
-    /* Force remove ALL padding from containers */
-    .gb3-{{ section.id }} .gb3-container,
-    .gb3-{{ section.id }} .container,
-    .gb3-{{ section.id }} .container-fluid,
-    .gb3-{{ section.id }} .full,
-    .gb3-{{ section.id }} .row,
-    .gb3-{{ section.id }} [class*="container"] {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
+    /* Keep selected container width behavior on mobile */
+    .gb3-{{ section.id }} .gb3-container.container{
+      max-width: 540px !important;
+      width: 100% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+      overflow-x: hidden !important;
+    }
+
+    .gb3-{{ section.id }} .gb3-container.container-fluid{
       max-width: 100% !important;
       width: 100% !important;
       margin: 0 !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+      overflow-x: hidden !important;
+    }
+
+    .gb3-{{ section.id }} .gb3-container.full{
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
       overflow-x: hidden !important;
     }
     
@@ -39,8 +53,11 @@
     }
   }
 
-  .gb3-{{ section.id }} .gb3-container{
+  .gb3-{{ section.id }} .gb3-container.full{
+    width: 100%;
     max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .gb3-{{ section.id }} .gb3-heading{
@@ -55,6 +72,12 @@
       padding-left: 15px;
       padding-right: 15px;
       margin-bottom: 20px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .gb3-{{ section.id }} .gb3-heading-line{
+      display: none;
     }
   }
 
@@ -458,7 +481,7 @@
 </style>
 
 <section class="gb3-{{ section.id }}" data-aos="{{ section.settings.animation }}" style="overflow-x: hidden; width: 100%;">
-  <div class="gb3-container" style="padding: 0; margin: 0; max-width: 100%; width: 100%;">
+  <div class="gb3-container {{ section.settings.setwidth }}">
 
     <!-- Single Section Heading -->
     {% if section.settings.heading != blank %}
@@ -490,6 +513,8 @@
                     class="desktop-img"
                     src="{{ block.settings.banner_image | image_url: width: 1920 }}"
                     alt="{{ block.settings.banner_image.alt | default: block.settings.title | escape }}"
+                    width="1920"
+                    height="{{ section.settings.banner_height }}"
                     loading="lazy"
                   >
                 {% endif %}
@@ -498,6 +523,8 @@
                     class="mobile-img"
                     src="{{ block.settings.banner_image_mobile | image_url: width: 1000 }}"
                     alt="{{ block.settings.banner_image_mobile.alt | default: block.settings.title | escape }}"
+                    width="1000"
+                    height="{{ section.settings.banner_height_mobile }}"
                     loading="lazy"
                   >
                 {% elsif block.settings.banner_image != blank %}
@@ -505,6 +532,8 @@
                     class="mobile-img"
                     src="{{ block.settings.banner_image | image_url: width: 1000 }}"
                     alt="{{ block.settings.banner_image.alt | default: block.settings.title | escape }}"
+                    width="1000"
+                    height="{{ section.settings.banner_height_mobile }}"
                     loading="lazy"
                   >
                 {% endif %}
@@ -542,6 +571,8 @@
                 <img
                   src="{{ block.settings.card_image | image_url: width: 800 }}"
                   alt="{{ block.settings.card_image.alt | default: block.settings.title | escape }}"
+                  width="800"
+                  height="{{ section.settings.card_height }}"
                   loading="lazy"
                   style="width: 100%; height: 100%; object-fit: cover;"
                 >
@@ -595,6 +626,8 @@
                     <img
                       src="{{ block.settings.banner_image_mobile | image_url: width: 1200 }}"
                       alt="{{ block.settings.banner_image_mobile.alt | default: block.settings.title | escape }}"
+                      width="1200"
+                      height="{{ section.settings.banner_height_mobile }}"
                       loading="eager"
                       style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; margin: 0 !important; padding: 0 !important;"
                     >
@@ -602,6 +635,8 @@
                     <img
                       src="{{ block.settings.banner_image | image_url: width: 1200 }}"
                       alt="{{ block.settings.banner_image.alt | default: block.settings.title | escape }}"
+                      width="1200"
+                      height="{{ section.settings.banner_height_mobile }}"
                       loading="eager"
                       style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; margin: 0 !important; padding: 0 !important;"
                     >
@@ -652,6 +687,8 @@
                         <img
                           src="{{ inner_block.settings.card_image | image_url: width: 600 }}"
                           alt="{{ inner_block.settings.card_image.alt | default: inner_block.settings.title | escape }}"
+                          width="600"
+                          height="{{ section.settings.card_height_mobile }}"
                           loading="lazy"
                           style="width: 100%; height: 100%; object-fit: cover; display: block;"
                         >
@@ -696,8 +733,8 @@
   </div>
 </section>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

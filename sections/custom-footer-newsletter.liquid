@@ -16,8 +16,8 @@
     margin: 0 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: {% if section.settings.text_align == 'left' %}flex-start{% elsif section.settings.text_align == 'right' %}flex-end{% else %}center{% endif %};
+    text-align: {{ section.settings.text_align }};
   }
 
   .cfn-{{ section.id }} .footer-section h2 {
@@ -47,6 +47,8 @@
     border: 1px solid #8FA19A;
     width: 100%;
     max-width: 430px;
+    margin-left: {% if section.settings.text_align == 'center' %}auto{% elsif section.settings.text_align == 'right' %}auto{% else %}0{% endif %};
+    margin-right: {% if section.settings.text_align == 'center' %}auto{% elsif section.settings.text_align == 'left' %}auto{% else %}0{% endif %};
   }
 
   .cfn-{{ section.id }} .footer-section input[type="email"] {
@@ -71,18 +73,28 @@
   .cfn-{{ section.id }} .footer-section .social-icons {
     display: flex;
     align-items: center;
+    justify-content: {% if section.settings.text_align == 'left' %}flex-start{% elsif section.settings.text_align == 'right' %}flex-end{% else %}center{% endif %};
+    gap: 12px;
     margin-top: 10px;
+    width: 100%;
   }
 
   .cfn-{{ section.id }} .footer-section .social-icons a {
-    margin-right: 10px;
-    margin-top: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    line-height: 0;
+    flex: 0 0 36px;
   }
 
   .cfn-{{ section.id }} .footer-section .social-icons img {
-    width: 24px;
-    height: 24px;
+    width: 100%;
+    height: 100%;
     display: block;
+    object-fit: contain;
   }
 
   .cfn-{{ section.id }} .footer .vertical-line {
@@ -118,7 +130,7 @@
 
     .cfn-{{ section.id }} .mobile-footer {
       display: block;
-      text-align: center;
+      text-align: {{ section.settings.text_align }};
       background-color: #333;
       color: #fff;
       font-family: Arial, sans-serif;
@@ -164,19 +176,31 @@
 
     .cfn-{{ section.id }} .mobile-footer .social-icons {
       display: flex;
-      justify-content: center;
-      margin-top: 0;
+      justify-content: {% if section.settings.text_align == 'left' %}flex-start{% elsif section.settings.text_align == 'right' %}flex-end{% else %}center{% endif %};
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+      width: 100%;
     }
 
     .cfn-{{ section.id }} .mobile-footer .social-icons a {
       margin: 0;
       border: none;
       padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      line-height: 0;
+      flex: 0 0 36px;
     }
 
     .cfn-{{ section.id }} .mobile-footer .social-icons img {
-      width: 32px;
-      height: 32px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .cfn-{{ section.id }} .mobile-footer .spacing-links {
@@ -191,7 +215,7 @@
     .cfn-{{ section.id }} .mobile-footer .email-signup-form {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: {% if section.settings.text_align == 'left' %}flex-start{% elsif section.settings.text_align == 'right' %}flex-end{% else %}center{% endif %};
       margin-top: 20px;
     }
 
@@ -206,6 +230,8 @@
       justify-content: center;
       align-items: center;
       border: 1px solid #8FA19A;
+      margin-left: {% if section.settings.text_align == 'center' %}auto{% elsif section.settings.text_align == 'right' %}auto{% else %}0{% endif %};
+      margin-right: {% if section.settings.text_align == 'center' %}auto{% elsif section.settings.text_align == 'left' %}auto{% else %}0{% endif %};
     }
 
     .cfn-{{ section.id }} .mobile-footer .email-signup-form input[type="email"] {
@@ -252,10 +278,30 @@
       <p>{{ section.settings.social_handle }}</p>
       <div class="social-icons">
         <a href="{% if section.settings.facebook_link != blank %}{{ section.settings.facebook_link }}{% else %}https://www.facebook.com/vionicshoesph{% endif %}" aria-label="Facebook">
-          <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_facebook_1.webp" alt="Facebook">
+          {% if section.settings.facebook_icon != blank %}
+            <img
+              src="{{ section.settings.facebook_icon | image_url: width: 84 }}"
+              alt="Facebook"
+              width="42"
+              height="42"
+              loading="lazy"
+            >
+          {% else %}
+            <img src="{{ 'icon-facebook.png' | asset_url }}" alt="Facebook" width="42" height="42" loading="lazy">
+          {% endif %}
         </a>
         <a href="{% if section.settings.instagram_link != blank %}{{ section.settings.instagram_link }}{% else %}https://www.instagram.com/vionicshoesph/{% endif %}" aria-label="Instagram">
-          <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_instagram_1.webp" alt="Instagram">
+          {% if section.settings.instagram_icon != blank %}
+            <img
+              src="{{ section.settings.instagram_icon | image_url: width: 84 }}"
+              alt="Instagram"
+              width="42"
+              height="42"
+              loading="lazy"
+            >
+          {% else %}
+            <img src="{{ 'icon-instagram.png' | asset_url }}" alt="Instagram" width="42" height="42" loading="lazy">
+          {% endif %}
         </a>
       </div>
     </div>
@@ -309,10 +355,30 @@
     <h2 class="follow-us" style="margin-top: 20px;">{{ section.settings.follow_title }}</h2>
     <div class="social-icons">
       <a href="{% if section.settings.facebook_link != blank %}{{ section.settings.facebook_link }}{% else %}https://www.facebook.com/vionicshoesph{% endif %}" aria-label="Facebook">
-        <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_facebook_1.webp" alt="Facebook">
+        {% if section.settings.facebook_icon != blank %}
+          <img
+            src="{{ section.settings.facebook_icon | image_url: width: 84 }}"
+            alt="Facebook"
+            width="42"
+            height="42"
+            loading="lazy"
+          >
+        {% else %}
+          <img src="{{ 'icon-facebook.png' | asset_url }}" alt="Facebook" width="42" height="42" loading="lazy">
+        {% endif %}
       </a>
       <a href="{% if section.settings.instagram_link != blank %}{{ section.settings.instagram_link }}{% else %}https://www.instagram.com/vionicshoesph/{% endif %}" aria-label="Instagram">
-        <img src="https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_instagram_1.webp" alt="Instagram">
+        {% if section.settings.instagram_icon != blank %}
+          <img
+            src="{{ section.settings.instagram_icon | image_url: width: 84 }}"
+            alt="Instagram"
+            width="42"
+            height="42"
+            loading="lazy"
+          >
+        {% else %}
+          <img src="{{ 'icon-instagram.png' | asset_url }}" alt="Instagram" width="42" height="42" loading="lazy">
+        {% endif %}
       </a>
     </div>
   </div>
@@ -325,6 +391,17 @@
   "settings": [
     { "type": "text", "id": "padding_desktop", "label": "Padding desktop", "default": "20px" },
     { "type": "text", "id": "padding_mobile", "label": "Padding mobile", "default": "20px" },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
 
     { "type": "text", "id": "service_title", "label": "Service title", "default": "AT YOUR SERVICE" },
     { "type": "text", "id": "ring_title", "label": "Ring title", "default": "GIVE US A RING" },
@@ -340,6 +417,8 @@
 
     { "type": "text", "id": "follow_title", "label": "Follow title", "default": "FOLLOW US" },
     { "type": "text", "id": "social_handle", "label": "Social handle", "default": "@vionicshoesph" },
+    { "type": "image_picker", "id": "facebook_icon", "label": "Facebook Icon Image" },
+    { "type": "image_picker", "id": "instagram_icon", "label": "Instagram Icon Image" },
     { "type": "url", "id": "facebook_link", "label": "Facebook link" },
     { "type": "url", "id": "instagram_link", "label": "Instagram link" },
 

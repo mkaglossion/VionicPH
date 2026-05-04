@@ -1,0 +1,1080 @@
+<!-- grid-banner-3.liquid -->
+
+<style>
+  .gb3-{{ section.id }}{
+    padding: {{ section.settings.paddingsection }};
+    margin: {{ section.settings.marginsection }};
+    background: {{ section.settings.bgsection }};
+  }
+
+  /* Keep section spacing settings working on mobile */
+  @media (max-width: 767px){
+    .gb3-{{ section.id }}{
+      padding: {{ section.settings.paddingmobile }} !important;
+      margin: {{ section.settings.marginmobile }} !important;
+    }
+    
+    /* Force remove ALL padding from containers */
+    .gb3-{{ section.id }} .gb3-container,
+    .gb3-{{ section.id }} .container,
+    .gb3-{{ section.id }} .container-fluid,
+    .gb3-{{ section.id }} .full,
+    .gb3-{{ section.id }} .row,
+    .gb3-{{ section.id }} [class*="container"] {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      overflow-x: hidden !important;
+    }
+    
+    html, body {
+      overflow-x: hidden;
+    }
+    
+    .index-section {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+
+  .gb3-{{ section.id }} .gb3-container{
+    max-width: 100%;
+  }
+
+  .gb3-{{ section.id }} .gb3-heading{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  
+  @media (max-width: 767px){
+    .gb3-{{ section.id }} .gb3-heading{
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .gb3-{{ section.id }} .gb3-heading-title{
+    margin: 0;
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: {{ section.settings.heading_color }};
+    white-space: nowrap;
+  }
+
+  .gb3-{{ section.id }} .gb3-heading-line{
+    flex: 1;
+    height: 1px;
+    background: {{ section.settings.heading_line_color }};
+  }
+
+  /* Desktop Grid Layout */
+  .gb3-{{ section.id }} .gb3-grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: {{ section.settings.gap }}px;
+  }
+
+  /* Desktop item styles */
+  .gb3-{{ section.id }} .gb3-item{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    background: {{ section.settings.placeholder_bg }};
+  }
+
+  /* Banner - sharp corners */
+  .gb3-{{ section.id }} .gb3-item--banner{
+    grid-column: span 12;
+    height: {{ section.settings.banner_height }}px;
+    border-radius: 0 !important;
+  }
+
+  /* Small cards - border radius controlled by settings */
+  .gb3-{{ section.id }} .gb3-item--card{
+    grid-column: span 3;
+    height: {{ section.settings.card_height }}px;
+    border-radius: {{ section.settings.item_border_radius }}px;
+  }
+
+  /* Mobile Carousel Styles - hidden on desktop */
+  .gb3-{{ section.id }} .gb3-carousel{
+    display: none;
+  }
+
+  /* Media & Image Styles */
+  .gb3-{{ section.id }} .gb3-media,
+  .gb3-{{ section.id }} .gb3-media img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .gb3-{{ section.id }} .gb3-media img{
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Mobile image handling for banner only */
+  .gb3-{{ section.id }} .gb3-media .mobile-img,
+  .gb3-{{ section.id }} .gb3-media .desktop-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gb3-{{ section.id }} .gb3-media .mobile-img{
+    display: none;
+  }
+
+  /* Placeholder Styles */
+  .gb3-{{ section.id }} .gb3-placeholder{
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.placeholder_bg }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .gb3-{{ section.id }} .gb3-placeholder-inner{
+    color: {{ section.settings.text_color }};
+    padding: 20px;
+  }
+
+  .gb3-{{ section.id }} .gb3-placeholder svg{
+    width: 90px;
+    height: 90px;
+    opacity: .7;
+    margin-bottom: 26px;
+  }
+
+  /* Typography */
+  .gb3-{{ section.id }} .gb3-title{
+    margin: 0 0 12px;
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: {{ section.settings.text_color }};
+  }
+
+  .gb3-{{ section.id }} .gb3-desc{
+    margin: 0 0 24px;
+    font-size: {{ section.settings.desc_size }}px;
+    font-weight: 600;
+    color: {{ section.settings.text_color }};
+  }
+
+  .gb3-{{ section.id }} .gb3-btn{
+    display: inline-block;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.button_size }}px;
+    font-weight: 600;
+    line-height: 1;
+    border-bottom: 2px solid {{ section.settings.text_color }};
+    padding-bottom: 6px;
+    transition: opacity .25s ease;
+  }
+
+  .gb3-{{ section.id }} .gb3-btn:hover{
+    opacity: 0.8;
+  }
+
+  /* Overlay */
+  .gb3-{{ section.id }} .gb3-overlay{
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity }};
+    z-index: 1;
+  }
+
+  .gb3-{{ section.id }} .gb3-caption{
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    padding: 20px;
+  }
+
+  /* ========== CAROUSEL STYLES (Mobile Only) ========== */
+  .gb3-{{ section.id }} .swiper {
+    overflow: visible;
+    position: relative;
+    width: 100vw !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .gb3-{{ section.id }} .gb3-carousel {
+    overflow: visible !important;
+    width: 100%;
+  }
+  
+  .gb3-{{ section.id }} .swiper-wrapper {
+    display: flex;
+  }
+
+  .gb3-{{ section.id }} .swiper-slide {
+    flex-shrink: 0;
+    width: 100% !important;
+    height: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Carousel items (small cards) - border radius controlled by settings */
+  .gb3-{{ section.id }} .carousel-item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    background: {{ section.settings.placeholder_bg }};
+    height: {{ section.settings.card_height_mobile }}px;
+    border-radius: {{ section.settings.item_border_radius }}px;
+    width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100vw !important;
+  }
+
+  .gb3-{{ section.id }} .carousel-item .gb3-media {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .gb3-{{ section.id }} .carousel-item .gb3-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gb3-{{ section.id }} .carousel-item .gb3-caption {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    padding: 20px;
+    pointer-events: none;
+  }
+
+  .gb3-{{ section.id }} .carousel-item .gb3-title {
+    font-size: calc({{ section.settings.title_size }}px * 0.8);
+    margin: 0 0 8px;
+  }
+
+  .gb3-{{ section.id }} .carousel-item .gb3-desc {
+    font-size: calc({{ section.settings.desc_size }}px * 0.85);
+    margin: 0 0 16px;
+  }
+
+  .gb3-{{ section.id }} .carousel-item .gb3-btn {
+    font-size: calc({{ section.settings.button_size }}px * 0.9);
+  }
+
+  /* Carousel Navigation */
+  .gb3-{{ section.id }} .swiper-button-prev,
+  .gb3-{{ section.id }} .swiper-button-next {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .gb3-{{ section.id }} .swiper-button-prev {
+    left: 5px;
+  }
+
+  .gb3-{{ section.id }} .swiper-button-next {
+    right: 5px;
+  }
+
+  .gb3-{{ section.id }} .swiper-button-prev:after,
+  .gb3-{{ section.id }} .swiper-button-next:after {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .gb3-{{ section.id }} .swiper-button-prev:after {
+    content: "‹";
+  }
+
+  .gb3-{{ section.id }} .swiper-button-next:after {
+    content: "›";
+  }
+
+  .gb3-{{ section.id }} .swiper-pagination {
+    position: absolute;
+    bottom: 8px !important;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 0;
+    z-index: 20;
+    display: block !important;
+  }
+
+  /* Black Pagination Dots - Visible */
+  .gb3-{{ section.id }} .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    display: inline-block !important;
+    border-radius: 50%;
+    background: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .gb3-{{ section.id }} .swiper-pagination-bullet-active {
+    background: #000000;
+    opacity: 1;
+  }
+
+  /* ========== MOBILE FULL WIDTH FIX ========== */
+  @media (max-width: 767px){
+    /* Hide desktop grid on mobile */
+    .gb3-{{ section.id }} .gb3-grid{
+      display: none !important;
+    }
+
+    /* Show carousel on mobile */
+    .gb3-{{ section.id }} .gb3-carousel{
+      display: block !important;
+      width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .gb3-{{ section.id }} .gb3-heading-title{
+      font-size: 18px;
+      white-space: normal;
+    }
+
+    /* Mobile banner height */
+    .gb3-{{ section.id }} .gb3-item--banner{
+      height: {{ section.settings.banner_height_mobile }}px;
+      width: 100%;
+    }
+
+    /* Mobile gap adjustment */
+    .gb3-{{ section.id }} .gb3-grid{
+      gap: {{ section.settings.gap_mobile }}px;
+    }
+
+    /* Mobile image display for banner only */
+    .gb3-{{ section.id }} .gb3-media .desktop-img{
+      display: none;
+    }
+
+    .gb3-{{ section.id }} .gb3-media .mobile-img{
+      display: block;
+    }
+    
+    /* FULL WIDTH BANNER - NO GAPS */
+    .gb3-{{ section.id }} .mobile-banner-wrapper {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: block !important;
+      position: relative !important;
+      left: 0 !important;
+      right: 0 !important;
+    }
+    
+    .gb3-{{ section.id }} .mobile-banner-wrapper .gb3-item--banner {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+    
+    .gb3-{{ section.id }} .mobile-banner-wrapper .gb3-media {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    .gb3-{{ section.id }} .mobile-banner-wrapper .gb3-media img {
+      width: 100% !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* Remove any Theme wrapper spacing */
+    .gb3-{{ section.id }} .gb3-carousel {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    .gb3-{{ section.id }} {
+      overflow-x: hidden !important;
+    }
+  }
+
+  @media (min-width: 768px){
+    .gb3-{{ section.id }} .gb3-media .desktop-img{
+      display: block;
+    }
+
+    .gb3-{{ section.id }} .gb3-media .mobile-img{
+      display: none;
+    }
+  }
+</style>
+
+<section class="gb3-{{ section.id }}" data-aos="{{ section.settings.animation }}" style="overflow-x: hidden; width: 100%;">
+  <div class="gb3-container" style="padding: 0; margin: 0; max-width: 100%; width: 100%;">
+
+    <!-- Single Section Heading -->
+    {% if section.settings.heading != blank %}
+      <div class="gb3-heading">
+        <h2 class="gb3-heading-title">{{ section.settings.heading }}</h2>
+        <span class="gb3-heading-line"></span>
+      </div>
+    {% endif %}
+
+    <!-- DESKTOP GRID LAYOUT -->
+    <div class="gb3-grid">
+      {% for block in section.blocks limit: 5 %}
+        {% assign is_banner = false %}
+        {% if forloop.first %}
+          {% assign is_banner = true %}
+        {% endif %}
+
+        <a
+          href="{{ block.settings.button_link | default: '#' }}"
+          class="gb3-item {% if is_banner %}gb3-item--banner{% else %}gb3-item--card{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {% if is_banner %}
+            <!-- MONTHLY BANNER -->
+            {% if block.settings.banner_image != blank or block.settings.banner_image_mobile != blank %}
+              <div class="gb3-media">
+                {% if block.settings.banner_image != blank %}
+                  <img
+                    class="desktop-img"
+                    src="{{ block.settings.banner_image | image_url: width: 1920 }}"
+                    alt="{{ block.settings.banner_image.alt | default: block.settings.title | escape }}"
+                    loading="lazy"
+                  >
+                {% endif %}
+                {% if block.settings.banner_image_mobile != blank %}
+                  <img
+                    class="mobile-img"
+                    src="{{ block.settings.banner_image_mobile | image_url: width: 1000 }}"
+                    alt="{{ block.settings.banner_image_mobile.alt | default: block.settings.title | escape }}"
+                    loading="lazy"
+                  >
+                {% elsif block.settings.banner_image != blank %}
+                  <img
+                    class="mobile-img"
+                    src="{{ block.settings.banner_image | image_url: width: 1000 }}"
+                    alt="{{ block.settings.banner_image.alt | default: block.settings.title | escape }}"
+                    loading="lazy"
+                  >
+                {% endif %}
+                {% if section.settings.show_overlay %}
+                  <span class="gb3-overlay"></span>
+                {% endif %}
+                <div class="gb3-caption">
+                  <div>
+                    {% if block.settings.title != blank %}
+                      <h3 class="gb3-title">{{ block.settings.title }}</h3>
+                    {% endif %}
+                    {% if block.settings.description != blank %}
+                      <div class="gb3-desc">{{ block.settings.description }}</div>
+                    {% endif %}
+                    {% if block.settings.button_text != blank %}
+                      <span class="gb3-btn">{{ block.settings.button_text }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="gb3-placeholder">
+                <div class="gb3-placeholder-inner">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  <h3 class="gb3-title">{{ block.settings.title | default: 'MONTHLY BANNER' }}</h3>
+                  <div class="gb3-desc">{{ block.settings.description | default: 'Lorem ipsum dolor sit amet' }}</div>
+                  <span class="gb3-btn">{{ block.settings.button_text | default: 'view more' }}</span>
+                </div>
+              </div>
+            {% endif %}
+          {% else %}
+            <!-- SMALL CARDS - border radius controlled by settings -->
+            {% if block.settings.card_image != blank %}
+              <div class="gb3-media">
+                <img
+                  src="{{ block.settings.card_image | image_url: width: 800 }}"
+                  alt="{{ block.settings.card_image.alt | default: block.settings.title | escape }}"
+                  loading="lazy"
+                  style="width: 100%; height: 100%; object-fit: cover;"
+                >
+                {% if section.settings.show_overlay %}
+                  <span class="gb3-overlay"></span>
+                {% endif %}
+                <div class="gb3-caption">
+                  <div>
+                    {% if block.settings.title != blank %}
+                      <h3 class="gb3-title">{{ block.settings.title }}</h3>
+                    {% endif %}
+                    {% if block.settings.description != blank %}
+                      <div class="gb3-desc">{{ block.settings.description }}</div>
+                    {% endif %}
+                    {% if block.settings.button_text != blank %}
+                      <span class="gb3-btn">{{ block.settings.button_text }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="gb3-placeholder">
+                <div class="gb3-placeholder-inner">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  <h3 class="gb3-title">{{ block.settings.title | default: 'Card title' }}</h3>
+                  <div class="gb3-desc">{{ block.settings.description | default: 'Lorem ipsum dolor sit amet' }}</div>
+                  <span class="gb3-btn">{{ block.settings.button_text | default: 'view more' }}</span>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+
+    <!-- MOBILE CAROUSEL LAYOUT - FULL WIDTH BANNER -->
+    <div class="gb3-carousel" style="margin: 0; padding: 0;">
+      {% for block in section.blocks %}
+        {% if forloop.first %}
+          <!-- MONTHLY BANNER on mobile - FULL WIDTH, NO GAPS -->
+          <div class="mobile-banner-wrapper" style="margin: 0 !important; padding: 0 !important; width: 100% !important;">
+            <a
+              href="{{ block.settings.button_link | default: '#' }}"
+              class="gb3-item gb3-item--banner"
+              style="display: block !important; margin: 0 !important; padding: 0 !important; border-radius: 0 !important; width: 100% !important;"
+              {{ block.shopify_attributes }}
+            >
+              {% if block.settings.banner_image != blank or block.settings.banner_image_mobile != blank %}
+                <div class="gb3-media" style="margin: 0 !important; padding: 0 !important; width: 100% !important;">
+                  {% if block.settings.banner_image_mobile != blank %}
+                    <img
+                      src="{{ block.settings.banner_image_mobile | image_url: width: 1200 }}"
+                      alt="{{ block.settings.banner_image_mobile.alt | default: block.settings.title | escape }}"
+                      loading="eager"
+                      style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; margin: 0 !important; padding: 0 !important;"
+                    >
+                  {% elsif block.settings.banner_image != blank %}
+                    <img
+                      src="{{ block.settings.banner_image | image_url: width: 1200 }}"
+                      alt="{{ block.settings.banner_image.alt | default: block.settings.title | escape }}"
+                      loading="eager"
+                      style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; margin: 0 !important; padding: 0 !important;"
+                    >
+                  {% endif %}
+                  {% if section.settings.show_overlay %}
+                    <span class="gb3-overlay"></span>
+                  {% endif %}
+                  <div class="gb3-caption">
+                    <div>
+                      {% if block.settings.title != blank %}
+                        <h3 class="gb3-title">{{ block.settings.title }}</h3>
+                      {% endif %}
+                      {% if block.settings.description != blank %}
+                        <div class="gb3-desc">{{ block.settings.description }}</div>
+                      {% endif %}
+                      {% if block.settings.button_text != blank %}
+                        <span class="gb3-btn">{{ block.settings.button_text }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="gb3-placeholder">
+                  <div class="gb3-placeholder-inner">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    <h3 class="gb3-title">{{ block.settings.title | default: 'MONTHLY BANNER' }}</h3>
+                    <div class="gb3-desc">{{ block.settings.description | default: 'Lorem ipsum dolor sit amet' }}</div>
+                    <span class="gb3-btn">{{ block.settings.button_text | default: 'view more' }}</span>
+                  </div>
+                </div>
+              {% endif %}
+            </a>
+          </div>
+
+          <!-- Carousel for small cards - border radius controlled by settings -->
+          <div class="swiper gb3-swiper-{{ section.id }}" style="padding: 16px 0 0 0 !important; margin: 0 !important;">
+            <div class="swiper-wrapper">
+              {% for inner_block in section.blocks offset: 1 %}
+                <div class="swiper-slide">
+                  <a
+                    href="{{ inner_block.settings.button_link | default: '#' }}"
+                    class="carousel-item"
+                    style="border-radius: {{ section.settings.item_border_radius }}px;"
+                    {{ inner_block.shopify_attributes }}
+                  >
+                    {% if inner_block.settings.card_image != blank %}
+                      <div class="gb3-media">
+                        <img
+                          src="{{ inner_block.settings.card_image | image_url: width: 600 }}"
+                          alt="{{ inner_block.settings.card_image.alt | default: inner_block.settings.title | escape }}"
+                          loading="lazy"
+                          style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                        >
+                        {% if section.settings.show_overlay %}
+                          <span class="gb3-overlay"></span>
+                        {% endif %}
+                        <div class="gb3-caption">
+                          <div>
+                            {% if inner_block.settings.title != blank %}
+                              <h3 class="gb3-title">{{ inner_block.settings.title }}</h3>
+                            {% endif %}
+                            {% if inner_block.settings.description != blank %}
+                              <div class="gb3-desc">{{ inner_block.settings.description }}</div>
+                            {% endif %}
+                            {% if inner_block.settings.button_text != blank %}
+                              <span class="gb3-btn">{{ inner_block.settings.button_text }}</span>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    {% else %}
+                      <div class="gb3-placeholder">
+                        <div class="gb3-placeholder-inner">
+                          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                          <h3 class="gb3-title">{{ inner_block.settings.title | default: 'Card title' }}</h3>
+                          <div class="gb3-desc">{{ inner_block.settings.description | default: 'Lorem ipsum dolor sit amet' }}</div>
+                          <span class="gb3-btn">{{ inner_block.settings.button_text | default: 'view more' }}</span>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiperContainer = document.querySelector('.gb3-swiper-{{ section.id }}');
+    if (swiperContainer) {
+      setTimeout(function() {
+        var swiper = new Swiper(swiperContainer, {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          centeredSlides: false,
+          loop: {{ section.settings.carousel_loop | default: false }},
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          }
+        });
+      }, 100);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Grid Banner 3",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Select Animation",
+      "default": "",
+      "options": [
+        { "value": "", "label": "None" },
+        { "value": "fade", "label": "Fade" },
+        { "value": "fade-up", "label": "Fade Up" },
+        { "value": "fade-down", "label": "Fade Down" },
+        { "value": "fade-left", "label": "Fade Left" },
+        { "value": "fade-right", "label": "Fade Right" },
+        { "value": "zoom-in", "label": "Zoom In" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "text",
+      "id": "paddingsection",
+      "label": "Padding Section",
+      "default": "0px 0px 0px 0px"
+    },
+    {
+      "type": "text",
+      "id": "paddingmobile",
+      "label": "Padding Mobile",
+      "default": "0px 0px 40px 0px"
+    },
+    {
+      "type": "text",
+      "id": "marginsection",
+      "label": "Margin Section",
+      "default": "0px 0px 0px 0px"
+    },
+    {
+      "type": "text",
+      "id": "marginmobile",
+      "label": "Margin Mobile",
+      "default": "0px 0px 0px 0px"
+    },
+    {
+      "type": "color",
+      "id": "bgsection",
+      "label": "Background Section",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Container Width"
+    },
+    {
+      "type": "select",
+      "id": "setwidth",
+      "label": "Width",
+      "default": "container-fluid",
+      "options": [
+        { "value": "container", "label": "Box" },
+        { "value": "container-fluid", "label": "Container Fluid" },
+        { "value": "full", "label": "Full" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Border Radius Settings"
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "label": "Small Card Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 0,
+      "unit": "px",
+      "info": "0px = SHARP corners like the monthly banner. Higher value = more rounded corners."
+    },
+    {
+      "type": "header",
+      "content": "Heading Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "NEW ARRIVALS"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "heading_line_color",
+      "label": "Heading Line Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Carousel Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_loop",
+      "label": "Enable Continuous Loop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Grid Settings"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Grid Gap (Desktop)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Grid Gap (Mobile)",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Banner Height"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner Height (Desktop)",
+      "min": 220,
+      "max": 700,
+      "step": 10,
+      "default": 460,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "label": "Banner Height (Mobile)",
+      "min": 180,
+      "max": 600,
+      "step": 10,
+      "default": 300,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Card Height"
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Card Height (Desktop)",
+      "min": 180,
+      "max": 500,
+      "step": 10,
+      "default": 260,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_height_mobile",
+      "label": "Card Height (Mobile Carousel)",
+      "min": 180,
+      "max": 500,
+      "step": 10,
+      "default": 280,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Overlay Settings"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_bg",
+      "label": "Blank Image Background",
+      "default": "#929292"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show Overlay On Image",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.3
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Size (Desktop)",
+      "min": 14,
+      "max": 50,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "label": "Description Size (Desktop)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button Size (Desktop)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner Item",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Monthly Banner Images (1st Block)"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Banner Image (Desktop)"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image_mobile",
+          "label": "Banner Image (Mobile)",
+          "info": "For best results, use an image that fills the full width"
+        },
+        {
+          "type": "header",
+          "content": "Small Card Images (Blocks 2-5)"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "NEW ARRIVAL"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Lorem ipsum dolor sit amet"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "view more"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grid Banner 3",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

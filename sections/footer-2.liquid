@@ -327,7 +327,7 @@
           <div class="footer-mid__linklist">
             <ul>
               {%- for link in linklists[section.settings.linklist_link].links -%}
-              <li><a href="{{link.url}}" title="{% include 'processMenuTitle' with itemName:link.title %}">{% include 'processMenuTitle' with itemName:link.title %}</a></li>
+              <li><a href="{{link.url}}" title="{% render 'processMenuTitle', itemName: link.title %}">{% render 'processMenuTitle', itemName: link.title %}</a></li>
               {%- endfor -%}
             </ul>
           </div>

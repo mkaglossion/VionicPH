@@ -8,18 +8,18 @@
     </a>
     <div class="humbergerbar" id="sidebar">
         <a id="dismiss" href="#" class="text-secondary small">
-            {% include 'icon-close' %}
+            {% render 'icon-close' %}
         </a>
         <div class="row pb-5 align-items-center justify-content-between">
             <div class="col-6">
-                {%- include 'site-logo' -%}
+                {%- render 'site-logo' -%}
             </div>
             <div class="col-6 text-right">
                 {%- if section.settings.sidebar_heart -%}
-                    {%- include 'block-wishlist' -%}
+                    {%- render 'block-wishlist' -%}
                 {%- endif -%}
                 {%- if section.settings.sidebar_compare -%}
-                    {%- include 'block-compare' -%}
+                    {%- render 'block-compare' -%}
                 {%- endif -%}
             </div>
         </div>
@@ -80,7 +80,7 @@
             </div>
         {% endif %}
         {% if section.settings.socialshare %}
-            {% include 'block-social' %}
+            {% render 'block-social' %}
         {% endif %}
     </div>
     <div class="overlaysidebar"></div>

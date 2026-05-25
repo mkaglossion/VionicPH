@@ -11,8 +11,8 @@
            id="DrawerLabel-{{ grandchild_list_handle }}"
            {% if childlink.active %} aria-current="page"{% endif %}
            >
-          {%- include 'processMenuTitle' with itemName:childlink.title -%}
-          {%- include 'processMenuLabel' with itemName:childlink.title -%}
+          {%- render 'processMenuTitle', itemName: childlink.title -%}
+          {%- render 'processMenuLabel', itemName: childlink.title -%}
         </a>
         <button data-toggle="collapse" data-target="#DrawerLinklist-{{ grandchild_list_handle }}" type="button" aria-controls="DrawerLinklist-{{ grandchild_list_handle }}" class="text-link drawer__nav-toggle-btn drawer__nav-toggle-btn--small collapsed" aria-label="{{ link.title }} {{ 'general.drawers.menu' | t }}" aria-expanded="false">
           <span class="drawer__nav-toggle--open">
@@ -29,8 +29,8 @@
           {%- for grandchildlink in childlink.links -%}
           <li>
             <a href="{{ grandchildlink.url }}" class="meganav__link{% if grandchildlink.active %} meganav__link--active{% endif %}"{% if grandchildlink.active %} aria-current="page"{% endif %}>
-              {%- include 'processMenuTitle' with itemName:grandchildlink.title -%}
-              {%- include 'processMenuLabel' with itemName:grandchildlink.title -%}
+              {%- render 'processMenuTitle', itemName: grandchildlink.title -%}
+              {%- render 'processMenuLabel', itemName: grandchildlink.title -%}
             </a>
           </li>
           {%- endfor -%}
@@ -41,8 +41,8 @@
          class="drawer__nav-link meganav__link{% if childlink.active %} meganav__link--active{% endif %}"
          {% if childlink.active %} aria-current="page"{% endif %}
          >
-        {%- include 'processMenuTitle' with itemName:childlink.title -%}
-        {%- include 'processMenuLabel' with itemName:childlink.title -%}
+        {%- render 'processMenuTitle', itemName: childlink.title -%}
+        {%- render 'processMenuLabel', itemName: childlink.title -%}
       </a>
       {%- endif -%}
     </li>

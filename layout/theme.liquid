@@ -1,15 +1,39 @@
 <!doctype html>
 <html class="no-js " lang="{{ shop.locale }}">
+  {%- assign is_local_preview = request.host contains '127.0.0.1' or request.host contains 'localhost' -%}
   <head>
     <meta name="keywords" content="orthopedic shoes, comfortable shoes, comfy shoes, 
 comfortable heels, comfortable sandals, comfy heels, comfy sandals, athleisure, active sneakers,
 comfortable boots, comfy boots" />
 {% include 'kiwiSizing' %}
- {%- render 'layouthub_header' -%}
+ {% unless is_local_preview %}{%- render 'layouthub_header' -%}{% endunless %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="{{ settings.color_header_bg }}">
+    <style>
+      @media (max-width: 767px) {
+        * {
+          box-sizing: border-box;
+        }
+        .container, .container-fluid {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+        .row {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .col, [class*="col-"] {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+      }
+    </style>
     {%- if settings.favicon != blank -%}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
     {%- endif -%}
@@ -31,10 +55,87 @@ comfortable boots, comfy boots" />
     {%- if template contains 'collection' -%}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    <script>
+      (function () {
+        var isLocalDev = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        if (!isLocalDev) return;
+
+        var blockedPatterns = [
+          /sf_private_access_tokens/i,
+          /qab\.hextom\.com\/qab_get_bars/i
+        ];
+
+        function shouldMock(url) {
+          if (!url) return false;
+          var normalized = String(url);
+          for (var i = 0; i < blockedPatterns.length; i++) {
+            if (blockedPatterns[i].test(normalized)) return true;
+          }
+          return false;
+        }
+
+        function mockFetchResponse() {
+          var body = '{}';
+          if (typeof Response === 'function') {
+            return new Response(body, {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            });
+          }
+          return {
+            ok: true,
+            status: 200,
+            text: function () { return Promise.resolve(body); },
+            json: function () { return Promise.resolve({}); }
+          };
+        }
+
+        if (typeof window.fetch === 'function') {
+          var nativeFetch = window.fetch.bind(window);
+          window.fetch = function (input, init) {
+            var url = typeof input === 'string' ? input : (input && input.url) || '';
+            if (shouldMock(url)) {
+              return Promise.resolve(mockFetchResponse());
+            }
+            return nativeFetch(input, init);
+          };
+        }
+
+        if (window.XMLHttpRequest && window.XMLHttpRequest.prototype) {
+          var nativeOpen = window.XMLHttpRequest.prototype.open;
+          var nativeSend = window.XMLHttpRequest.prototype.send;
+
+          window.XMLHttpRequest.prototype.open = function (method, url) {
+            this.__mockBlockedRequest = shouldMock(url);
+            return nativeOpen.apply(this, arguments);
+          };
+
+          window.XMLHttpRequest.prototype.send = function () {
+            if (!this.__mockBlockedRequest) {
+              return nativeSend.apply(this, arguments);
+            }
+
+            var xhr = this;
+            setTimeout(function () {
+              try {
+                Object.defineProperty(xhr, 'readyState', { configurable: true, value: 4 });
+                Object.defineProperty(xhr, 'status', { configurable: true, value: 200 });
+                Object.defineProperty(xhr, 'responseText', { configurable: true, value: '{}' });
+              } catch (e) {}
+              if (typeof xhr.onreadystatechange === 'function') xhr.onreadystatechange();
+              if (typeof xhr.onload === 'function') xhr.onload();
+            }, 0);
+          };
+        }
+      })();
+    </script>
     {{ content_for_header }}
   
-  {% render 'qikify-apps' %}
-{% include 'pagefly-app-header' %}</head>
+  {% unless is_local_preview %}
+    {% render 'qikify-apps' %}
+    {% include 'pagefly-app-header' %}
+  {% endunless %}
+</head>
   <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} body-theme {% if settings.productpage == 'product-2' or settings.productpage == 'product-6' or settings.productpage == 'product-7' %} product-hide-breadcrumb {% endif %}" >
     {%- section 'announcement-bar' -%}
     {%- include 'loading' -%}
@@ -68,14 +169,14 @@ comfortable boots, comfy boots" />
     {%- if settings.show_multiple_currencies -%}
     {{ "/services/javascripts/currencies.js" | script_tag }}
     {%- endif -%}
-  {% render 'quantity-breaks-now', customer: customer, template: template, product: product, cart: cart %}
-        {%- render 'layouthub_footer' -%} 
- 
-{% render 'spurit_dmr_theme_snippet' %}
-
-<!-- **BEGIN** Hextom QAB Integration // Main Include - DO NOT MODIFY -->
-    {% render 'hextom_qab_main', product: product, customer: customer %}
-    <!-- **END** Hextom QAB Integration // Main Include - DO NOT MODIFY -->
+    {% unless is_local_preview %}
+      {% render 'quantity-breaks-now', customer: customer, template: template, product: product, cart: cart %}
+      {%- render 'layouthub_footer' -%}
+      {% render 'spurit_dmr_theme_snippet' %}
+      <!-- **BEGIN** Hextom QAB Integration // Main Include - DO NOT MODIFY -->
+      {% render 'hextom_qab_main', product: product, customer: customer %}
+      <!-- **END** Hextom QAB Integration // Main Include - DO NOT MODIFY -->
+    {% endunless %}
 
    <!-- Messenger Chat Plugin Code -->
     <div id="fb-root"></div>

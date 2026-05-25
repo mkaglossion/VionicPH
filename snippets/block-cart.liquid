@@ -1,6 +1,10 @@
-<span class="site-header__link site-header__cart js-mini-cart {% if settings.cartdraw %} cardraw{% endif %}" data-cartmini="{{settings.cartdraw }}">
+<span class="site-header__link site-header__cart js-mini-cart {% if settings.header == 'header-7' %}header7-cart{% endif %} {% if settings.cartdraw %} cardraw{% endif %}" data-cartmini="{{settings.cartdraw }}">
   <span class="js-toggle-cart" title="{{'cart.general.title' | t}}">
-    {%- include 'icon-cart' -%}
+    {%- if settings.header == 'header-7' -%}
+      {%- render 'icon-cart-bold' -%}
+    {%- else -%}
+      {%- render 'icon-cart' -%}
+    {%- endif -%}
     <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
     <span class="js-cart-count site-header__cart-indicator">{{cart.item_count}}</span>
   </span>
@@ -9,19 +13,23 @@
     <div class="mini-cart-total font-family-1">
       {{'cart.label.total' | t }}: <span class="js-cart-total">{{cart.total_price | money}}</span>
     </div>
-    {%- include 'free-shipping' -%}
+    {%- render 'free-shipping' -%}
     <div class="mini-cart-taxes">
 <!--       {{'cart.general.taxes_and_shipping_at_checkout' | t}} -->
       Free Shipping Nationwide
     </div>
     <div class="mini-cart-btns mt-4">
       <a class="btn gradient-theme js-cart-btn-checkout btn-theme w-100 {% if cart.item_count == 0 %} disabled{% endif %}" href="/checkout">{{'cart.general.checkout' | t }}</a>
-      <a class="btn btn-link btn-sm js-cart-btn-cart" href="/cart">{{'cart.general.update' | t }}</a>
+      <a class="btn btn-link btn-sm js-cart-btn-cart" href="{{ routes.cart_url }}">{{'cart.general.update' | t }}</a>
     </div>
 
     {%- if settings.safe_checkout_pcart != blank -%}
     <div class="mini-cart-safe-checkout">
-      <img class="lazyload" data-src="{{ settings.safe_checkout_pcart | img_url: '500x' }}"/>
+      {{
+        settings.safe_checkout_pcart
+        | image_url: width: 500
+        | image_tag: loading: 'lazy', alt: 'Safe checkout'
+      }}
     </div>
     {%- endif -%}
   </div>

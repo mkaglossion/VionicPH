@@ -4548,7 +4548,7 @@ $slick-opacity-not-active: 0.25;
       top:-40px;
       margin-left:-40px;
       left:50%;
-      background:url({{'upsell_image.png' | asset_url}}) center no-repeat;
+      background:url({% if settings.upsell_image != blank %}{{ settings.upsell_image | image_url: width: 80 }}{% else %}{{ 'upsell_image.png' | asset_url }}{% endif %}) center no-repeat;
       width:80px;
       height:80px;
       display:block;

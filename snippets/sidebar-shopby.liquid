@@ -96,7 +96,7 @@
     {%- capture checktags -%}
     {%- for i in (1..20) -%}
           {%- capture color_text -%}shop_by_color_text_{{i}}{%- endcapture -%}
-          {%- capture color_image -%}color-{{i}}.png{%- endcapture -%}
+          {%- capture color_image -%}shop_by_color_image_{{i}}{%- endcapture -%}
           {%- assign listObjectcolor = settings[color_text] | strip -%}
           {%- for tag in  listObjectcolor -%}
             {%- if collection.all_tags contains tag -%}
@@ -126,13 +126,13 @@
             {%- if current_tags contains tag -%}
             <li class="advanced-filter active-filter" data-handle="{{ custom_tag | handleize }}">
               <a href="javascript:void(0);" data-tooltip="true" class="catalog_color" title="{{settings[color_text]}}">
-                <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{{ color_image | asset_url }}" />
+                <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{% if settings[color_image] != blank %}{{ settings[color_image] | image_url: width: 60 }}{% else %}{{ 'color-' | append: i | append: '.png' | asset_url }}{% endif %}" />
               </a>
             </li>
             {%- elsif collection.all_tags contains tag -%}
             <li class="advanced-filter" data-handle="{{ custom_tag | handleize }}">
               <a href="javascript:void(0);" data-tooltip="true" class="catalog_color" title="{{settings[color_text]}}">
-                <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{{ color_image | asset_url }}" />
+                <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{% if settings[color_image] != blank %}{{ settings[color_image] | image_url: width: 60 }}{% else %}{{ 'color-' | append: i | append: '.png' | asset_url }}{% endif %}" />
               </a>
             </li>
             {%- endif -%}
@@ -198,19 +198,19 @@
       <ul id="ul_catalog_color" class="mt-4 collapse show list-unstyled catalog_filter_ul color-group">
         {%- for i in (1..20) -%}
         {%- capture color_text -%}shop_by_color_text_{{i}}{%- endcapture -%}
-        {%- capture color_image -%}color-{{i}}.png{%- endcapture -%}
+        {%- capture color_image -%}shop_by_color_image_{{i}}{%- endcapture -%}
         {%- if settings[color_text] != blank -%}
         {%- assign custom_tag = settings[color_text] | strip -%}
         {%- if current_tags contains custom_tag -%}
         <li class="advanced-filter active-filter" data-handle="{{ custom_tag | handleize }}">
           <a href="javascript:void(0);" data-tooltip="true" class="catalog_color" title="{{settings[color_text]}}">
-            <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{{ color_image | asset_url }}" />
+            <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{% if settings[color_image] != blank %}{{ settings[color_image] | image_url: width: 60 }}{% else %}{{ 'color-' | append: i | append: '.png' | asset_url }}{% endif %}" />
           </a>
         </li>
         {%- else -%}
         <li class="advanced-filter" data-handle="{{ custom_tag | handleize }}">
           <a href="javascript:void(0);" data-tooltip="true" class="catalog_color" title="{{settings[color_text]}}">
-            <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{{ color_image | asset_url }}" />
+            <img src="{%- include 'srcBlank' -%}" class="lazyload" alt="{{ settings[color_text] }}" data-src="{% if settings[color_image] != blank %}{{ settings[color_image] | image_url: width: 60 }}{% else %}{{ 'color-' | append: i | append: '.png' | asset_url }}{% endif %}" />
           </a>
         </li>
         {%- endif -%}

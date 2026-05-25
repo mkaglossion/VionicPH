@@ -2595,6 +2595,7 @@ theme.Instagrams = (function() {
       limit			: this.settings.limit,
       resolution	: this.settings.resolution,
       template		: '<div class="col hv-image-brightness"><a class="instagram-item" href="{{link}}" target="_blank" id="{{id}}"><img alt="instagram image" class="transition lazyload" data-src="{{image}}" /></a></div>',
+      error			: function() {},
       after			: afterInstagram
     });
 
@@ -3785,7 +3786,11 @@ if (theme.enableCurrencies){
   };
 }
 theme.updateCurrencies = function (){
-  Currency.convertAll(shopCurrency, jQuery('#currencies a.selected').attr('data-currency'));
+  if (typeof Currency === 'undefined' || typeof Currency.convertAll !== 'function' || typeof shopCurrency === 'undefined' || !shopCurrency) {
+    return;
+  }
+  var selectedCurrency = jQuery('#currencies a.selected').attr('data-currency') || Currency.currentCurrency || shopCurrency;
+  Currency.convertAll(shopCurrency, selectedCurrency);
 }
 
 // MiniCart
@@ -3827,6 +3832,12 @@ theme.miniCart = (function(){
           forLoop = itemCount < numberDisplayed ? itemCount : numberDisplayed;
           //styleCart === 'true' ? cart.items.length ? $(miniCart).addClass('active'): $(miniCart).removeClass('active') :null;
 
+      if (cart.item_count === 0) {
+        $btnCheckout.addClass('disabled').attr('aria-disabled', 'true');
+      } else {
+        $btnCheckout.removeClass('disabled').removeAttr('aria-disabled');
+      }
+
       // add list items
       for (var i = 0; i < forLoop; i++) { 
         var product = cart.items[i],
@@ -3847,7 +3858,9 @@ theme.miniCart = (function(){
       }
       // add total price and cart button / checkout button
       $(cartContent).html(htmlCart);
+      $(cartCount).text(cart.item_count);
       $(cartTotal).html(theme.Currency.formatMoney(cart.total_price, theme.moneyFormat));
+      theme.freeShipping.load(cart);
       theme.updateCurrencies();
     })
   }
@@ -3874,6 +3887,16 @@ theme.miniCart = (function(){
   });
   $(document).on('click','.overlaycart',function(){
     $(this).parent(miniCart).removeClass('active');
+  });
+  $(document).on('click','.js-cart-btn-checkout',function(event){
+    event.stopPropagation();
+    if ($(this).hasClass('disabled')) {
+      event.preventDefault();
+      return false;
+    }
+    var checkoutUrl = $(this).attr('href') || '/checkout';
+    event.preventDefault();
+    window.location.href = checkoutUrl;
   });
 
   // gen minicart when load page
@@ -3999,16 +4022,31 @@ theme.scrollToFixed = (function (){
 //filter 2.0
 theme.updatePriceFilter = function (){
   if (typeof($("#slider-range").html()) != 'undefined' && typeof($("#slider-range-mobile").html()) != 'undefined'){
-    var max_price = parseInt(Currency.convert(parseInt($("#slider-range").data('max')), shopCurrency, $('#currencies a.selected').attr('data-currency')));
-    var min_price = parseInt(Currency.convert(0, shopCurrency, $('#currencies a.selected').attr('data-currency')));
+    var selectedCurrency = $('#currencies a.selected').attr('data-currency') || (typeof Currency !== 'undefined' ? Currency.currentCurrency : null) || shopCurrency;
+    var baseCurrency = (typeof shopCurrency !== 'undefined' && shopCurrency) ? shopCurrency : selectedCurrency;
+    var canConvertCurrency = typeof Currency !== 'undefined' && typeof Currency.convert === 'function' && baseCurrency && selectedCurrency;
+    var convertPrice = function(value, fromCurrency, toCurrency){
+      var parsedValue = parseInt(value, 10);
+      if (isNaN(parsedValue)) {
+        parsedValue = 0;
+      }
+      if (!canConvertCurrency || !fromCurrency || !toCurrency) {
+        return parsedValue;
+      }
+      var convertedValue = parseInt(Currency.convert(parsedValue, fromCurrency, toCurrency), 10);
+      return isNaN(convertedValue) ? parsedValue : convertedValue;
+    };
+
+    var max_price = convertPrice($("#slider-range").data('max'), baseCurrency, selectedCurrency);
+    var min_price = convertPrice(0, baseCurrency, selectedCurrency);
 
     var current_min_price = min_price;
     if ($("#Filter-Price-GTE").val()) {
-      current_min_price = parseInt(Currency.convert(parseInt($("#Filter-Price-GTE").val()), shopCurrency, $('#currencies a.selected').attr('data-currency')));
+      current_min_price = convertPrice($("#Filter-Price-GTE").val(), baseCurrency, selectedCurrency);
     }
     var current_max_price = max_price;
     if ($("#Filter-Price-LTE").val()) {
-      current_max_price = parseInt(Currency.convert(parseInt($("#Filter-Price-LTE").val()), shopCurrency, $('#currencies a.selected').attr('data-currency')));
+      current_max_price = convertPrice($("#Filter-Price-LTE").val(), baseCurrency, selectedCurrency);
     }
 
     $("#slider-range").attr('data-max', max_price);
@@ -4018,8 +4056,8 @@ theme.updatePriceFilter = function (){
       max: max_price,
       values: [current_min_price, current_max_price],
       slide: function( event, ui ) {
-        var p1 = parseInt(Currency.convert(ui.values[0], $('#currencies a.selected').attr('data-currency'), shopCurrency));
-        var p2 = parseInt(Currency.convert(ui.values[1], $('#currencies a.selected').attr('data-currency'), shopCurrency));
+        var p1 = convertPrice(ui.values[0], selectedCurrency, baseCurrency);
+        var p2 = convertPrice(ui.values[1], selectedCurrency, baseCurrency);
 
         $("#Filter-Price-GTE").val(p1);
         $("#Filter-Price-LTE").val(p2);
@@ -4036,8 +4074,8 @@ theme.updatePriceFilter = function (){
             form.append($(this));
           });
 
-          var p1 = parseInt(Currency.convert(ui.values[0], $('#currencies a.selected').attr('data-currency'), shopCurrency))
-          var p2 = parseInt(Currency.convert(ui.values[1], $('#currencies a.selected').attr('data-currency'), shopCurrency));
+          var p1 = convertPrice(ui.values[0], selectedCurrency, baseCurrency);
+          var p2 = convertPrice(ui.values[1], selectedCurrency, baseCurrency);
 
           $('.slider-range-content .price-from').html(Shopify.formatMoney(p1 * 100, theme.moneyFormat));
           $('.slider-range-content .price-to').html(Shopify.formatMoney(p2 * 100, theme.moneyFormat));
@@ -4045,7 +4083,10 @@ theme.updatePriceFilter = function (){
           theme.updateCurrencies();
           const formData = new FormData(form[0]);
           const searchParams = new URLSearchParams(formData).toString();
-          document.querySelector('facet-filters-form').renderPage(searchParams, null, true);
+          var facetFilters = document.querySelector('facet-filters-form');
+          if (facetFilters && typeof facetFilters.renderPage === 'function') {
+            facetFilters.renderPage(searchParams, null, true);
+          }
       }
     });
 
@@ -4057,8 +4098,8 @@ theme.updatePriceFilter = function (){
       max: max_price,
       values: [current_min_price, current_max_price],
       slide: function( event, ui ) {
-        var p1 = parseInt(Currency.convert(ui.values[0], $('#currencies a.selected').attr('data-currency'), shopCurrency));
-        var p2 = parseInt(Currency.convert(ui.values[1], $('#currencies a.selected').attr('data-currency'), shopCurrency));
+        var p1 = convertPrice(ui.values[0], selectedCurrency, baseCurrency);
+        var p2 = convertPrice(ui.values[1], selectedCurrency, baseCurrency);
 
         $("#Filter-Price-GTE").val(p1);
         $("#Filter-Price-LTE").val(p2);
@@ -4074,15 +4115,18 @@ theme.updatePriceFilter = function (){
             form.append($(this));
           });
 
-          var p1 = parseInt(Currency.convert(ui.values[0], $('#currencies a.selected').attr('data-currency'), shopCurrency))
-          var p2 = parseInt(Currency.convert(ui.values[1], $('#currencies a.selected').attr('data-currency'), shopCurrency));
+          var p1 = convertPrice(ui.values[0], selectedCurrency, baseCurrency);
+          var p2 = convertPrice(ui.values[1], selectedCurrency, baseCurrency);
 
           $('.slider-range-content .price-from').html(Shopify.formatMoney(p1 * 100, theme.moneyFormat));
           $('.slider-range-content .price-to').html(Shopify.formatMoney(p2 * 100, theme.moneyFormat));
           theme.updateCurrencies();
           const formData = new FormData(form[0]);
           const searchParams = new URLSearchParams(formData).toString();
-          document.querySelector('facet-filters-form').renderPage(searchParams, null, true);
+          var facetFilters = document.querySelector('facet-filters-form');
+          if (facetFilters && typeof facetFilters.renderPage === 'function') {
+            facetFilters.renderPage(searchParams, null, true);
+          }
       }
     });
   }
@@ -4582,9 +4626,9 @@ theme.loading = (function(){
 })()
 
 theme.effectLeavingPage = (function(){
-  window.onbeforeunload = function(){
-    $('body').css('opacity','0');
-  }
+  window.addEventListener('pagehide', function() {
+    $('body').css('opacity', '0');
+  });
 })()
 
 // Isotope

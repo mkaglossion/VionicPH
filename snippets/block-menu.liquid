@@ -43,8 +43,17 @@
     {%- else -%}
     <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
       <a href="{{ link.url }}" class="site-nav__link"{% if link.active %} aria-current="page"{% endif %}>
-        <span class="site-nav__title">{%- include 'processMenuTitle' with itemName:link.title -%}</span>
-        {%- include 'processMenuLabel' with itemName:link.title -%}
+        <span class="site-nav__title">{%- if link.title contains '[' and link.title contains ']' -%}{{link.title | escape | split: '[' | first}}{%- else -%}{{link.title | escape}}{%- endif -%}</span>
+        {%- if link.title contains '[' and link.title contains ']' -%}
+          {%- assign labelName = link.title | escape | split:'[' | last | replace:']','' -%}
+          {%- case labelName -%}
+          	{%- when 'new' -%} {%- assign labelClass = 'menu-label--new' -%}
+          	{%- when 'hot' -%} {%- assign labelClass = 'menu-label--hot' -%}
+          	{%- when 'sale' -%} {%- assign labelClass = 'menu-label--sale' -%}
+          	{%- else -%} {%- assign labelClass = 'menu-label--other' -%}
+          {%- endcase -%}
+        <span class="menu-label {{labelClass}}"><span>{{labelName}}</span></span>
+        {%- endif -%}
       </a>
     </li>
     {%- endif -%}

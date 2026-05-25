@@ -1455,6 +1455,38 @@ input[type=search]::-webkit-search-cancel-button {
 		 display: block !important;
 	}
 }
+@media (max-width: 991px) {
+  .template-index .site-header .header-bottom .row-header {
+    min-height: 72px;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .template-index .site-header .header-bottom .row-header > .col:first-child {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 52px;
+    flex: 0 0 52px;
+    max-width: 52px;
+    z-index: 2;
+  }
+  .template-index .site-header .header-bottom .row-header > .col.col-logo {
+    position: absolute !important;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: calc(100% - 132px);
+    max-width: 260px;
+    margin: 0 !important;
+    z-index: 1;
+  }
+  .template-index .site-header .header-bottom .header-bottom__right {
+    position: relative;
+    z-index: 2;
+    margin-left: auto;
+    justify-content: flex-end;
+  }
+}
  
 
 /*aos*/

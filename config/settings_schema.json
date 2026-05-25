@@ -39,6 +39,10 @@
           {
             "value": "header-6",
             "label": "Header 6"
+          },
+          {
+            "value": "header-7",
+            "label": "Header 7"
           }
         ]
       },
@@ -3707,8 +3711,8 @@
         "label": "Color 1"
       },
       {
-        "type": "image",
-        "id": "color-1.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_1",
         "label": "Image 1"
       },
       {
@@ -3717,8 +3721,8 @@
         "label": "Color 2"
       },
       {
-        "type": "image",
-        "id": "color-2.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_2",
         "label": "Image 2"
       },
       {
@@ -3727,8 +3731,8 @@
         "label": "Color 3"
       },
       {
-        "type": "image",
-        "id": "color-3.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_3",
         "label": "Image 3"
       },
       {
@@ -3737,8 +3741,8 @@
         "label": "Color 4"
       },
       {
-        "type": "image",
-        "id": "color-4.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_4",
         "label": "Image 4"
       },
       {
@@ -3747,8 +3751,8 @@
         "label": "Color 5"
       },
       {
-        "type": "image",
-        "id": "color-5.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_5",
         "label": "Image 5"
       },
       {
@@ -3757,8 +3761,8 @@
         "label": "Color 6"
       },
       {
-        "type": "image",
-        "id": "color-6.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_6",
         "label": "Image 6"
       },
       {
@@ -3767,8 +3771,8 @@
         "label": "Color 7"
       },
       {
-        "type": "image",
-        "id": "color-7.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_7",
         "label": "Image 7"
       },
       {
@@ -3777,8 +3781,8 @@
         "label": "Color 8"
       },
       {
-        "type": "image",
-        "id": "color-8.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_8",
         "label": "Image 8"
       },
       {
@@ -3787,8 +3791,8 @@
         "label": "Color 9"
       },
       {
-        "type": "image",
-        "id": "color-9.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_9",
         "label": "Image 9"
       },
       {
@@ -3797,8 +3801,8 @@
         "label": "Color 10"
       },
       {
-        "type": "image",
-        "id": "color-10.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_10",
         "label": "Image 10"
       },
       {
@@ -3807,8 +3811,8 @@
         "label": "Color 11"
       },
       {
-        "type": "image",
-        "id": "color-11.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_11",
         "label": "Image 11"
       },
       {
@@ -3817,8 +3821,8 @@
         "label": "Color 12"
       },
       {
-        "type": "image",
-        "id": "color-12.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_12",
         "label": "Image 12"
       },
       {
@@ -3827,8 +3831,8 @@
         "label": "Color 13"
       },
       {
-        "type": "image",
-        "id": "color-13.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_13",
         "label": "Image 13"
       },
       {
@@ -3837,8 +3841,8 @@
         "label": "Color 14"
       },
       {
-        "type": "image",
-        "id": "color-14.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_14",
         "label": "Image 14"
       },
       {
@@ -3847,8 +3851,8 @@
         "label": "Color 15"
       },
       {
-        "type": "image",
-        "id": "color-15.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_15",
         "label": "Image 15"
       },
       {
@@ -3857,8 +3861,8 @@
         "label": "Color 16"
       },
       {
-        "type": "image",
-        "id": "color-16.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_16",
         "label": "Image 16"
       },
       {
@@ -3867,8 +3871,8 @@
         "label": "Color 17"
       },
       {
-        "type": "image",
-        "id": "color-17.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_17",
         "label": "Image 17"
       },
       {
@@ -3877,8 +3881,8 @@
         "label": "Color 18"
       },
       {
-        "type": "image",
-        "id": "color-18.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_18",
         "label": "Image 18"
       },
       {
@@ -3887,8 +3891,8 @@
         "label": "Color 19"
       },
       {
-        "type": "image",
-        "id": "color-19.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_19",
         "label": "Image 19"
       },
       {
@@ -3897,8 +3901,8 @@
         "label": "Color 20"
       },
       {
-        "type": "image",
-        "id": "color-20.png",
+        "type": "image_picker",
+        "id": "shop_by_color_image_20",
         "label": "Image 20"
       }
     ]
@@ -4010,12 +4014,10 @@
         "content": "⚠️ Enter only ONE product handle (Upsell column)"
       },
       {
-        "type": "image",
-        "id": "upsell_image.png",
+        "type": "image_picker",
+        "id": "upsell_image",
         "label": "Logo offer",
-        "info": "80x80 pixels recommended",
-        "max-width": 200,
-        "max-height": 200
+        "info": "80x80 pixels recommended"
       },
       {
         "type": "text",

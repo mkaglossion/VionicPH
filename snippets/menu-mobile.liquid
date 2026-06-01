@@ -1,12 +1,17 @@
 <div id="NavDrawer" class="drawer drawer--left">
   <div class="drawer__inner">
-    <form action="/search" method="get" class="drawer__search mt-3 form-group" role="search">
-      <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" autocomplete="off" class="drawer__search-input form-control">
-      <button type="submit" class="text-link drawer__search-submit">
-        {%- include 'icon-search' -%}
-        <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+    <div class="drawer__top">
+      <form action="/search" method="get" class="drawer__search form-group" role="search">
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" autocomplete="off" class="drawer__search-input form-control">
+        <button type="submit" class="text-link drawer__search-submit">
+          {%- include 'icon-search' -%}
+          <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+        </button>
+      </form>
+      <button type="button" class="text-link js-drawer-close drawer__close-btn" aria-label="Close menu">
+        <span class="drawer__close-glyph" aria-hidden="true">&times;</span>
       </button>
-    </form>
+    </div>
     <ul class="drawer__nav">
       {%- for link in linklists[settings.main_linklist].links -%}
       {%- assign child_list_handle = link.title | handleize -%}

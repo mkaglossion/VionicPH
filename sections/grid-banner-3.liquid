@@ -1,7 +1,7 @@
 <!-- grid-banner-3.liquid -->
 {% assign gb3_placeholder_bg = section.settings.placeholder_bg %}
 {% if gb3_placeholder_bg == blank or gb3_placeholder_bg == 'rgba(0,0,0,0)' or gb3_placeholder_bg == 'transparent' %}
-  {% assign gb3_placeholder_bg = '#ffffff' %}
+  {% assign gb3_placeholder_bg = '#8f949c' %}
 {% endif %}
 <style>
   .gb3-{{ section.id }} {
@@ -86,19 +86,39 @@
   .gb3-{{ section.id }} .gb3-banner-placeholder {
     position: absolute;
     inset: 0;
+    background: {{ gb3_placeholder_bg }};
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 20px;
-    color: {{ section.settings.text_color }};
+    color: #ffffff;
+  }
+
+  .gb3-{{ section.id }} .gb3-banner-placeholder-inner {
+    max-width: 520px;
+    margin: 0 auto;
   }
 
   .gb3-{{ section.id }} .gb3-banner-placeholder svg {
-    width: clamp(120px, 16vw, 220px);
-    height: clamp(120px, 16vw, 220px);
+    width: clamp(110px, 14vw, 170px);
+    height: clamp(110px, 14vw, 170px);
     opacity: .8;
-    margin-bottom: 22px;
+    margin-bottom: 28px;
+  }
+
+  .gb3-{{ section.id }} .gb3-banner-placeholder .gb3-title,
+  .gb3-{{ section.id }} .gb3-banner-placeholder .gb3-desc,
+  .gb3-{{ section.id }} .gb3-banner-placeholder .gb3-btn {
+    color: #ffffff;
+  }
+
+  .gb3-{{ section.id }} .gb3-banner-placeholder .gb3-title {
+    text-transform: none;
+  }
+
+  .gb3-{{ section.id }} .gb3-banner-placeholder .gb3-btn {
+    border-bottom-color: #ffffff;
   }
 
   .gb3-{{ section.id }} .gb3-overlay {
@@ -339,30 +359,38 @@
           {% endif %}
         </div>
       {% else %}
+        {% assign gb3_placeholder_title = section.settings.banner_title | default: 'Banner title' %}
+        {% assign gb3_placeholder_desc = section.settings.banner_description | default: 'Lorem ipsum dolor sit amet' %}
+        {% assign gb3_placeholder_btn = section.settings.banner_button_text | default: 'view more' %}
         <div class="gb3-banner-placeholder">
-          <div>
+          <div class="gb3-banner-placeholder-inner">
             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            <h3 class="gb3-title">{{ gb3_placeholder_title }}</h3>
+            <div class="gb3-desc">{{ gb3_placeholder_desc }}</div>
+            <span class="gb3-btn">{{ gb3_placeholder_btn }}</span>
           </div>
         </div>
       {% endif %}
 
-      {% if section.settings.show_overlay %}
+      {% if has_banner_image and section.settings.show_overlay %}
         <span class="gb3-overlay"></span>
       {% endif %}
 
-      <div class="gb3-banner-caption">
-        <div>
-          {% if section.settings.banner_title != blank %}
-            <h3 class="gb3-title">{{ section.settings.banner_title }}</h3>
-          {% endif %}
-          {% if section.settings.banner_description != blank %}
-            <div class="gb3-desc">{{ section.settings.banner_description }}</div>
-          {% endif %}
-          {% if section.settings.banner_button_text != blank %}
-            <span class="gb3-btn">{{ section.settings.banner_button_text }}</span>
-          {% endif %}
+      {% if has_banner_image %}
+        <div class="gb3-banner-caption">
+          <div>
+            {% if section.settings.banner_title != blank %}
+              <h3 class="gb3-title">{{ section.settings.banner_title }}</h3>
+            {% endif %}
+            {% if section.settings.banner_description != blank %}
+              <div class="gb3-desc">{{ section.settings.banner_description }}</div>
+            {% endif %}
+            {% if section.settings.banner_button_text != blank %}
+              <span class="gb3-btn">{{ section.settings.banner_button_text }}</span>
+            {% endif %}
+          </div>
         </div>
-      </div>
+      {% endif %}
     </a>
 
     {% assign cards_collection_obj = blank %}
@@ -581,7 +609,7 @@
       "type": "text",
       "id": "banner_title",
       "label": "Banner Title",
-      "default": "MONTHLY BANNER"
+      "default": "Monthly Banner"
     },
     {
       "type": "textarea",
@@ -681,7 +709,7 @@
       "type": "color",
       "id": "placeholder_bg",
       "label": "Placeholder Background",
-      "default": "#ffffff"
+      "default": "#8f949c"
     },
     {
       "type": "checkbox",

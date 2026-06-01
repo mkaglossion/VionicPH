@@ -33,6 +33,18 @@
       z-index: 1;
     }
   {%- endif -%}
+
+  /* Disable image hover effects for Grid banner */
+  .customstyle{{ section.id }} .banner-theme img {
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .customstyle{{ section.id }} .banner-theme:hover img {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
 </style>
 
 <div class="customstyle{{ section.id }} {% if section.settings.bgstyle %} gr-banner-bg {% endif %}" data-aos="{{section.settings.animation}}" >
@@ -59,7 +71,7 @@
         }
       </style>
       <div class="col-md-{{block.settings.width}}" {{ block.shopify_attributes }} data-aos="{{section.settings.animation}}" data-aos-duration="1000">
-        <figure class="banner-theme hv-image-saturate banner-theme-{{block.settings.vertical}} banner-theme-{{block.settings.horizontal}} text-{{block.settings.text_align}} {% if section.settings.no_gutter %}m-0{% endif %} banner-theme-{{block.id}}">
+        <figure class="banner-theme banner-theme-{{block.settings.vertical}} banner-theme-{{block.settings.horizontal}} text-{{block.settings.text_align}} {% if section.settings.no_gutter %}m-0{% endif %} banner-theme-{{block.id}}">
           {%- if block.settings.image != blank -%}
           <img src="{% include 'srcBlank' %}" class="lazyload transition {% if block.settings.image_mobile != blank %} d-none d-lg-block {% endif %}" data-src="{{block.settings.image | img_url:'1920x'}}">
             {%- if block.settings.image_mobile != blank -%}

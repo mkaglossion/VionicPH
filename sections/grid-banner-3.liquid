@@ -1,9 +1,13 @@
 <!-- grid-banner-3.liquid -->
+{% assign gb3_placeholder_bg = section.settings.placeholder_bg %}
+{% if gb3_placeholder_bg == blank or gb3_placeholder_bg == 'rgba(0,0,0,0)' or gb3_placeholder_bg == 'transparent' %}
+  {% assign gb3_placeholder_bg = '#ffffff' %}
+{% endif %}
 <style>
   .gb3-{{ section.id }} {
     padding: {{ section.settings.paddingsection }};
     margin: {{ section.settings.marginsection }};
-    background: {{ section.settings.bgsection }};
+    background: #ffffff;
   }
 
   .gb3-{{ section.id }} .gb3-container.full {
@@ -44,7 +48,7 @@
     height: {{ section.settings.banner_height }}px;
     overflow: hidden;
     text-decoration: none;
-    background: {{ section.settings.placeholder_bg }};
+    background: {{ gb3_placeholder_bg }};
     border-radius: 0;
   }
 
@@ -91,10 +95,10 @@
   }
 
   .gb3-{{ section.id }} .gb3-banner-placeholder svg {
-    width: 90px;
-    height: 90px;
-    opacity: .7;
-    margin-bottom: 18px;
+    width: clamp(120px, 16vw, 220px);
+    height: clamp(120px, 16vw, 220px);
+    opacity: .8;
+    margin-bottom: 22px;
   }
 
   .gb3-{{ section.id }} .gb3-overlay {
@@ -204,8 +208,17 @@
   }
 
   .gb3-{{ section.id }} .gb3-products-slider.swiper {
+    position: relative;
     width: 100%;
     overflow: hidden;
+    padding-bottom: 26px;
+  }
+
+  .gb3-{{ section.id }} .gb3-products-slider .swiper-pagination {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   .gb3-{{ section.id }} .swiper-button-prev,
@@ -280,15 +293,6 @@
       height: auto;
     }
 
-    .gb3-{{ section.id }} .gb3-mobile-dots-always {
-      display: block !important;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .gb3-{{ section.id }} .gb3-pagination-hide-desktop {
-      display: none !important;
-    }
   }
 </style>
 
@@ -362,29 +366,20 @@
     </a>
 
     {% assign cards_collection_obj = blank %}
-    {% assign cards_limit = section.settings.collection_cards_limit | default: 4 %}
-    {% assign rendered_cards_count = cards_limit %}
-    {% assign hide_pagination_desktop = false %}
+    {% assign cards_per_view_desktop = section.settings.collection_cards_limit | default: 4 | at_least: 1 | at_most: 6 %}
+    {% assign cards_limit = 0 %}
+    {% assign rendered_cards_count = 0 %}
     {% assign use_collection = false %}
     {% if section.settings.cards_collection != blank %}
       {% assign cards_collection_obj = collections[section.settings.cards_collection] %}
       {% if cards_collection_obj != blank and cards_collection_obj.products_count > 0 %}
         {% assign use_collection = true %}
-        {% if section.settings.show_all_collection_cards %}
-          {% assign cards_limit = cards_collection_obj.products_count %}
-        {% endif %}
-        {% if cards_collection_obj.products_count < cards_limit %}
-          {% assign rendered_cards_count = cards_collection_obj.products_count %}
-        {% else %}
-          {% assign rendered_cards_count = cards_limit %}
-        {% endif %}
+        {% assign cards_limit = cards_collection_obj.products_count %}
+        {% assign rendered_cards_count = cards_collection_obj.products_count %}
       {% endif %}
     {% endif %}
 
     {% if use_collection %}
-      {% if rendered_cards_count <= 4 %}
-        {% assign hide_pagination_desktop = true %}
-      {% endif %}
       <div class="gb3-products-slider swiper gb3-swiper-{{ section.id }}">
         <div class="swiper-wrapper">
           {% for product in cards_collection_obj.products limit: cards_limit %}
@@ -411,9 +406,7 @@
             </div>
           {% endfor %}
         </div>
-        <div class="swiper-button-prev gb3-slider-prev-{{ section.id }}"></div>
-        <div class="swiper-button-next gb3-slider-next-{{ section.id }}"></div>
-        <div class="swiper-pagination gb3-slider-pagination-{{ section.id }} gb3-mobile-dots-always{% if hide_pagination_desktop %} gb3-pagination-hide-desktop{% endif %}"></div>
+        <div class="swiper-pagination gb3-slider-pagination-{{ section.id }}"></div>
       </div>
     {% endif %}
   </div>
@@ -426,14 +419,19 @@
     var slider = document.querySelector('.gb3-swiper-{{ section.id }}');
     if (slider) {
       var paginationEl = slider.querySelector('.gb3-slider-pagination-{{ section.id }}');
+      var nextEl = slider.querySelector('.gb3-slider-next-{{ section.id }}');
+      var prevEl = slider.querySelector('.gb3-slider-prev-{{ section.id }}');
       new Swiper(slider, {
         slidesPerView: 1,
         spaceBetween: {{ section.settings.gap_mobile }},
-        loop: {{ section.settings.carousel_loop | default: false }},
-        navigation: {
-          nextEl: '.gb3-slider-next-{{ section.id }}',
-          prevEl: '.gb3-slider-prev-{{ section.id }}'
-        },
+        loop: {% if rendered_cards_count > 1 %}{{ section.settings.carousel_loop | default: false }}{% else %}false{% endif %},
+        watchOverflow: false,
+        navigation: nextEl && prevEl
+          ? {
+              nextEl: nextEl,
+              prevEl: prevEl
+            }
+          : false,
         pagination: paginationEl
           ? {
               el: paginationEl,
@@ -450,7 +448,7 @@
             spaceBetween: {{ section.settings.gap }}
           },
           1200: {
-            slidesPerView: 4,
+            slidesPerView: {{ cards_per_view_desktop }},
             spaceBetween: {{ section.settings.gap }}
           }
         }
@@ -639,17 +637,11 @@
     {
       "type": "range",
       "id": "collection_cards_limit",
-      "label": "Products to show",
+      "label": "Products to show (desktop)",
       "min": 1,
-      "max": 20,
+      "max": 6,
       "step": 1,
       "default": 4
-    },
-    {
-      "type": "checkbox",
-      "id": "show_all_collection_cards",
-      "label": "Show all products from collection",
-      "default": false
     },
     {
       "type": "range",
@@ -689,7 +681,7 @@
       "type": "color",
       "id": "placeholder_bg",
       "label": "Placeholder Background",
-      "default": "rgba(0,0,0,0)"
+      "default": "#ffffff"
     },
     {
       "type": "checkbox",

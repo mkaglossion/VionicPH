@@ -32,8 +32,8 @@
   {% assign mp4_url = section.settings.mp4_url | strip %}
   {% if mp4_url != blank %}
   <div class="video-section video-section--{{ section.settings.cover_image_height }}">
-    <div class="video-wrapper">
-      <video controls playsinline preload="metadata" style="width:100%;height:auto;">
+    <div class="video-wrapper video-wrapper--mp4">
+      <video controls playsinline preload="metadata">
         <source src="{{ mp4_url | escape }}" type="video/mp4">
       </video>
     </div>

@@ -57,78 +57,87 @@ data-section-id="{{ section.id }}"  data-bg="{{ section.settings.image_bg | img_
             </div>
           
           {%- when 'video' -%}
-          
-            {%- if block.settings.cover_image -%}
-            {%- endif -%}
-
-            {%- if block.settings.show_overlay -%}
-            <style>
-              #VideoSection--{{ section.id }} .video-section__cover-text {
-                color: {{ block.settings.overlay_text }};
-              }
-
-              #VideoSection--{{ section.id }} .video-section__load-player-button-triangle {
-                border-left-color: {{ block.settings.overlay_text }};
-              }
-
-              #VideoSection--{{ section.id }} .video-section__load-player-button.animated .video-section__load-player-button-circle,
-              #VideoSection--{{ section.id }} .video-section__load-player-button-circle {
-                border-color: {{ block.settings.overlay_text }};
-              }
-
-              #VideoSection--{{ section.id }} .video-section__cover-overlay {
-                background-color: {{ block.settings.overlay_color }};
-                opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
-              }
-            </style>
-            {%- endif -%}
-
-            <div id="VideoSection--{{ section.id }}" class="video-section video-section--{{ block.settings.cover_image_height }}" data-section-id="{{ section.id }}" data-section-type="video" data-video-id="{{ block.settings.video_url.id }}" data-video-type="{{ block.settings.video_url.type }}">
-              <div class="video-section__body-overlay">
-              </div>
-              <div class="video-section__modal">
+            {% assign mp4_url = block.settings.mp4_url | strip %}
+            {% if mp4_url != blank %}
+              <div class="video-section video-section--{{ block.settings.cover_image_height }}">
                 <div class="video-wrapper">
-                  <button class="video-section__player-close">
-                    <span class="visually-hidden">{{ 'video.close' | t }}</span>
-                    {%- include 'icon-close' -%}
-                  </button>
-                  <div class="video-section__player"></div>
+                  <video controls playsinline preload="metadata" style="width:100%;height:auto;">
+                    <source src="{{ mp4_url | escape }}" type="video/mp4">
+                  </video>
                 </div>
               </div>
-              <div class="video-section__cover">
-                <div class="video-section__cover-background">
-                  {%- if block.settings.cover_image == blank -%}
-                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {%- else -%}
-                  <div class="position-relative image-content__image-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.cover_image.aspect_ratio | times: 100}}%;">
-                    {% assign img_url = block.settings.cover_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-                    <img class="image-content__image lazyload"
-                        src="{{ block.settings.cover_image | img_url: '1920x' }}"
-                        data-src="{{ img_url }}"
-                        data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
-                        data-aspectratio="{{ block.settings.cover_image.aspect_ratio }}"
-                        data-sizes="auto"
-                        alt="{{ block.settings.cover_image.alt | escape }}">
-                      
+            {% elsif block.settings.video_url != blank %}
+              {%- if block.settings.show_overlay -%}
+              <style>
+                #VideoSection--{{ section.id }} .video-section__cover-text {
+                  color: {{ block.settings.overlay_text }};
+                }
+
+                #VideoSection--{{ section.id }} .video-section__load-player-button-triangle {
+                  border-left-color: {{ block.settings.overlay_text }};
+                }
+
+                #VideoSection--{{ section.id }} .video-section__load-player-button.animated .video-section__load-player-button-circle,
+                #VideoSection--{{ section.id }} .video-section__load-player-button-circle {
+                  border-color: {{ block.settings.overlay_text }};
+                }
+
+                #VideoSection--{{ section.id }} .video-section__cover-overlay {
+                  background-color: {{ block.settings.overlay_color }};
+                  opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+                }
+              </style>
+              {%- endif -%}
+
+              <div id="VideoSection--{{ section.id }}" class="video-section video-section--{{ block.settings.cover_image_height }}" data-section-id="{{ section.id }}" data-section-type="video" data-video-id="{{ block.settings.video_url.id }}" data-video-type="{{ block.settings.video_url.type }}">
+                <div class="video-section__body-overlay">
+                </div>
+                <div class="video-section__modal">
+                  <div class="video-wrapper">
+                    <button class="video-section__player-close">
+                      <span class="visually-hidden">{{ 'video.close' | t }}</span>
+                      {%- include 'icon-close' -%}
+                    </button>
+                    <div class="video-section__player"></div>
                   </div>
-                  {%- endif -%}
                 </div>
-                <div class="video-section__cover-overlay">
-                </div>
-                <div class="video-section__cover-content">
-                  <button class="video-section__load-player-button video-section__load-player-button--large">
-                    <span class="visually-hidden">{{ 'video.play' | t }}</span>
-                    <div class="video-section__load-player-icon">
-                      <div class="video-section__load-player-mark">
-                      </div>
-                      <div class="video-section__load-player-button-circle"></div>
-                      <div class="video-section__load-player-button-triangle"></div>
+                <div class="video-section__cover">
+                  <div class="video-section__cover-background">
+                    {%- if block.settings.cover_image == blank -%}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- else -%}
+                    <div class="position-relative image-content__image-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.cover_image.aspect_ratio | times: 100}}%;">
+                      {% assign img_url = block.settings.cover_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                      <img class="image-content__image lazyload"
+                          src="{{ block.settings.cover_image | img_url: '1920x' }}"
+                          data-src="{{ img_url }}"
+                          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                          data-aspectratio="{{ block.settings.cover_image.aspect_ratio }}"
+                          data-sizes="auto"
+                          alt="{{ block.settings.cover_image.alt | escape }}">
+                        
                     </div>
-                  </button>
-                  <p class="video-section__error"></p>
+                    {%- endif -%}
+                  </div>
+                  <div class="video-section__cover-overlay">
+                  </div>
+                  <div class="video-section__cover-content">
+                    <button class="video-section__load-player-button video-section__load-player-button--large">
+                      <span class="visually-hidden">{{ 'video.play' | t }}</span>
+                      <div class="video-section__load-player-icon">
+                        <div class="video-section__load-player-mark">
+                        </div>
+                        <div class="video-section__load-player-button-circle"></div>
+                        <div class="video-section__load-player-button-triangle"></div>
+                      </div>
+                    </button>
+                    <p class="video-section__error"></p>
+                  </div>
                 </div>
               </div>
-            </div>
+            {% else %}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
 
           {%- when 'image' -%}
             {%- if block.settings.image != blank -%}
@@ -1031,11 +1040,17 @@ data-section-id="{{ section.id }}"  data-bg="{{ section.settings.image_bg | img_
         {
           "type": "video_url",
           "id": "video_url",
-          "label": "Video link",
+          "label": "Video link (YouTube/Vimeo)",
           "accept": [
             "youtube",
             "vimeo"
           ]
+        },
+        {
+          "type": "url",
+          "id": "mp4_url",
+          "label": "MP4 link",
+          "info": "Use direct .mp4 URL (example: https://cdn.shopify.com/videos/...mp4)"
         },
         {
           "type": "header",

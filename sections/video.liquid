@@ -29,6 +29,16 @@
 <div class="customstyle{{ section.id }}" data-aos="{{section.settings.animation}}" >
 <div class="{{ section.settings.setwidth }}" >
   {%- include 'style-section' -%}
+  {% assign mp4_url = section.settings.mp4_url | strip %}
+  {% if mp4_url != blank %}
+  <div class="video-section video-section--{{ section.settings.cover_image_height }}">
+    <div class="video-wrapper">
+      <video controls playsinline preload="metadata" style="width:100%;height:auto;">
+        <source src="{{ mp4_url | escape }}" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  {% else %}
   <div id="VideoSection--{{ section.id }}" class="video-section video-section--{{ section.settings.cover_image_height }}" data-section-id="{{ section.id }}" data-section-type="video" data-video-id="{{ section.settings.video_url.id }}" data-video-type="{{ section.settings.video_url.type }}">
     <div class="video-section__body-overlay"></div>
     <div class="video-section__modal">
@@ -76,6 +86,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 </div>
 </div>
 
@@ -181,11 +192,17 @@
     {
       "type": "video_url",
       "id": "video_url",
-      "label": "Video link",
+      "label": "Video link (YouTube/Vimeo)",
       "accept": [
         "youtube",
         "vimeo"
       ]
+    },
+    {
+      "type": "url",
+      "id": "mp4_url",
+      "label": "MP4 link",
+      "info": "Use direct .mp4 URL (example: https://cdn.shopify.com/videos/...mp4)"
     },
     {
       "type": "header",

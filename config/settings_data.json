@@ -3430,25 +3430,6 @@
           "button_hover_border_color": "#111111"
         }
       },
-      "video_QCy6zD": {
-        "type": "video",
-        "name": "Video",
-        "settings": {
-          "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "paddingmobile": "60px 0px 60px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "bgsection": "#fefefe",
-          "setwidth": "full",
-          "button_label": "",
-          "video_url": "",
-          "mp4_url": "https://cdn.shopify.com/videos/c/o/v/7f389bdadab84bf6a367e59424dca133.mp4",
-          "show_overlay": false,
-          "overlay_color": "#000000",
-          "overlay_opacity": 30
-        }
-      },
       "vio_motion_support_UzHM3B": {
         "type": "vio-motion-support",
         "blocks": {
@@ -3491,7 +3472,6 @@
       }
     },
     "content_for_index": [
-      "video_QCy6zD",
       "vio_motion_support_v2_CTtExQ",
       "vio_motion_support_UzHM3B"
     ],

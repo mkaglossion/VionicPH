@@ -228,13 +228,20 @@ data-section-id="{{ section.id }}"  data-bg="{{ section.settings.image_bg | img_
               {%- endif -%}
             </div>
           {%- when 'bgvideo' -%}
-            {% if block.settings.link_video != blank %}
+            {% assign external_video_url = block.settings.link_video | strip %}
+            {% if block.settings.shopify_video != blank %}
             <div class="video-section video-section--{{ block.settings.cover_bg_video }} ">
               <div class="htmlhero-video ">
-              <video id="Mp4{{ block.id }}" src="{{block.settings.link_video}}" loop="" muted="" playsinline="" autoplay="" ></video>
+                {{ block.settings.shopify_video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
               </div>
             </div>
-            {% else if %}
+            {% elsif external_video_url != blank %}
+            <div class="video-section video-section--{{ block.settings.cover_bg_video }} ">
+              <div class="htmlhero-video ">
+              <video id="Mp4{{ block.id }}" src="{{ external_video_url | escape }}" loop="" muted="" playsinline="" autoplay="" ></video>
+              </div>
+            </div>
+            {% else %}
             <div class="hero-video">
                     {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
             </div>
@@ -945,10 +952,15 @@ data-section-id="{{ section.id }}"  data-bg="{{ section.settings.image_bg | img_
           ]
         },
         {
+          "type": "video",
+          "id": "shopify_video",
+          "label": "Shopify uploaded video"
+        },
+        {
           "type": "textarea",
           "id": "link_video",
           "label": "Link Video",
-          "info": "Upload video in your host"
+          "info": "Paste direct video URL (example: https://cdn.shopify.com/videos/...mp4)"
         }
       ]
     },

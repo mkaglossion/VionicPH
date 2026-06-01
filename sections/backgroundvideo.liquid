@@ -23,11 +23,16 @@
   <div class="{{ section.settings.setwidth }}">
   <div class="section-block"  >
     <div class=" bgvideo-{{ section.id }}  txt-{{section.settings.align}} bg-herovideo" data-section-id="{{ section.id }}" data-section-type="background-video" >
-        {% if section.settings.link_video != blank %}
+        {% assign external_video_url = section.settings.link_video | strip %}
+        {% if section.settings.shopify_video != blank %}
         <div class="hero-video">
-         <video id="Mp4{{ section.id }}" src="{{section.settings.link_video}}" loop="" muted="" playsinline="" autoplay="" ></video>
+          {{ section.settings.shopify_video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
         </div>
-        {% else if %}
+        {% elsif external_video_url != blank %}
+        <div class="hero-video">
+         <video id="Mp4{{ section.id }}" src="{{ external_video_url | escape }}" loop="" muted="" playsinline="" autoplay="" ></video>
+        </div>
+        {% else %}
         <div class="hero-video">
                 {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
         </div>
@@ -244,10 +249,15 @@
         "info": "Optional"
       },
       {
+        "type": "video",
+        "id": "shopify_video",
+        "label": "Shopify uploaded video"
+      },
+      {
         "type": "textarea",
         "id": "link_video",
         "label": "Link Video",
-        "info": "Upload video in your host"
+        "info": "Paste direct video URL (example: https://cdn.shopify.com/videos/...mp4)"
       }
     ],
     "presets": [

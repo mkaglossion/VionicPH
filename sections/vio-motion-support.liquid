@@ -51,12 +51,9 @@
           <article id="block-{{ block.id }}" class="expert-card">
             <div class="logo-wrap">
               {% if block.settings.logo_image != blank %}
-                {% comment %} Render uploaded image only. No default/fallback images are provided. {% endcomment %}
-                {% if block.settings.logo_image contains 'http' %}
-                  <img class="logo" src="{{ block.settings.logo_image }}" alt="{{ block.settings.logo_alt }}">
-                {% else %}
-                  <img class="logo" src="{{ block.settings.logo_image | img_url: 'master' }}" alt="{{ block.settings.logo_alt }}">
-                {% endif %}
+                <img class="logo" src="{{ block.settings.logo_image | img_url: 'master' }}" alt="{{ block.settings.logo_alt }}">
+              {% elsif block.settings.logo_image_url != blank %}
+                <img class="logo" src="{{ block.settings.logo_image_url | escape }}" alt="{{ block.settings.logo_alt }}">
               {% endif %}
             </div>
             <h3 class="expert-title">{{ block.settings.card_title }}</h3>
@@ -98,6 +95,7 @@
       "name": "Card",
       "settings": [
         { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
+        { "type": "text", "id": "logo_image_url", "label": "Logo image URL (fallback)" },
         { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Logo" },
         { "type": "text", "id": "card_title", "label": "Card title", "default": "Trusted by Podiatric Specialist" },
         { "type": "textarea", "id": "card_text", "label": "Description", "default": "Short description text for this card." },
@@ -107,6 +105,41 @@
       ]
     }
   ],
-  "max_blocks": 4
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Vio-motion Support",
+      "settings": {
+        "section_heading": "TRUSTED AND APPROVED BY EXPERTS",
+        "bg_color": "#fefefe",
+        "title_color": "#1f1f1f",
+        "heading_color": "#1f1f1f"
+      },
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "logo_alt": "American Podiatric Medical Association Seal of Acceptance",
+            "card_title": "Trusted by Podiatric Specialist",
+            "card_text": "The American Podiatric Medical Association is the leading resource for foot health information. Many Vionic products carry the APMA Seal of Acceptance.",
+            "button_text": "Learn More",
+            "button_link": "https://vionicshoes.com.ph/pages/apma",
+            "open_in_new_tab": false
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "logo_alt": "VioLab",
+            "card_title": "The Source of Our Innovation",
+            "card_text": "Vionic benefits from the expertise of some of the finest minds in health and lower limb biomechanics with our VioLab.",
+            "button_text": "Learn More",
+            "button_link": "https://vionicshoes.com.ph/pages/violab",
+            "open_in_new_tab": false
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

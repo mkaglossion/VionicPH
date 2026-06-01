@@ -3346,607 +3346,6 @@
           "color_dot_active": "#c99a5c"
         }
       },
-      "164982816206b803ec": {
-        "type": "advanced-content",
-        "blocks": {
-          "164982816206b803ec-0": {
-            "type": "html",
-            "settings": {
-              "code": "<div id=\"insta-feed\"></div>",
-              "width": "100%",
-              "align": "auto"
-            }
-          },
-          "image_ELtLWG": {
-            "type": "image",
-            "settings": {
-              "width": "100%",
-              "align": "center",
-              "image": "shopify://shop_images/082723-Tech_Legs_Footer_Desktop_dbbfcd90-38e3-4524-8d4b-b4d55a85eaeb.webp",
-              "image_link": ""
-            }
-          }
-        },
-        "block_order": [
-          "164982816206b803ec-0",
-          "image_ELtLWG"
-        ],
-        "disabled": true,
-        "settings": {
-          "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "paddingmobile": "0px 0px 0px 0px",
-          "marginsection": "-40px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "zindex": "0",
-          "title_top": "",
-          "title": "",
-          "des": "",
-          "setwidth": "full",
-          "padding": true,
-          "col_center": false,
-          "bgsection": "#fefefe",
-          "rangebg": 0,
-          "bgbefore": "rgba(0,0,0,0)",
-          "e_size": "auto",
-          "e_repeat": "no-repeat"
-        }
-      },
-      "1649829226e2882792": {
-        "type": "instagram",
-        "custom_css": [
-          "#insta-feed {margin: auto !important;}"
-        ],
-        "settings": {
-          "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "paddingmobile": "0px 0px 0px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "bgsection": "#ffffff",
-          "setwidth": "container-fluid",
-          "title_top": "",
-          "title": "",
-          "des": "",
-          "accesstoken": "IGQVJXN0lsaGpWbENYTkZAZAQ2o1S2hKcFhCbkY1cVBXajN5ZAndSVWxwQW5mbHJHZADFwOGlLRFBCQ1VoWXFhYWp2S2szUXlwLUYtX19KbmY5Nnh6NjJvNmM5LXlPOUo0SWd4amdfdy01a1ZAqM05LOW55QwZDZD",
-          "limit": 5,
-          "style": "carousel",
-          "show": 5,
-          "arrows": false,
-          "draggable": true,
-          "dots": true,
-          "infinite": true,
-          "padding": false
-        }
-      },
-      "1655089544770df520": {
-        "type": "advanced-content",
-        "blocks": {
-          "2c9b88e8-2d54-424a-91ca-a2bb9589794b": {
-            "type": "bgvideo",
-            "settings": {
-              "width": "50%",
-              "link_video": "https://cdn.shopify.com/videos/c/o/v/67626af5a2b549a0aea1221088ab6d3f.mp4"
-            }
-          },
-          "aee4462e-fbca-4c0c-a539-022964c2b3bf": {
-            "type": "image",
-            "settings": {
-              "width": "25%",
-              "align": "center",
-              "image": "shopify://shop_images/natural_alignment.jpg",
-              "image_link": ""
-            }
-          },
-          "1655089544770df520-0": {
-            "type": "html",
-            "settings": {
-              "code": "<div class=\"natural-alignment-text\">\n<p>A trial period of 12 weeks (targeting 150 heel-pain sufferers age 50+) showed that patients wearing Vionic contoured sandals were 68% more likely to report improvement in symptoms compared to those wearing flat flip flops. Results also showed that the contoured sandal provided similar relief to best-selling Vionic orthotic insoles in alleviating heel pain.</p>\n<p><a href=\"/pages/heel-pain\">Read the Full Study here ></a></p>\n<p><a href=\"/pages/vio-motion-support\">Read more about Vio-Motion Support here ></a></p>\n</div>\n<style>\n.customstyle1655089544770df520  {background-color: #f1f1f1;}\n@media screen and (max-width:761px) {\n.natural-alignment-text {padding:3%;}\n}\n.grid__item-inner--bgvideo {height:45vh !important;}\n@media screen and (max-width:761px) {\n.grid__item-inner--bgvideo {height:35vh !important;}\n}\n</style>",
-              "width": "25%",
-              "align": "center"
-            }
-          }
-        },
-        "block_order": [
-          "2c9b88e8-2d54-424a-91ca-a2bb9589794b",
-          "aee4462e-fbca-4c0c-a539-022964c2b3bf",
-          "1655089544770df520-0"
-        ],
-        "disabled": true,
-        "settings": {
-          "animation": "",
-          "paddingsection": "60px 0px 30px 0px",
-          "paddingmobile": "60px 0px 0px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "zindex": "0",
-          "title_top": "Vio-Motion Technology",
-          "title": "VIONIC SHOES SUPPORT NATURAL ALIGNMENT",
-          "des": "",
-          "setwidth": "container",
-          "padding": true,
-          "col_center": false,
-          "bgsection": "#fefefe",
-          "rangebg": 0,
-          "bgbefore": "rgba(0,0,0,0)",
-          "e_size": "auto",
-          "e_repeat": "no-repeat"
-        }
-      },
-      "1661328857c6533357": {
-        "type": "product-tab",
-        "blocks": {
-          "1661328857c6533357-1": {
-            "type": "collection",
-            "settings": {
-              "title": "New Arrivals",
-              "collection": "new-arrivals"
-            }
-          },
-          "1661328857c6533357-0": {
-            "type": "collection",
-            "settings": {
-              "title": "Best Sellers",
-              "collection": "best-sellers"
-            }
-          }
-        },
-        "block_order": [
-          "1661328857c6533357-1",
-          "1661328857c6533357-0"
-        ],
-        "custom_css": [
-          ".section-title-1 {font-size: 3rem; /* Adjust as needed */ font-weight: bold; /* Optional: makes text stand out more */}",
-          ".text-center {font-size: 1.3rem; /* Adjust size as needed */}"
-        ],
-        "settings": {
-          "animation": "",
-          "paddingsection": "60px 0px 30px 0px",
-          "paddingmobile": "60px 0px 30px 0px",
-          "marginsection": "0px 0px 20px 0px",
-          "marginmobile": "0px 0px 20px 0px",
-          "bgsection": "#fefefe",
-          "setwidth": "container-fluid",
-          "title_top": "",
-          "title": "TRENDING STYLES",
-          "des": "",
-          "arrows": false,
-          "draggable": true,
-          "dots": true,
-          "infinite": false,
-          "rows": "1",
-          "spaceBetween": 15,
-          "limit": 9,
-          "show": 5
-        }
-      },
-      "ffb758af-0433-4a40-990a-bf1fe581e01e": {
-        "type": "grid-banner",
-        "blocks": {
-          "ffb758af-0433-4a40-990a-bf1fe581e01e-1669173669062d8373-0": {
-            "type": "banner",
-            "disabled": true,
-            "settings": {
-              "image": "shopify://shop_images/VionicBlackFridaySale_OwnWeb2.jpg",
-              "image_mobile": "shopify://shop_images/VionicBlackFriday-banner-mobile.png",
-              "width": "12",
-              "description": "",
-              "bg_color": "#fefefe",
-              "colordef": "#ffffff",
-              "opacity_bg": 0,
-              "style_btn": "btn-underline btn-underline-white",
-              "button_text": "",
-              "button_icon": "",
-              "button_link": "shopify://collections/sale",
-              "vertical": "bottom",
-              "horizontal": "center",
-              "text_align": "center"
-            }
-          },
-          "f690f523-a92c-44d4-9d2a-092a4ca9c7ed": {
-            "type": "banner",
-            "disabled": true,
-            "settings": {
-              "image": "shopify://shop_images/Vionic_CyberMondayFlashSale1.jpg",
-              "image_mobile": "shopify://shop_images/Vionic_CyberMondayFlashSale-mobile.jpg",
-              "width": "12",
-              "description": "",
-              "bg_color": "#fefefe",
-              "colordef": "#ffffff",
-              "opacity_bg": 0,
-              "style_btn": "btn-underline btn-underline-white",
-              "button_text": "",
-              "button_icon": "",
-              "button_link": "shopify://collections/sale",
-              "vertical": "bottom",
-              "horizontal": "center",
-              "text_align": "center"
-            }
-          }
-        },
-        "block_order": [
-          "ffb758af-0433-4a40-990a-bf1fe581e01e-1669173669062d8373-0",
-          "f690f523-a92c-44d4-9d2a-092a4ca9c7ed"
-        ],
-        "disabled": true,
-        "settings": {
-          "animation": "",
-          "paddingsection": "0px 0px 30px 0px",
-          "paddingmobile": "30px 0px 30px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "bgsection": "#fefefe",
-          "bgstyle": false,
-          "bgbefore": "#e3c9b8",
-          "title_top": "",
-          "title": "",
-          "des": "",
-          "setwidth": "container",
-          "no_gutter": false,
-          "show_overlay": false,
-          "gradient_overlay": false,
-          "bg_overlay": "#000000",
-          "opacity_overlay": 0
-        }
-      },
-      "c5f4fe00-49ec-4304-a92c-7a70f5d60f04": {
-        "type": "grid-banner",
-        "blocks": {
-          "c5f4fe00-49ec-4304-a92c-7a70f5d60f04-16699626045577dd91-1": {
-            "type": "banner",
-            "settings": {
-              "image": "shopify://shop_images/Vionic_women_s_month_Sale_Banner.jpg",
-              "image_mobile": "shopify://shop_images/Vionic_women_s_month_Sale_meta_ad.jpg",
-              "width": "12",
-              "description": "",
-              "bg_color": "#fefefe",
-              "colordef": "#ffffff",
-              "opacity_bg": 0,
-              "style_btn": "btn-underline btn-underline-white",
-              "button_text": "",
-              "button_icon": "",
-              "button_link": "shopify://collections/sale",
-              "vertical": "bottom",
-              "horizontal": "center",
-              "text_align": "center"
-            }
-          }
-        },
-        "block_order": [
-          "c5f4fe00-49ec-4304-a92c-7a70f5d60f04-16699626045577dd91-1"
-        ],
-        "disabled": true,
-        "settings": {
-          "animation": "",
-          "paddingsection": "60px 0px 0px 0px",
-          "paddingmobile": "30px 0px 0px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "bgsection": "#fefefe",
-          "bgstyle": false,
-          "bgbefore": "#e3c9b8",
-          "title_top": "",
-          "title": "",
-          "des": "",
-          "setwidth": "full",
-          "no_gutter": false,
-          "show_overlay": false,
-          "gradient_overlay": false,
-          "bg_overlay": "#000000",
-          "opacity_overlay": 0.4
-        }
-      },
-      "4e5fe7e2-77db-4365-ac11-0684360e29d2": {
-        "type": "grid-banner-2",
-        "blocks": {
-          "4e5fe7e2-77db-4365-ac11-0684360e29d2-1683593863d7db171a-0": {
-            "type": "banner",
-            "settings": {
-              "paddingblock": "0px 0px 0px 0px",
-              "bg_image": "",
-              "border_banner": "#ffffff",
-              "bg_banner": "#ffffff",
-              "opbg_banner": 0.4,
-              "image": "shopify://shop_images/Citrine_Cora_368fdb07-1dc0-4c33-b4ef-012b63b98174.jpg",
-              "width": "4",
-              "description": "",
-              "button_text": "SANDALS",
-              "button_link": "shopify://collections/womens-sandals",
-              "reverse": "flex-column",
-              "text_align": "center"
-            }
-          },
-          "4e5fe7e2-77db-4365-ac11-0684360e29d2-1683593863d7db171a-1": {
-            "type": "banner",
-            "settings": {
-              "paddingblock": "0px 0px 0px 0px",
-              "bg_image": "",
-              "border_banner": "#ffffff",
-              "bg_banner": "#ffffff",
-              "opbg_banner": 0.4,
-              "image": "shopify://shop_images/Hyacinth_Klara_a46a2eb8-ea01-48e9-8971-427d3e00be32.jpg",
-              "width": "4",
-              "description": "",
-              "button_text": "FLATS",
-              "button_link": "shopify://collections/womens-flats",
-              "reverse": "flex-column",
-              "text_align": "center"
-            }
-          },
-          "82581026-343e-4b6f-b782-4dfb9033936e": {
-            "type": "banner",
-            "settings": {
-              "paddingblock": "0px 0px 0px 0px",
-              "bg_image": "",
-              "border_banner": "#ffffff",
-              "bg_banner": "#ffffff",
-              "opbg_banner": 0,
-              "image": "shopify://shop_images/Essence_Winny_f15f86a1-1286-4317-9ab7-3c85b608bb63.jpg",
-              "width": "4",
-              "description": "",
-              "button_text": "CASUALS",
-              "button_link": "shopify://collections/womens-casual-sneakers",
-              "reverse": "flex-column",
-              "text_align": "center"
-            }
-          }
-        },
-        "block_order": [
-          "4e5fe7e2-77db-4365-ac11-0684360e29d2-1683593863d7db171a-0",
-          "4e5fe7e2-77db-4365-ac11-0684360e29d2-1683593863d7db171a-1",
-          "82581026-343e-4b6f-b782-4dfb9033936e"
-        ],
-        "disabled": true,
-        "custom_css": [
-          ".btn-theme {background: #fff0; border: solid 1px; color: #000;}",
-          ".section-title-1 {font-size: 3rem; /* Adjust as needed */ font-weight: bold; /* Optional: makes text stand out more */}",
-          ".text-center {font-size: 1.3rem; /* Adjust size as needed */}"
-        ],
-        "settings": {
-          "animation": "",
-          "paddingsection": "60px 0px 30px 0px",
-          "paddingmobile": "40px 0px 60px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "bgsection": "#ffffff",
-          "title_top": "",
-          "title": "BALANCE BEGINS WITH VIONIC",
-          "des": "<span style=\"color:#414042;\">Explore sandals, sneakers, dress shoes, and more that harness science to make every day better.</span>",
-          "setwidth": "container-fluid",
-          "no_gutter": true
-        }
-      },
-      "502c6a98-5adb-4d90-ac23-d9d9922c5c59": {
-        "type": "advanced-content",
-        "blocks": {
-          "3a1b8089-54fa-4d20-b96e-e674680420d1": {
-            "type": "image",
-            "settings": {
-              "width": "100%",
-              "align": "auto",
-              "image": "shopify://shop_images/Revised_Learn_More_0272f6a4-5569-43d0-b223-02dd7785135c.jpg",
-              "image_link": "shopify://products/copy-of-renewal-activate-womens-heel-wedge-sandals-taupe"
-            }
-          },
-          "11abeeaf-1e7e-4571-af89-1994f0e8975a": {
-            "type": "html",
-            "disabled": true,
-            "settings": {
-              "code": "<h2 style=\"margin-top: 30px;\">INTRODUCING / RENEWAL ACTIVATE SANDALS</h2>\n<p>This lightweight recovery sandal features an adjustable strap, massaging footbed and dual-density cushioning.</p>\n\n<a href=\"/products/copy-of-renewal-activate-womens-heel-wedge-sandals-taupe?_pos=1&_sid=83894be65&_ss=r\" class=\"btn btn-theme gradient-theme\">\n SHOP RENEWAL ACTIVATE\n            </a>",
-              "width": "auto",
-              "align": "auto"
-            }
-          }
-        },
-        "block_order": [
-          "3a1b8089-54fa-4d20-b96e-e674680420d1",
-          "11abeeaf-1e7e-4571-af89-1994f0e8975a"
-        ],
-        "disabled": true,
-        "custom_css": [
-          ".btn-theme {background: #fff0; border: solid 1px; color: #000;}"
-        ],
-        "settings": {
-          "animation": "",
-          "paddingsection": "40px 0px 40px 0px",
-          "paddingmobile": "40px 0px 40px 0px",
-          "marginsection": "10px 0px 0px 0px",
-          "marginmobile": "10px 0px 0px 0px",
-          "zindex": "0",
-          "title_top": "",
-          "title": "",
-          "des": "",
-          "setwidth": "container",
-          "padding": false,
-          "col_center": true,
-          "bgsection": "#f0f0f0",
-          "rangebg": 0,
-          "bgbefore": "rgba(0,0,0,0)",
-          "e_size": "auto",
-          "e_repeat": "no-repeat"
-        }
-      },
-      "36e1a7a0-ea05-4fbb-878b-982074a92aad": {
-        "type": "grid-banner",
-        "blocks": {
-          "36e1a7a0-ea05-4fbb-878b-982074a92aad-1683603504c09118ed-0": {
-            "type": "banner",
-            "settings": {
-              "image": "shopify://shop_images/Own_Web_Desktop_-_IG_Link.jpg",
-              "image_mobile": "shopify://shop_images/IG.jpg",
-              "width": "12",
-              "description": "",
-              "bg_color": "#fefefe",
-              "colordef": "#ffffff",
-              "opacity_bg": 0,
-              "style_btn": "btn-underline btn-underline-white",
-              "button_text": "",
-              "button_icon": "",
-              "button_link": "https://instagram.com/vionicshoesph",
-              "vertical": "mid",
-              "horizontal": "center",
-              "text_align": "center"
-            }
-          },
-          "banner_pwKBhW": {
-            "type": "banner",
-            "settings": {
-              "image": "shopify://shop_images/Legs__Stability_Mobility_Powered_by_Vio_Motion_Technology_111c2bc4_cedcc8e3-e3ed-4dda-82c4-18268e5044cf.jpg",
-              "image_mobile": "shopify://shop_images/Stability_Banner_-_Mobile.webp",
-              "width": "12",
-              "description": "",
-              "bg_color": "#fefefe",
-              "colordef": "#ffffff",
-              "opacity_bg": 0,
-              "style_btn": "btn-underline btn-underline-white",
-              "button_text": "",
-              "button_icon": "",
-              "button_link": "https://instagram.com/vionicshoesph",
-              "vertical": "mid",
-              "horizontal": "center",
-              "text_align": "center"
-            }
-          }
-        },
-        "block_order": [
-          "36e1a7a0-ea05-4fbb-878b-982074a92aad-1683603504c09118ed-0",
-          "banner_pwKBhW"
-        ],
-        "settings": {
-          "animation": "",
-          "paddingsection": "0",
-          "paddingmobile": "40px 0px 40px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "bgsection": "#fefefe",
-          "bgstyle": false,
-          "bgbefore": "#e3c9b8",
-          "title_top": "",
-          "title": "",
-          "des": "",
-          "setwidth": "full",
-          "no_gutter": true,
-          "show_overlay": false,
-          "gradient_overlay": false,
-          "bg_overlay": "#000000",
-          "opacity_overlay": 0.4
-        }
-      },
-      "featured_collections_4_hzEakN": {
-        "type": "featured-collections-4",
-        "blocks": {
-          "collection_AVYUgL": {
-            "type": "collection",
-            "settings": {
-              "collection": "shop-daily-essentials",
-              "image": "shopify://shop_images/Shop_Daily_Essentials_8fff8629-98e0-4cee-9f8e-3d51b89c4568.jpg"
-            }
-          },
-          "collection_zeYU7W": {
-            "type": "collection",
-            "settings": {
-              "collection": "shop-recovery",
-              "image": "shopify://shop_images/Shop_Sandals_a5cd3a29-f8cf-4f9a-bcf9-2bb140e77940.jpg"
-            }
-          },
-          "collection_PgMngk": {
-            "type": "collection",
-            "settings": {
-              "collection": "women-active-sneakers",
-              "image": "shopify://shop_images/Shop_Walk_08be6a7d-0e24-4fb8-a928-28cb052e8edc.jpg"
-            }
-          },
-          "collection_BPJmhm": {
-            "type": "collection",
-            "disabled": true,
-            "settings": {
-              "collection": "shop-walking",
-              "image": "shopify://shop_images/Shop_Walk_08be6a7d-0e24-4fb8-a928-28cb052e8edc.jpg"
-            }
-          }
-        },
-        "block_order": [
-          "collection_AVYUgL",
-          "collection_zeYU7W",
-          "collection_PgMngk",
-          "collection_BPJmhm"
-        ],
-        "disabled": true,
-        "custom_css": [
-          ".section-title-1 {font-size: 3rem; /* Adjust as needed */ font-weight: bold; /* Optional: makes text stand out more */}",
-          ".text-center {font-size: 1.3rem; /* Adjust size as needed */}"
-        ],
-        "settings": {
-          "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "paddingmobile": "60px 0px 60px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "zindex": "1",
-          "bgsection": "#ffffff",
-          "enable_box": false,
-          "bg_box": "#ffffff",
-          "enable_items": false,
-          "rounded": false,
-          "setwidth": "container-fluid",
-          "title_top": "",
-          "title": "WHAT WE'RE LOVING",
-          "des": "We've curated our favorite collections for you",
-          "width": "col-lg-4"
-        }
-      },
-      "rich_text_HfhFFF": {
-        "type": "rich-text",
-        "custom_css": [],
-        "settings": {
-          "animation": "",
-          "paddingsection": "30px 0px 30px 0px",
-          "paddingmobile": "30px 0px 30px 0px",
-          "marginsection": "30",
-          "marginmobile": "30",
-          "bgsection": "#fefefe",
-          "title_top": "",
-          "title": "",
-          "des": "<body>\n\n\n    <meta charset=\"UTF-8\">\n    <title>Vionic - Comfortable Shoes for Women</title>\n    <style>\n        body {\n            line-height: 1.5rem;\n        }\n        #moreText {\n            display: none;\n        }\n        #readMoreBtn {\n            color: black;\n            text-decoration: underline;\n            cursor: pointer;\n            background: none;\n            border: none;\n            padding: 0;\n            margin-top: 1rem;\n            font-size: 1.2rem;\n        }\n        h1{\n            margin: 2rem;\n            font-size: 1.5rem;\n        }\n        p{\n            font-size: 1rem;\n        }\n    </style>\n\n\n    <h1>THE SCIENCE OF STYLE WITH MAXIMUM COMFORT</h1>\n    <p>Too often, finding the perfect comfortable shoe for women comes at the expense of style, forcing you to choose between comfort and appearance. At Vionic, we're disrupting the footwear space by transforming how people view women's shoes - from women's walking shoes to high heels to slippers and everything in between.</p>\n    <div id=\"moreText\">\n        <h1>COMFORTABLE SHOES FOR WOMEN, NO MATTER THE OCCASION</h1>\n        <p>Finding comfortable shoes for women should not be difficult, whether you're looking for a fancy pair of shoes for the office or something more casual for your weekend outfits. We offer professional and comfortable work shoes for women that transition elegantly from the boardroom to your favorite evening restaurant, while our chic, yet comfortable flats are as well-suited running errands as they are for a night out with friends. Our everyday sneakers provide high arch support for active all-day wear, our women's casual sneakers are perfect for a chill weekend, and our comfortable sandals and flip flops are designed with the most on-trend silhouettes and color palettes of the season. We even recommend our comfortable shoes for nurses and doctors that are on their feet all day to minimize foot pain caused by over-pronation and ensure maximum comfort throughout the day.</p>\n        <p>The days of uncomfortable women's shoes are over. From stylish walking shoes in a variety of colors to ballet flats and ankle boots, be stylish and feel confident in the Vionic selection of supportive on-trend shoes. Why settle for anything less? Women looking for shoes for plantar fasciitis and heel pain relief or who suffer from arch support problems will especially appreciate the orthotic support that Vionic shoes have built right into the sole. Shop comfortable shoes for women from Vionic.</p>\n    </div>\n\n    <button id=\"readMoreBtn\" onclick=\"toggleText()\">Read More</button>\n\n    <script>\n        function toggleText() {\n            const moreText = document.getElementById(\"moreText\");\n            const btn = document.getElementById(\"readMoreBtn\");\n\n            if (moreText.style.display === \"none\") {\n                moreText.style.display = \"block\";\n                btn.textContent = \"Read Less\";\n            } else {\n                moreText.style.display = \"none\";\n                btn.textContent = \"Read More\";\n            }\n        }\n    </script>\n\n</body>",
-          "setwidth": "container",
-          "text": ""
-        }
-      },
-      "advanced_content_mKXmAY": {
-        "type": "advanced-content",
-        "blocks": {
-          "html_wKzHxG": {
-            "type": "html",
-            "settings": {
-              "code": "<body>\n\n\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Footer</title>\n    <style>\n        /* Main footer styling */\n        .footer {\n            background-color: #333;\n            color: #fff;\n            display: flex;\n            justify-content: space-between;\n            padding: 20px;\n            font-family: Arial, sans-serif;\n        }\n\n        .footer-section {\n            flex: 1;\n            margin: 0 10px;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            text-align: center;\n        }\n\n        .footer-section h2 {\n            font-size: 18px;\n            margin-bottom: 10px;\n            color: #fff;\n        }\n\n        .footer-section p {\n            font-size: 14px;\n            margin: 5px 0;\n            color: #fff;\n        }\n\n        .footer-section a {\n            color: #8FA19A;\n            text-decoration: none;\n            font-size: 14px;\n            margin-top: 10px;\n            display: inline-block;\n        }\n\n        .footer-section form {\n            display: flex;\n            align-items: center;\n            margin-top: 20px;\n            border: 1px solid #8FA19A;\n        }\n\n        .footer-section input[type=\"email\"] {\n            padding: 10px;\n            border: none;\n            flex: 1;\n            font-size: 14px;\n            color: #333;\n        }\n\n        .footer-section button {\n            padding: 10px 20px;\n            background-color: #8FA19A;\n            color: #fff;\n            border: none;\n            cursor: pointer;\n            font-size: 14px;\n        }\n\n        .footer-section .social-icons {\n            display: flex;\n            align-items: center;\n            margin-top: 10px;\n        }\n\n        .footer-section .social-icons a {\n            margin-right: 10px;\n        }\n\n        .footer-section .social-icons img {\n            width: 24px;\n            height: 24px;\n        }\n\n        .footer .vertical-line {\n            width: 1px;\n            background-color: #fff;\n            margin: 0 20px;\n        }\n\n        /* Mobile footer styling */\n        .mobile-footer {\n            display: none;\n        }\n\n        @media (max-width: 768px) {\n            .footer {\n                display: none;\n            }\n\n            .mobile-footer {\n                display: block;\n                text-align: center;\n                padding: 20px;\n                background-color: #333;\n                color: #fff;\n                font-family: Arial, sans-serif;\n            }\n\n            .mobile-footer h2 {\n                font-size: 18px;\n                margin-bottom: 5px;\n                color: #fff;\n            }\n\n            .mobile-footer p {\n                font-size: 14px;\n                margin: 5px 0;\n                color: #fff;\n            }\n\n            .mobile-footer p.phone-number {\n                font-size: 16px;\n                font-weight: bold;\n            }\n\n            .mobile-footer p.operating-hours {\n                font-size: 15px;\n                margin-top: 5px;\n                margin-bottom: 15px;\n            }\n\n            .mobile-footer h2.follow-us {\n                margin-bottom: 0px;\n            }\n\n            .mobile-footer a {\n                display: block;\n                padding: 10px;\n                margin: 10px 0;\n                background-color: transparent;\n                border: 1px solid #8FA19A;\n                color: #8FA19A;\n                text-decoration: none;\n                font-size: 16px;\n            }\n\n            .mobile-footer .social-icons {\n                display: flex;\n                justify-content: center;\n                margin-top: 0px;\n            }\n\n            .mobile-footer .social-icons a {\n                margin: 0 0px;\n                border: none;\n            }\n\n            .mobile-footer .social-icons img {\n                width: 32px;\n                height: 32px;\n            }\n\n            .mobile-footer .spacing-links {\n                margin: 35px 0;\n                margin-left: auto;\n                margin-right: auto;\n                width: 200px;\n            }\n\n            .mobile-footer a.spacing-links {\n                width: 200px;\n            }\n\n            .mobile-footer .email-signup-form {\n                display: flex;\n                flex-direction: column;\n                align-items: center;\n                margin-top: 20px;\n            }\n\n            .mobile-footer .email-signup-form p {\n                margin-bottom: 10px;\n            }\n\n            .mobile-footer .email-signup-form form {\n                display: flex;\n                width: 100%;\n                max-width: 300px;\n                justify-content: center;\n                align-items: center;\n                border: 1px solid #8FA19A;\n            }\n\n            .mobile-footer .email-signup-form input[type=\"email\"] {\n                padding: 10px;\n                margin-right: 0;\n                flex: 1;\n                border: none;\n                width: 70%;\n                font-size: 14px;\n                color: #333;\n            }\n\n            .mobile-footer .email-signup-form button {\n                padding: 10px 20px;\n                background-color: #8FA19A;\n                color: #fff;\n                border: none;\n                cursor: pointer;\n                width: 30%;\n                font-size: 14px;\n            }\n        }\n    </style>\n\n\n    <div class=\"footer\">\n        <div class=\"footer-section\">\n            <h2>AT YOUR SERVICE</h2>\n            <p>GIVE US A RING</p>\n            <p>+639177013367 or +639177018367 and +639171023218</p>\n            <p>Monday to Sunday</p>\n            <p style=\"margin-top: 20px;\">DROP US A NOTE</p>\n            <p><a href=\"mailto:customerservice@vionicshoes.com.ph\" style=\"color: #fff; text-decoration: underline;\">customerservice@vionicshoes.com.ph</a></p>\n        </div>\n        <div class=\"vertical-line\"></div>\n        <div class=\"footer-section\">\n            <h2>FIND A STORE</h2>\n            <a href=\"/pages/store-locations\">Visit one of our stores nationwide.</a>\n            <h2 style=\"margin-top: 20px;\">FOLLOW US</h2>\n            <p>@vionicshoesph</p>\n            <div class=\"social-icons\">\n                <a href=\"https://www.facebook.com/vionicshoesph\"><img src=\"https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_facebook_1.webp\" alt=\"Facebook\"></a>\n                <a href=\"https://www.instagram.com/vionicshoesph\"><img src=\"https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_instagram_1.webp\" alt=\"Instagram\"></a>\n            </div>\n        </div>\n        <div class=\"vertical-line\"></div>\n        <div class=\"footer-section\">\n            <h2>Sign up for our email list.</h2>\n            <p>You'll be the first to know about the latest styles and promotions.</p>\n            <form action=\"/contact#contact_form\" method=\"post\" id=\"contact_form\" accept-charset=\"UTF-8\" class=\"contact-form\">\n                <input type=\"hidden\" name=\"form_type\" value=\"customer\">\n                <input type=\"hidden\" name=\"utf8\" value=\"✓\">\n                <input type=\"email\" name=\"contact[email]\" id=\"Email\" placeholder=\"Enter email\" aria-label=\"Enter email\" required>\n                <button type=\"submit\" name=\"commit\">SUBMIT</button>\n            </form>\n            <div id=\"thank-you-message\" style=\"display:none;\">\n                Thank you for signing up for emails!\n            </div>\n        </div>\n    </div>\n\n    <div class=\"mobile-footer\">\n        <h2>AT YOUR SERVICE</h2>\n        <p>CUSTOMER CARE</p>\n        <p class=\"phone-number\">+639177013367 or +639177018367 and +639171023218</p>\n        <p class=\"operating-hours\">Monday to Sunday </p>\n        <a href=\"mailto:customerservice@vionicshoes.com.ph\" class=\"spacing-links\">DROP US A NOTE</a>\n        <a href=\"/pages/store-locations\" class=\"spacing-links\">FIND A STORE</a>\n        <div class=\"email-signup-form\">\n            <p>Sign up for our email list.</p>\n            <p>You'll be the first to know about the latest styles and promotions.</p>\n            <form action=\"/contact#contact_form\" method=\"post\" id=\"mobile-contact_form\" accept-charset=\"UTF-8\" class=\"contact-form\">\n                <input type=\"hidden\" name=\"form_type\" value=\"customer\">\n                <input type=\"hidden\" name=\"utf8\" value=\"✓\">\n                <input type=\"email\" name=\"contact[email]\" id=\"mobile-Email\" placeholder=\"Enter email\" aria-label=\"Enter email\" required>\n                <button type=\"submit\" name=\"commit\">SUBMIT</button>\n            </form>\n            <div id=\"mobile-thank-you-message\" style=\"display:none;\">\n                Thank you for signing up for emails!\n            </div>\n        </div>\n        <h2 class=\"follow-us\" style=\"margin-top: 20px;\">FOLLOW US</h2>\n        <div class=\"social-icons\">\n            <a href=\"https://www.facebook.com/vionicshoesph\"><img src=\"https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_facebook_1.webp\" alt=\"Facebook\"></a>\n            <a href=\"https://www.instagram.com/vionicshoesph/\"><img src=\"https://cdn.shopify.com/s/files/1/0553/5590/0092/files/icon_instagram_1.webp\" alt=\"Instagram\"></a>\n        </div>\n    </div>\n\n    <script>\n        // JavaScript for Newsletter Signup Validation and Submission\n        document.getElementById('contact_form').addEventListener('submit', function(event) {\n            var emailInput = document.getElementById('Email');\n            if (!emailInput.value.includes('@')) {\n                alert('Please enter a valid email address.');\n                event.preventDefault();\n            }\n        });\n\n        // JavaScript for Mobile Newsletter Signup Validation and Submission\n        document.getElementById('mobile-contact_form').addEventListener('submit', function(event) {\n            var emailInput = document.getElementById('mobile-Email');\n            if (!emailInput.value.includes('@')) {\n                alert('Please enter a valid email address.');\n                event.preventDefault();\n            }\n        });\n\n        // Check URL for 'customer_posted=true' and display thank-you message\n        function checkUrlAndDisplayMessage() {\n            const urlParams = new URLSearchParams(window.location.search);\n            if (urlParams.get('customer_posted') === 'true') {\n                document.getElementById('thank-you-message').style.display = 'block';\n                document.querySelector('.footer-section').scrollIntoView({\n                    behavior: 'smooth' // Smoothly scroll to the footer section\n                });\n            }\n        }\n\n        function checkMobileUrlAndDisplayMessage() {\n            const urlParams = new URLSearchParams(window.location.search);\n            if (urlParams.get('customer_posted') === 'true') {\n                document.getElementById('mobile-thank-you-message').style.display = 'block';\n                document.querySelector('.mobile-footer').scrollIntoView({\n                    behavior: 'smooth' // Smoothly scroll to the mobile footer section\n                });\n            }\n        }\n\n        checkUrlAndDisplayMessage();\n        checkMobileUrlAndDisplayMessage();\n    </script>\n\n</body>",
-              "width": "100%",
-              "align": "auto"
-            }
-          }
-        },
-        "block_order": [
-          "html_wKzHxG"
-        ],
-        "settings": {
-          "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "paddingmobile": "0px 0px 0px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "zindex": "",
-          "title_top": "",
-          "title": "",
-          "des": "",
-          "setwidth": "container",
-          "padding": true,
-          "col_center": false,
-          "bgsection": "#333333",
-          "rangebg": 0,
-          "bgbefore": "#333333",
-          "e_size": "auto",
-          "e_repeat": "no-repeat"
-        }
-      },
       "header-7": {
         "type": "header-7",
         "settings": {
@@ -3997,21 +3396,94 @@
           "email_sidebar_title": "Newsletter",
           "socialshare": true
         }
+      },
+      "vio_motion_support_v2_4FkKLE": {
+        "type": "vio-motion-support-v2",
+        "name": "Vio Motion Support V2",
+        "settings": {
+          "image_max_width": 360,
+          "image_max_width_mobile": 240,
+          "heading": "30 DAY GUARANTEE",
+          "body_text": "Wear your new shoes in, out, and all around. Really. You've got 30 days to put the Vio Motion Technology to the test.",
+          "button_text": "LEARN MORE",
+          "button_link": "",
+          "text_max_width": 1000,
+          "padding_desktop": "48px 24px 36px",
+          "padding_mobile": "32px 16px 26px",
+          "title_size": 72,
+          "title_size_mobile": 42,
+          "text_size": 22,
+          "text_size_mobile": 18,
+          "button_min_width": 210,
+          "button_min_width_mobile": 170,
+          "button_text_size": 22,
+          "button_text_size_mobile": 16,
+          "bg_color": "#ffffff",
+          "title_color": "#000000",
+          "text_color": "#1f1f1f",
+          "button_bg_color": "#ffffff",
+          "button_text_color": "#111111",
+          "button_border_color": "#111111",
+          "button_hover_bg_color": "#111111",
+          "button_hover_text_color": "#ffffff",
+          "button_hover_border_color": "#111111"
+        }
+      },
+      "vio_motion_support_v2_CTtExQ": {
+        "type": "vio-motion-support-v2",
+        "name": "Vio Motion Support V2",
+        "settings": {
+          "image_max_width": 360,
+          "image_max_width_mobile": 240,
+          "heading": "30 DAY GUARANTEE",
+          "body_text": "Wear your new shoes in, out, and all around. Really. You've got 30 days to put the Vio Motion Technology to the test.",
+          "button_text": "LEARN MORE",
+          "button_link": "",
+          "text_max_width": 1000,
+          "padding_desktop": "48px 24px 36px",
+          "padding_mobile": "32px 16px 26px",
+          "title_size": 72,
+          "title_size_mobile": 42,
+          "text_size": 22,
+          "text_size_mobile": 18,
+          "button_min_width": 210,
+          "button_min_width_mobile": 170,
+          "button_text_size": 22,
+          "button_text_size_mobile": 16,
+          "bg_color": "#ffffff",
+          "title_color": "#000000",
+          "text_color": "#1f1f1f",
+          "button_bg_color": "#ffffff",
+          "button_text_color": "#111111",
+          "button_border_color": "#111111",
+          "button_hover_bg_color": "#111111",
+          "button_hover_text_color": "#ffffff",
+          "button_hover_border_color": "#111111"
+        }
+      },
+      "video_QCy6zD": {
+        "type": "video",
+        "name": "Video",
+        "settings": {
+          "animation": "",
+          "paddingsection": "0px 0px 0px 0px",
+          "paddingmobile": "60px 0px 60px 0px",
+          "marginsection": "0px 0px 0px 0px",
+          "marginmobile": "0px 0px 0px 0px",
+          "bgsection": "#fefefe",
+          "setwidth": "full",
+          "button_label": "",
+          "video_url": "",
+          "show_overlay": true,
+          "overlay_color": "#000000",
+          "overlay_opacity": 30
+        }
       }
     },
     "content_for_index": [
-      "c5f4fe00-49ec-4304-a92c-7a70f5d60f04",
-      "ffb758af-0433-4a40-990a-bf1fe581e01e",
-      "4e5fe7e2-77db-4365-ac11-0684360e29d2",
-      "featured_collections_4_hzEakN",
-      "1661328857c6533357",
-      "1655089544770df520",
-      "502c6a98-5adb-4d90-ac23-d9d9922c5c59",
-      "36e1a7a0-ea05-4fbb-878b-982074a92aad",
-      "164982816206b803ec",
-      "1649829226e2882792",
-      "rich_text_HfhFFF",
-      "advanced_content_mKXmAY"
+      "video_QCy6zD",
+      "vio_motion_support_v2_4FkKLE",
+      "vio_motion_support_v2_CTtExQ"
     ],
     "blocks": {
       "11691081583687840098": {

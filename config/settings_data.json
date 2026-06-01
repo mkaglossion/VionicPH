@@ -3398,78 +3398,6 @@
           "socialshare": true
         }
       },
-      "vio_motion_support_v2_CTtExQ": {
-        "type": "vio-motion-support-v2",
-        "name": "Vio Motion Support V2",
-        "settings": {
-          "image_max_width": 360,
-          "image_max_width_mobile": 240,
-          "heading": "30 DAY GUARANTEE",
-          "body_text": "Wear your new shoes in, out, and all around. Really. You've got 30 days to put the Vio Motion Technology to the test.",
-          "button_text": "LEARN MORE",
-          "button_link": "",
-          "text_max_width": 1000,
-          "padding_desktop": "48px 24px 36px",
-          "padding_mobile": "32px 16px 26px",
-          "title_size": 72,
-          "title_size_mobile": 42,
-          "text_size": 22,
-          "text_size_mobile": 18,
-          "button_min_width": 210,
-          "button_min_width_mobile": 170,
-          "button_text_size": 22,
-          "button_text_size_mobile": 16,
-          "bg_color": "#ffffff",
-          "title_color": "#000000",
-          "text_color": "#1f1f1f",
-          "button_bg_color": "#ffffff",
-          "button_text_color": "#111111",
-          "button_border_color": "#111111",
-          "button_hover_bg_color": "#111111",
-          "button_hover_text_color": "#ffffff",
-          "button_hover_border_color": "#111111"
-        }
-      },
-      "vio_motion_support_UzHM3B": {
-        "type": "vio-motion-support",
-        "blocks": {
-          "card_4RgkgU": {
-            "type": "card",
-            "settings": {
-              "logo_image_url": "",
-              "logo_alt": "American Podiatric Medical Association Seal of Acceptance",
-              "card_title": "Trusted by Podiatric Specialist",
-              "card_text": "The American Podiatric Medical Association is the leading resource for foot health information. Many Vionic products carry the APMA Seal of Acceptance.",
-              "button_text": "Learn More",
-              "button_link": "https://vionicshoes.com.ph/pages/apma",
-              "open_in_new_tab": false
-            }
-          },
-          "card_WE4cRq": {
-            "type": "card",
-            "settings": {
-              "logo_image_url": "",
-              "logo_alt": "VioLab",
-              "card_title": "The Source of Our Innovation",
-              "card_text": "Vionic benefits from the expertise of some of the finest minds in health and lower limb biomechanics with our VioLab.",
-              "button_text": "Learn More",
-              "button_link": "https://vionicshoes.com.ph/pages/violab",
-              "open_in_new_tab": false
-            }
-          }
-        },
-        "block_order": [
-          "card_4RgkgU",
-          "card_WE4cRq"
-        ],
-        "name": "Vio-motion Support",
-        "settings": {
-          "section_heading": "TRUSTED AND APPROVED BY EXPERTS",
-          "bg_color": "#fefefe",
-          "title_color": "#1f1f1f",
-          "heading_color": "#1f1f1f"
-        }
-      },
       "backgroundvideo_6xFEyb": {
         "type": "backgroundvideo",
         "name": "Background Video",
@@ -3498,9 +3426,7 @@
       }
     },
     "content_for_index": [
-      "backgroundvideo_6xFEyb",
-      "vio_motion_support_UzHM3B",
-      "vio_motion_support_v2_CTtExQ"
+      "backgroundvideo_6xFEyb"
     ],
     "blocks": {
       "11691081583687840098": {

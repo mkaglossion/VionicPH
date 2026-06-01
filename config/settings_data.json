@@ -3470,24 +3470,6 @@
           "heading_color": "#1f1f1f"
         }
       },
-      "video_F99MBK": {
-        "type": "video",
-        "name": "Video",
-        "settings": {
-          "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "paddingmobile": "0px 0px 0px 0px",
-          "marginsection": "0px 0px 0px 0px",
-          "marginmobile": "0px 0px 0px 0px",
-          "bgsection": "#fefefe",
-          "setwidth": "container-fluid",
-          "button_label": "",
-          "mp4_url": "https://cdn.shopify.com/videos/c/o/v/7f389bdadab84bf6a367e59424dca133.mp4",
-          "show_overlay": false,
-          "overlay_color": "#000000",
-          "overlay_opacity": 30
-        }
-      },
       "backgroundvideo_6xFEyb": {
         "type": "backgroundvideo",
         "name": "Background Video",
@@ -3516,10 +3498,9 @@
       }
     },
     "content_for_index": [
-      "video_F99MBK",
+      "backgroundvideo_6xFEyb",
       "vio_motion_support_UzHM3B",
-      "vio_motion_support_v2_CTtExQ",
-      "backgroundvideo_6xFEyb"
+      "vio_motion_support_v2_CTtExQ"
     ],
     "blocks": {
       "11691081583687840098": {

@@ -3470,37 +3470,29 @@
           "heading_color": "#1f1f1f"
         }
       },
-      "backgroundvideo_LFfyxe": {
-        "type": "backgroundvideo",
-        "name": "Background Video",
+      "video_F99MBK": {
+        "type": "video",
+        "name": "Video",
         "settings": {
           "animation": "",
           "paddingsection": "0px 0px 0px 0px",
+          "paddingmobile": "60px 0px 60px 0px",
           "marginsection": "0px 0px 0px 0px",
-          "bgsection": "rgba(0,0,0,0)",
-          "setwidth": "container-fluid",
-          "align": "right",
-          "padding_desktop": 300,
-          "padding_mobile": 80,
-          "bg_box": "rgba(0,0,0,0)",
-          "opacity_bgbox": 1,
-          "bg_overlay": "#000",
-          "opacity_bg_overlay": 0.1,
-          "title": "",
-          "title_color": "#fff",
-          "subtext": "",
-          "subtitle_color": "#fff",
-          "button": "discover now",
-          "link": "",
-          "shopify_video": "shopify://files/videos/Reel Banner.mp4",
-          "link_video": ""
+          "marginmobile": "0px 0px 0px 0px",
+          "bgsection": "#fefefe",
+          "setwidth": "container",
+          "button_label": "",
+          "mp4_url": "https://cdn.shopify.com/videos/c/o/v/7f389bdadab84bf6a367e59424dca133.mp4",
+          "show_overlay": true,
+          "overlay_color": "#000000",
+          "overlay_opacity": 30
         }
       }
     },
     "content_for_index": [
+      "video_F99MBK",
       "vio_motion_support_v2_CTtExQ",
-      "vio_motion_support_UzHM3B",
-      "backgroundvideo_LFfyxe"
+      "vio_motion_support_UzHM3B"
     ],
     "blocks": {
       "11691081583687840098": {

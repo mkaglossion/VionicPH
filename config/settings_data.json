@@ -3522,7 +3522,7 @@
           "banner_height_mode": "adapt",
           "cards_collection": "new-arrivals-1",
           "collection_cards_limit": 4,
-          "show_all_collection_cards": false,
+          "show_all_collection_cards": true,
           "card_height": 260,
           "card_height_mobile": 280,
           "item_border_radius": 0,

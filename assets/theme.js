@@ -1244,7 +1244,8 @@ window.QtySelector = (function() {
       this.cache.$discountTotal.empty();
     }
     
-    theme.miniCart.updateElements();
+    theme.miniCart.updateElements(cart);
+    theme.miniCart.generateCart(cart);
     theme.updateCurrencies();
     // Set focus on cart table
     slate.a11y.pageLinkFocus(this.cache.$cartTable);
@@ -1299,8 +1300,8 @@ window.AjaxCart = (function() {
   };
   
   cart.prototype.success = function(item) {
-    theme.miniCart.updateElements();
-    theme.miniCart.generateCart();
+    theme.miniCart.bumpCount(item.quantity);
+    theme.miniCart.refresh(80);
     if(styleCart != 'true' ){
       if (this.showNotice) {
         var htmlVariant = item.variant_title !== null ? '<i>('+item.variant_title+')</i>' : '';
@@ -3641,8 +3642,8 @@ theme.quickview = (function() {
         var htmlAlert = '<div class="media mt-2 alert--cart"><a class="mr-3" href="/cart"><img class="lazyload" data-src="'+item.image+'"></a><div class="media-body align-self-center"><p class="m-0 font-weight-bold">'+item.product_title+' x '+ item.quantity +'</p>'+htmlVariant+'<div><div>';
         theme.alert.new(theme.strings.addToCartSuccess,htmlAlert,3000,'notice');
         }
-        theme.miniCart.updateElements();
-        theme.miniCart.generateCart();
+        theme.miniCart.bumpCount(item.quantity);
+        theme.miniCart.refresh(80);
       })
       .fail(function($xhr) {
         var data = $xhr.responseJSON;
@@ -3731,8 +3732,8 @@ theme.addCartButton = (function(){
         if(styleCart != 'true'){
           var htmlAlert = '<div class="media mt-2 alert--cart"><a class="mr-3" href="/cart"><img class="lazyload" data-src="'+item.image+'"></a><div class="media-body align-self-center"><p class="m-0 font-weight-bold">'+item.product_title+' x '+ item.quantity +'</p>'+htmlVariant+'<div><div>';
         }
-      theme.miniCart.updateElements();
-      theme.miniCart.generateCart();
+      theme.miniCart.bumpCount(item.quantity);
+      theme.miniCart.refresh(80);
       setTimeout(function() {
         styleCart != 'true' ? theme.alert.new(theme.strings.addToCartSuccess,htmlAlert,3000,'notice'): '';
         $this.removeClass('is-loading');
@@ -3805,79 +3806,114 @@ theme.miniCart = (function(){
       numberDisplayed = 5,
       emptyCartHTML = '<div class="alert">'+theme.strings.cartEmpty+'</div>';
 
-  function updateElements(){
-    Shopify.getCart(function(cart){
-      
-      if (cart.item_count === 0) {
-        $(cartContent).html(emptyCartHTML);
-        $btnCheckout.addClass('disabled');
-        styleCart === 'true' ? $(miniCart).removeClass('active') : null;
-        
-      }else{
-        $btnCheckout.removeClass('disabled');
-        styleCart === 'true' ? $(miniCart).addClass('active') : null;
-      }
-      $(cartCount).text(cart.item_count);
-      $(cartTotal).html(theme.Currency.formatMoney(cart.total_price, theme.moneyFormat));
-      theme.freeShipping.load(cart);
-      theme.updateCurrencies();
-    })
+  function setCount(count){
+    var normalized = parseInt(count, 10);
+    if (isNaN(normalized)) {
+      return;
+    }
+    normalized = Math.max(0, normalized);
+    $(cartCount).text(normalized);
   }
-  function generateCart(){
-    
-    Shopify.getCart(function(cart){
-        
-      var htmlCart = cart.item_count === 0? emptyCartHTML:'',
-          itemCount = cart.items.length,
-          forLoop = itemCount < numberDisplayed ? itemCount : numberDisplayed;
-          //styleCart === 'true' ? cart.items.length ? $(miniCart).addClass('active'): $(miniCart).removeClass('active') :null;
 
-      if (cart.item_count === 0) {
-        $btnCheckout.addClass('disabled').attr('aria-disabled', 'true');
-      } else {
-        $btnCheckout.removeClass('disabled').removeAttr('aria-disabled');
-      }
-
-      // add list items
-      for (var i = 0; i < forLoop; i++) { 
-        var product = cart.items[i],
-            productPrice = theme.Currency.formatMoney(product.price, theme.moneyFormat);
-        htmlCart += '<div class="mini-cart-item">';
-        htmlCart += '	<a class="mini-cart-image" href="'+ product.url +'">';
-        htmlCart += '		<img src="'+ product.image +'"/>';
-        htmlCart += '	</a>';
-        htmlCart += '	<div class="mini-cart-meta">';
-        htmlCart += '		<p ><a href="'+ product.url +'">'+ product.title +'</a></p>';
-        htmlCart += '		<span> '+ productPrice +'</span><b> x '+product.quantity+'</b>';
-        htmlCart += '	</div>';
-        htmlCart += '	<button class="btn js-remove-mini-cart" data-id="'+product.id+'">&times;</button>';
-        htmlCart += '</div>';
-      }
-      if (itemCount > numberDisplayed){
-        htmlCart += '<a class="js-btn-viewmore" href="/cart">'+theme.strings.cartMore+'('+(itemCount - numberDisplayed)+')</a>'
-      }
-      // add total price and cart button / checkout button
-      $(cartContent).html(htmlCart);
-      $(cartCount).text(cart.item_count);
-      $(cartTotal).html(theme.Currency.formatMoney(cart.total_price, theme.moneyFormat));
-      theme.freeShipping.load(cart);
-      theme.updateCurrencies();
-    })
+  function bumpCount(quantity){
+    var increment = parseInt(quantity, 10);
+    if (isNaN(increment)) {
+      increment = 1;
+    }
+    var current = parseInt($(cartCount).first().text(), 10);
+    if (isNaN(current)) {
+      current = 0;
+    }
+    setCount(current + increment);
   }
+
+  function updateElements(cart){
+    if (!cart) {
+      Shopify.getCart(function(freshCart){
+        updateElements(freshCart);
+      });
+      return;
+    }
+
+    if (cart.item_count === 0) {
+      $(cartContent).html(emptyCartHTML);
+      $btnCheckout.addClass('disabled');
+      styleCart === 'true' ? $(miniCart).removeClass('active') : null;
+    }else{
+      $btnCheckout.removeClass('disabled');
+      styleCart === 'true' ? $(miniCart).addClass('active') : null;
+    }
+    setCount(cart.item_count);
+    $(cartTotal).html(theme.Currency.formatMoney(cart.total_price, theme.moneyFormat));
+    theme.freeShipping.load(cart);
+    theme.updateCurrencies();
+  }
+  function generateCart(cart){
+    if (!cart) {
+      Shopify.getCart(function(freshCart){
+        generateCart(freshCart);
+      });
+      return;
+    }
+
+    var htmlCart = cart.item_count === 0? emptyCartHTML:'',
+        itemCount = cart.items.length,
+        forLoop = itemCount < numberDisplayed ? itemCount : numberDisplayed;
+        //styleCart === 'true' ? cart.items.length ? $(miniCart).addClass('active'): $(miniCart).removeClass('active') :null;
+
+    if (cart.item_count === 0) {
+      $btnCheckout.addClass('disabled').attr('aria-disabled', 'true');
+    } else {
+      $btnCheckout.removeClass('disabled').removeAttr('aria-disabled');
+    }
+
+    // add list items
+    for (var i = 0; i < forLoop; i++) {
+      var product = cart.items[i],
+          productPrice = theme.Currency.formatMoney(product.price, theme.moneyFormat);
+      htmlCart += '<div class="mini-cart-item">';
+      htmlCart += '	<a class="mini-cart-image" href="'+ product.url +'">';
+      htmlCart += '		<img src="'+ product.image +'"/>';
+      htmlCart += '	</a>';
+      htmlCart += '	<div class="mini-cart-meta">';
+      htmlCart += '		<p ><a href="'+ product.url +'">'+ product.title +'</a></p>';
+      htmlCart += '		<span> '+ productPrice +'</span><b> x '+product.quantity+'</b>';
+      htmlCart += '	</div>';
+      htmlCart += '	<button class="btn js-remove-mini-cart" data-id="'+product.id+'">&times;</button>';
+      htmlCart += '</div>';
+    }
+    if (itemCount > numberDisplayed){
+      htmlCart += '<a class="js-btn-viewmore" href="/cart">'+theme.strings.cartMore+'('+(itemCount - numberDisplayed)+')</a>'
+    }
+    // add total price and cart button / checkout button
+    $(cartContent).html(htmlCart);
+    setCount(cart.item_count);
+    $(cartTotal).html(theme.Currency.formatMoney(cart.total_price, theme.moneyFormat));
+    theme.freeShipping.load(cart);
+    theme.updateCurrencies();
+  }
+
+  function refresh(delay){
+    var wait = typeof delay === 'number' ? delay : 120;
+    window.setTimeout(function(){
+      Shopify.getCart(function(cart){
+        updateElements(cart);
+        generateCart(cart);
+      });
+    }, wait);
+  }
+
   // 2. Button remove items
   $(document).on('click','.js-remove-mini-cart',function(){
     var itemId = $(this).data('id');
-    var isOuterMiniCart = $(this).closest(miniCart).length === 0? true : false;  // check element from mini cart or not
     
     // hide items
     $(this).parent().fadeOut();
     
     //remove from cart
-    Shopify.changeItem(itemId,0,updateElements);
-    Shopify.getCart(function(cart){
-      if (cart.items.length > numberDisplayed || isOuterMiniCart) {
-        generateCart();
-      }
+    Shopify.changeItem(itemId,0,function(cart){
+      updateElements(cart);
+      generateCart(cart);
     });
   });
 
@@ -3903,7 +3939,9 @@ theme.miniCart = (function(){
   generateCart();
   return{
     updateElements:updateElements,
-    generateCart: generateCart
+    generateCart: generateCart,
+    refresh: refresh,
+    bumpCount: bumpCount
   }
 })()
 
@@ -4788,8 +4826,8 @@ theme.crosssell = (function(){
       var parent = $(this).closest('.cross-item'),
           itemId = parent.find(variantSelectClass).attr('data-item');
       Shopify.addItem(itemId,1,function(lineItem){
-        theme.miniCart.updateElements();
-        theme.miniCart.generateCart();
+        theme.miniCart.bumpCount(lineItem.quantity);
+        theme.miniCart.refresh(80);
         showPopupCrosssell(lineItem);
       });
     });
@@ -4832,8 +4870,8 @@ theme.upsell = (function(){
     $button.on('click',function(){
       if($(this).hasClass(buttonAcceptClass)){
         Shopify.addItem(productUpsellId,1,function(item){
-          theme.miniCart.updateElements();
-          theme.miniCart.generateCart();
+          theme.miniCart.bumpCount(item.quantity);
+          theme.miniCart.refresh(80);
           var htmlVariant = item.variant_title !== null ? '<i>('+item.variant_title+')</i>' : '';
           var htmlAlert = '<div class="media mt-2 alert--cart"><a class="mr-3" href="/cart"><img class="lazyload" data-src="'+item.image+'"></a><div class="media-body align-self-center"><p class="m-0 font-weight-bold">'+item.product_title+' x '+ item.quantity +'</p>'+htmlVariant+'<div><div>';
           theme.alert.new(theme.strings.addToCartSuccess,htmlAlert,3000,'notice');

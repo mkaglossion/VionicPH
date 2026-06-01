@@ -314,13 +314,12 @@
       {%- form 'customer' -%}
         {{ form.errors | default_errors }}
         {%- if form.posted_successfully? -%}
-          <div class="form-success">Thank you for signing up for emails!</div>
+          <div class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</div>
         {%- else -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
-          <form class="contact-form">
-            <input type="email" name="contact[email]" id="Email-{{ section.id }}" placeholder="{{ section.settings.email_placeholder }}" aria-label="{{ section.settings.email_placeholder }}" required>
-            <button type="submit" name="commit">{{ section.settings.submit_text }}</button>
-          </form>
+          <label for="Email-{{ section.id }}" class="label--hidden">{{ section.settings.newsletter_title }}</label>
+          <input type="email" name="contact[email]" id="Email-{{ section.id }}" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ section.settings.email_placeholder }}" aria-label="{{ section.settings.email_placeholder }}" autocorrect="off" autocapitalize="off" required>
+          <button type="submit" name="commit">{{ section.settings.submit_text }}</button>
         {%- endif -%}
       {%- endform -%}
     </div>
@@ -341,13 +340,12 @@
       {%- form 'customer' -%}
         {{ form.errors | default_errors }}
         {%- if form.posted_successfully? -%}
-          <div class="form-success">Thank you for signing up for emails!</div>
+          <div class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</div>
         {%- else -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
-          <form class="contact-form">
-            <input type="email" name="contact[email]" id="mobile-Email-{{ section.id }}" placeholder="{{ section.settings.email_placeholder }}" aria-label="{{ section.settings.email_placeholder }}" required>
-            <button type="submit" name="commit">{{ section.settings.submit_text }}</button>
-          </form>
+          <label for="mobile-Email-{{ section.id }}" class="label--hidden">{{ section.settings.newsletter_title }}</label>
+          <input type="email" name="contact[email]" id="mobile-Email-{{ section.id }}" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ section.settings.email_placeholder }}" aria-label="{{ section.settings.email_placeholder }}" autocorrect="off" autocapitalize="off" required>
+          <button type="submit" name="commit">{{ section.settings.submit_text }}</button>
         {%- endif -%}
       {%- endform -%}
     </div>

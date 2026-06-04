@@ -734,12 +734,11 @@
         "blocks": {
           "image_hQR9By": {
             "type": "image",
-            "disabled": true,
             "settings": {
-              "image": "shopify://shop_images/Own_Web_-_Desktop_ba129554-42fc-4d7d-b711-e1f1155f6e1e.jpg",
-              "image_mobile": "shopify://shop_images/Own_Web_-_Mobile_20a0c9da-2b18-495d-8696-632fcd01f472.jpg",
-              "image_link": "shopify://collections/iris-rae",
-              "alignment": "center center",
+              "image": "shopify://shop_images/Own_Web_Desktop_Banner_7ec1b52b-7ff7-4d7d-93d8-857cb0b624d8.jpg",
+              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_29a5a112-6f71-4de5-b9ac-73131adc07da.jpg",
+              "image_link": "shopify://collections/azalea-collection",
+              "alignment": "center top",
               "text_alignment": "center center",
               "bgwrap": "#f8ede7",
               "slide_toptitle": "Design by Shopifytemplate",
@@ -3375,6 +3374,8 @@
           "menudroptext": "#ffffff",
           "menudropbg": "#3c3c3d",
           "menudropborder": "#f1f1f1",
+          "mobile_drawer_bg": "#ffffff",
+          "mobile_drawer_text": "#000000",
           "align_menu": "center",
           "text_topbar": "<a href=\"/pages/help\">Help</a>",
           "enablesidebar": true,
@@ -3490,7 +3491,6 @@
           "banner_height_mode": "adapt",
           "cards_collection": "new-arrivals-1",
           "collection_cards_limit": 4,
-          "show_all_collection_cards": true,
           "card_height": 260,
           "card_height_mobile": 280,
           "item_border_radius": 0,
@@ -3505,6 +3505,32 @@
           "carousel_loop": true,
           "gap": 24,
           "gap_mobile": 16
+        }
+      },
+      "custom-footer-newsletter": {
+        "type": "custom-footer-newsletter",
+        "settings": {
+          "padding_desktop": "20px",
+          "padding_mobile": "20px",
+          "text_align": "left",
+          "service_title": "AT YOUR SERVICE",
+          "ring_title": "GIVE US A RING",
+          "phone_text": "+639177013367 or +639177018367 and +639171023218",
+          "days_text": "Monday to Sunday",
+          "note_title": "DROP US A NOTE",
+          "email_address": "customerservice@vionicshoes.com.ph",
+          "mobile_care_title": "CUSTOMER CARE",
+          "store_title": "FIND A STORE",
+          "store_text": "Visit one of our stores nationwide.",
+          "store_link": "",
+          "follow_title": "FOLLOW US",
+          "social_handle": "@vionicshoesph",
+          "facebook_link": "",
+          "instagram_link": "",
+          "newsletter_title": "Sign up for our email list.",
+          "newsletter_text": "You'll be the first to know about the latest styles and promotions.",
+          "email_placeholder": "Enter email",
+          "submit_text": "SUBMIT"
         }
       }
     },

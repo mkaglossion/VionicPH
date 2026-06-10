@@ -3469,7 +3469,7 @@
       },
       "grid_banner_3_qnq49Q": {
         "type": "grid-banner-3",
-        "name": "Grid Banner 3",
+        "name": "New Arrivals",
         "settings": {
           "animation": "",
           "paddingsection": "0px 0px 0px 0px",
@@ -3568,12 +3568,55 @@
           "button_hover_text_color": "#ffffff",
           "button_hover_border_color": "#111111"
         }
+      },
+      "grid_banner_3_KPBigq": {
+        "type": "grid-banner-3",
+        "name": "PH Exclusive",
+        "settings": {
+          "animation": "",
+          "paddingsection": "30px 0px 30px 0px",
+          "paddingmobile": "40px 0px 40px 0px",
+          "marginsection": "0px 0px 0px 0px",
+          "marginmobile": "0px 0px 0px 0px",
+          "bgsection": "rgba(0,0,0,0)",
+          "setwidth": "container-fluid",
+          "heading": "NEW ARRIVALS",
+          "heading_size": 24,
+          "heading_color": "#222222",
+          "heading_line_color": "#333333",
+          "banner_image": "shopify://shop_images/Monthly_Banner.jpg",
+          "banner_image_mobile": "shopify://shop_images/Monthly_Banner_0aa014e8-a29e-453d-b370-4ddf241a609d.jpg",
+          "banner_link": "",
+          "banner_title": "",
+          "banner_description": "",
+          "banner_button_text": "",
+          "banner_height": 460,
+          "banner_height_mobile": 300,
+          "banner_height_mode": "adapt",
+          "cards_collection": "new-arrivals-1",
+          "collection_cards_limit": 4,
+          "card_height": 260,
+          "card_height_mobile": 280,
+          "item_border_radius": 0,
+          "placeholder_bg": "rgba(0,0,0,0)",
+          "show_overlay": false,
+          "overlay_color": "#000000",
+          "overlay_opacity": 0.3,
+          "text_color": "#ffffff",
+          "title_size": 22,
+          "desc_size": 14,
+          "button_size": 14,
+          "carousel_loop": true,
+          "gap": 24,
+          "gap_mobile": 16
+        }
       }
     },
     "content_for_index": [
       "backgroundvideo_6xFEyb",
       "vio_motion_support_UzHM3B",
       "grid_banner_3_qnq49Q",
+      "grid_banner_3_KPBigq",
       "vio_motion_support_v2_j7kmBK"
     ],
     "blocks": {

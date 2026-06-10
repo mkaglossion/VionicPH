@@ -3089,7 +3089,7 @@
           "menu_q3g36r": {
             "type": "menu",
             "settings": {
-              "link_list": "have-a-question",
+              "link_list": "have-a-question-update",
               "width": "33%"
             }
           },

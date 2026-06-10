@@ -3658,6 +3658,54 @@
           "bg_overlay": "#000",
           "opacity_overlay": 0.4
         }
+      },
+      "grid_banner_e8Ec9L": {
+        "type": "grid-banner",
+        "blocks": {
+          "banner_jG7fmc": {
+            "type": "banner",
+            "disabled": true,
+            "settings": {
+              "image": "shopify://shop_images/Social_Media_Banner.jpg",
+              "image_mobile": "shopify://shop_images/SOCMED.jpg",
+              "width": "12",
+              "description": "",
+              "bg_color": "#fefefe",
+              "colordef": "#ffffff",
+              "opacity_bg": 0,
+              "style_btn": "btn-underline btn-underline-white",
+              "button_text": "",
+              "button_icon": "",
+              "button_link": "",
+              "vertical": "bottom",
+              "horizontal": "center",
+              "text_align": "center"
+            }
+          }
+        },
+        "block_order": [
+          "banner_jG7fmc"
+        ],
+        "name": "Grid banner",
+        "settings": {
+          "animation": "",
+          "paddingsection": "0px 0px 0px 0px",
+          "paddingmobile": "0px 0px 0px 0px",
+          "marginsection": "0px 0px 0px 0px",
+          "marginmobile": "0px 0px 0px 0px",
+          "bgsection": "#fefefe",
+          "bgstyle": false,
+          "bgbefore": "#E3C9B8",
+          "title_top": "",
+          "title": "",
+          "des": "",
+          "setwidth": "container-fluid",
+          "no_gutter": false,
+          "show_overlay": true,
+          "gradient_overlay": true,
+          "bg_overlay": "#000",
+          "opacity_overlay": 0.4
+        }
       }
     },
     "content_for_index": [
@@ -3666,7 +3714,8 @@
       "grid_banner_3_qnq49Q",
       "grid_banner_3_KPBigq",
       "grid_banner_xkMVWd",
-      "vio_motion_support_v2_j7kmBK"
+      "vio_motion_support_v2_j7kmBK",
+      "grid_banner_e8Ec9L"
     ],
     "blocks": {
       "11691081583687840098": {

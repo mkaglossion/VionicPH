@@ -15,6 +15,29 @@ comfortable boots, comfy boots" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="{{ settings.color_header_bg }}">
+    <style>
+      @media (max-width: 767px) {
+        * {
+          box-sizing: border-box;
+        }
+        .container, .container-fluid {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+        .row {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .col, [class*="col-"] {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+      }
+    </style>
     {%- if settings.favicon != blank -%}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
     {%- endif -%}
@@ -114,9 +137,9 @@ comfortable boots, comfy boots" />
   
   {% unless is_local_preview %}
     {% render 'qikify-apps' %}
-    {% include 'pagefly-app-header' %}
+    
   {% endunless %}
-</head>
+{% include 'pagefly-app-header' %}</head>
   <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} body-theme {% if settings.productpage == 'product-2' or settings.productpage == 'product-6' or settings.productpage == 'product-7' %} product-hide-breadcrumb {% endif %}" ><div class="pagefly-container">
               {{ content_for_layout }}
             </div></body>

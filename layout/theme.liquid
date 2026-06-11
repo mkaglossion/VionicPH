@@ -133,9 +133,9 @@ comfortable boots, comfy boots" />
   
   {% unless is_local_preview %}
     {% render 'qikify-apps' %}
-    {% include 'pagefly-app-header' %}
+    
   {% endunless %}
-</head>
+{% include 'pagefly-app-header' %}</head>
   <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} body-theme {% if settings.productpage == 'product-2' or settings.productpage == 'product-6' or settings.productpage == 'product-7' %} product-hide-breadcrumb {% endif %}" >
     {%- section 'announcement-bar' -%}
     {%- include 'loading' -%}

@@ -1,8 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "pf-2d79fcb9": {
       "type": "pf-2d79fcb9",
-      "settings": {}
+      "settings": {
+        "pf_2a61215f_value": "We’re pleased to announce that retail stores that carry Vionic products are starting to OPEN AGAIN, with measures in place for your in-store safety. Please call or email the store near you for any location-specific updates.<br>\n<br>\nCome say hello and shop our supportive styles.\n<br><br>\nWe’re thrilled that the world is getting back on its feet and can’t wait to share the Vionic difference with you again.",
+        "pf_5334ad83_value": "Vionic SM City Davao<br>Space No. 159 SM Davao&nbsp;<br>Quimpo Blvd., Cor. Tulip and Ecoland Drive Ecoland Subd.,&nbsp;<br>Bucana Talomo District 8000<br>Davao City, Davao Del Sur<br>(082) 221-6350&nbsp;",
+        "pf_70f535f4_value": "Vionic robinsons place tuguegarao<br>level 1 space no. 1095,<br>robinsons place tuguegarao<br>maharlika hi-way., brgy. tanza, <br>tuguegarao city, cagayan valley<br>(078) 844-1962",
+        "pf_8dfb8e0b_value": "Vionic Greenhills Mall<br>L242B 2nd Floor Greenhills Mall Greenhills Shopping Center Greenhills 1503 City of San<br>Juan NCR 2nd District<br>\n\n",
+        "pf_ddd738ac_value": "Vionic Centrio Mall<br>Ground Level, Centrio Mall,<br> C.M. Recto Avenue, corner Corrales Ave.,<br>Cagayan De Oro City, Misamis Oriental<br>\n\n",
+        "pf_d4a3e674_value": "Vionic SM City Baguio\n<br>Space 059 LGF\nSM City Baguio <br>Luneta Hill,\nUpper Session Road,\n<br>Baguio City, 2600 Benguet\n<br>(072) 422-4693",
+        "pf_1a30527c_value": "Vionic Ayala Malls Manila Bay <br>Space No. 2339A, 2nd Floor, Building A, Ayala<br>Malls Manila Bay, Aseana, Tambo, Paranaque City<br>\n\n",
+        "pf_7764b472_value": "Vionic The Block at SM City North Edsa <br>3rd Floor, The Block at SM City North EDSA, <br>North Ave., Bagong Pag-asa, Quezon City<br>\n\n",
+        "pf_beb61d70_value": "Vionic sM city fairview<br>Space AX3 2153, <br>upper ground&nbsp;SM CITY FAIRVIEW<br>Corner Regalado Highway,<br>Novaliches Quezon City\n",
+        "pf_f58758f7_value": "Vionic&nbsp;SM City Clark\n<br>Space No. 150A Ground Floor\nSM City Clark Mall Expansion\n<br>Angeles City, Pampanga\n<br>+63(45) 8499-0635",
+        "pf_6f3a6384_value": "Vionic SM Seaside Cebu<br>Space 1179a SM Seaside Cebu City , Cebu South Road Properties,<br>Mambaling 6000 Cebu City<br>\n\n",
+        "pf_3884fdc2_value": "Vionic Gateway Mall\n<br>Level 1 Space #GMUG019R Gateway Mall,\n<br>Araneta Center Cubao, Quezon City\n<br>+63(2) 8426-8564",
+        "pf_c34f47fd_value": "Vionic SM Iloilo\n<br>Space No. 1044 Upper Ground Floor\nSM City <br>Mandurriao\nIloilo City, Iloilo\n<br>+63(33) 320-7925",
+        "pf_c263d0f5_value": "Vionic Uptown bGC<br>Unit B-16 Second Floor Uptown Place Mall\n<br>Bonifacio Global City, Taguig\n<br>+63(2) 8805-8317",
+        "pf_2117d3e3_value": "\nVionic SM City Baguio<br>Space 059 LGF SM City Baguio,<br>Luneta Hill, Upper Session Road,<br>Baguio City, Benguet",
+        "pf_ba521bf3_value": "Vionic Ayala Center Cebu<br>Level 1 Stall 141, Ayala Center Cebu,<br>Cebu Business Park, Brgy. Luz, Cebu City<br>\n\n",
+        "pf_34ea2e87_value": "Vionic Solenad\n<br>Ground Floor, Bldg. C, Solenad 3 <br>Nuvali Boulevard, Don Jose, <br>Santa Rosa, Laguna",
+        "pf_3d02a8c2_value": "Vionic SM MegaMall\n<br>Space 305 3rd Level Bldg. A\n<br>SM MegaMall\nMandaluyong City\n<br>+63(2) 7576-3931",
+        "pf_3f44eb0c_value": "Vionic Alabang Town Center<br>Ground Floor\nAlabang Town Center Mall\n<br>Muntinlupa\n<br>+63(2) 255-7674",
+        "pf_43744beb_value": "Vionic Marquee Mall<br>level 1 space no. 1095,<br>Francisco G. Nepo Ave., \nAngeles City, Pampanga\n\n",
+        "pf_54c86db8_value": "Vionic SM city pampanga<br>ex138 sm city pampanga<br>annex brgy. san jose<br>san fernando, pampanga",
+        "pf_c8d66e5d_value": "Vionic Newport<br>3f shop 10b new port mall<br>manlunas st brgy 183, villamor<br>pasay city",
+        "pf_3f178cf2_value": "Vionic One Ayala<br>2nd Floor, One Ayala, Ayala Ave, Makati, <br>Metro Manila<br>\n\n",
+        "pf_6edb4b87_value": "Vionic Trinoma\n<br>Level 2 Trinoma Mall\n<br>EDSA Cor., North Ave.,Quezon City.",
+        "pf_a5e6a267_value": "a step in the right direction",
+        "pf_4ab99e0b_value": "SHOP WOMEN'S",
+        "pf_f18fc42d_value": "SHOP WOMEN'S",
+        "pf_2d51b3dd_value": "SHOP MEN'S",
+        "pf_a9090833_value": "SHOP MEN'S"
+      }
     }
   },
   "order": [

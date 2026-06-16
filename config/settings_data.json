@@ -734,12 +734,11 @@
         "blocks": {
           "image_hQR9By": {
             "type": "image",
-            "disabled": true,
             "settings": {
-              "image": "shopify://shop_images/Own_Web_-_Desktop_ba129554-42fc-4d7d-b711-e1f1155f6e1e.jpg",
-              "image_mobile": "shopify://shop_images/Own_Web_-_Mobile_20a0c9da-2b18-495d-8696-632fcd01f472.jpg",
-              "image_link": "shopify://collections/iris-rae",
-              "alignment": "center center",
+              "image": "shopify://shop_images/Own_Web_Desktop_Banner_7ec1b52b-7ff7-4d7d-93d8-857cb0b624d8.jpg",
+              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_29a5a112-6f71-4de5-b9ac-73131adc07da.jpg",
+              "image_link": "shopify://collections/azalea-collection",
+              "alignment": "center top",
               "text_alignment": "center center",
               "bgwrap": "#f8ede7",
               "slide_toptitle": "Design by Shopifytemplate",
@@ -3090,7 +3089,7 @@
           "menu_q3g36r": {
             "type": "menu",
             "settings": {
-              "link_list": "have-a-question",
+              "link_list": "have-a-question-update",
               "width": "33%"
             }
           },
@@ -3375,6 +3374,8 @@
           "menudroptext": "#ffffff",
           "menudropbg": "#3c3c3d",
           "menudropborder": "#f1f1f1",
+          "mobile_drawer_bg": "#ffffff",
+          "mobile_drawer_text": "#000000",
           "align_menu": "center",
           "text_topbar": "<a href=\"/pages/help\">Help</a>",
           "enablesidebar": true,
@@ -3403,8 +3404,8 @@
         "name": "Background Video",
         "settings": {
           "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "marginsection": "0px 0px 0px 0px",
+          "paddingsection": "20px 0px 20px 0px",
+          "marginsection": "20px 0px 20px 0px",
           "bgsection": "#ffffff",
           "setwidth": "container-fluid",
           "align": "right",
@@ -3430,6 +3431,7 @@
           "card_4RgkgU": {
             "type": "card",
             "settings": {
+              "logo_image": "shopify://shop_images/logo-apma.png",
               "logo_image_url": "",
               "logo_alt": "American Podiatric Medical Association Seal of Acceptance",
               "card_title": "Trusted by Podiatric Specialist",
@@ -3442,6 +3444,7 @@
           "card_WE4cRq": {
             "type": "card",
             "settings": {
+              "logo_image": "shopify://shop_images/violab.png",
               "logo_image_url": "",
               "logo_alt": "VioLab",
               "card_title": "The Source of Our Innovation",
@@ -3466,11 +3469,11 @@
       },
       "grid_banner_3_qnq49Q": {
         "type": "grid-banner-3",
-        "name": "Grid Banner 3",
+        "name": "New Arrivals",
         "settings": {
           "animation": "",
-          "paddingsection": "0px 0px 0px 0px",
-          "paddingmobile": "0px 0px 40px 0px",
+          "paddingsection": "40px 0px 40px 0px",
+          "paddingmobile": "40px 0px 40px 0px",
           "marginsection": "0px 0px 0px 0px",
           "marginmobile": "0px 0px 0px 0px",
           "bgsection": "rgba(0,0,0,0)",
@@ -3481,16 +3484,15 @@
           "heading_line_color": "#333333",
           "banner_image": "shopify://shop_images/Monthly_Banner.jpg",
           "banner_image_mobile": "shopify://shop_images/Monthly_Banner_0aa014e8-a29e-453d-b370-4ddf241a609d.jpg",
-          "banner_link": "",
+          "banner_link": "shopify://collections/womens-new-arrivals",
           "banner_title": "",
           "banner_description": "",
           "banner_button_text": "",
           "banner_height": 460,
           "banner_height_mobile": 300,
           "banner_height_mode": "adapt",
-          "cards_collection": "new-arrivals-1",
+          "cards_collection": "womens-new-arrivals",
           "collection_cards_limit": 4,
-          "show_all_collection_cards": true,
           "card_height": 260,
           "card_height_mobile": 280,
           "item_border_radius": 0,
@@ -3506,12 +3508,214 @@
           "gap": 24,
           "gap_mobile": 16
         }
+      },
+      "custom-footer-newsletter": {
+        "type": "custom-footer-newsletter",
+        "settings": {
+          "padding_desktop": "20px",
+          "padding_mobile": "20px",
+          "text_align": "left",
+          "service_title": "AT YOUR SERVICE",
+          "ring_title": "GIVE US A RING",
+          "phone_text": "+639177013367 or +639177018367 and +639171023218",
+          "days_text": "Monday to Sunday",
+          "note_title": "DROP US A NOTE",
+          "email_address": "customerservice@vionicshoes.com.ph",
+          "mobile_care_title": "CUSTOMER CARE",
+          "store_title": "FIND A STORE",
+          "store_text": "Visit one of our stores nationwide.",
+          "store_link": "",
+          "follow_title": "FOLLOW US",
+          "social_handle": "@vionicshoesph",
+          "facebook_icon": "shopify://shop_images/facebook-app-round-white-icon_e4054dd6-f442-4625-a71d-a55c74dea3e8.png",
+          "instagram_icon": "shopify://shop_images/icon_instagram_1.webp",
+          "facebook_link": "https://www.facebook.com/vionicshoesph",
+          "instagram_link": "https://www.instagram.com/vionicshoesph",
+          "newsletter_title": "Sign up for our email list.",
+          "newsletter_text": "You'll be the first to know about the latest styles and promotions.",
+          "email_placeholder": "Enter email",
+          "submit_text": "SUBMIT"
+        }
+      },
+      "vio_motion_support_v2_j7kmBK": {
+        "type": "vio-motion-support-v2",
+        "name": "Vio Motion Support V2",
+        "settings": {
+          "image": "shopify://shop_images/upscalemedia-transformed_1_d9e1f283-80c0-413f-94a0-cd318e749085.jpg",
+          "image_max_width": 360,
+          "image_max_width_mobile": 240,
+          "heading": "",
+          "body_text": "Wear your new shoes in, out, and all around. Really. You've got 30 days to put the Vio Motion Technology to the test. Wear them whenever, wherever, and as often as you please. We know you'll love the relief and confidence you gain from wearing shoes that make your feet feel good all day long. But if you're not satisfied within 30 days for any reason, we'll give you your money back.",
+          "button_text": "LEARN MORE",
+          "button_link": "",
+          "text_max_width": 1000,
+          "padding_desktop": "48px 24px 36px",
+          "padding_mobile": "32px 16px 26px",
+          "title_size": 72,
+          "title_size_mobile": 42,
+          "text_size": 22,
+          "text_size_mobile": 18,
+          "button_min_width": 210,
+          "button_min_width_mobile": 170,
+          "button_text_size": 22,
+          "button_text_size_mobile": 16,
+          "bg_color": "#ffffff",
+          "title_color": "#000000",
+          "text_color": "#1f1f1f",
+          "button_bg_color": "#ffffff",
+          "button_text_color": "#111111",
+          "button_border_color": "#111111",
+          "button_hover_bg_color": "#111111",
+          "button_hover_text_color": "#ffffff",
+          "button_hover_border_color": "#111111"
+        }
+      },
+      "grid_banner_3_KPBigq": {
+        "type": "grid-banner-3",
+        "name": "PH Exclusive",
+        "settings": {
+          "animation": "",
+          "paddingsection": "40px 0px 40px 0px",
+          "paddingmobile": "40px 0px 40px 0px",
+          "marginsection": "0px 0px 0px 0px",
+          "marginmobile": "0px 0px 0px 0px",
+          "bgsection": "rgba(0,0,0,0)",
+          "setwidth": "container-fluid",
+          "heading": "PHILIPPINES EXCLUSIVE",
+          "heading_size": 24,
+          "heading_color": "#222222",
+          "heading_line_color": "#333333",
+          "banner_image": "shopify://shop_images/PH_Exclusive_Banner.jpg",
+          "banner_image_mobile": "shopify://shop_images/PH_Exclusive_Banner_3b692c78-78ee-499b-a370-e29daaf970c5.jpg",
+          "banner_link": "",
+          "banner_title": "",
+          "banner_description": "",
+          "banner_button_text": "",
+          "banner_height": 460,
+          "banner_height_mobile": 300,
+          "banner_height_mode": "adapt",
+          "cards_collection": "ph-exclusive",
+          "collection_cards_limit": 4,
+          "card_height": 260,
+          "card_height_mobile": 280,
+          "item_border_radius": 0,
+          "placeholder_bg": "rgba(0,0,0,0)",
+          "show_overlay": false,
+          "overlay_color": "#000000",
+          "overlay_opacity": 0.3,
+          "text_color": "#ffffff",
+          "title_size": 22,
+          "desc_size": 14,
+          "button_size": 14,
+          "carousel_loop": true,
+          "gap": 24,
+          "gap_mobile": 16
+        }
+      },
+      "grid_banner_xkMVWd": {
+        "type": "grid-banner",
+        "blocks": {
+          "banner_4ihpW9": {
+            "type": "banner",
+            "settings": {
+              "image": "shopify://shop_images/RAVING_FAN_1.jpg",
+              "image_mobile": "shopify://shop_images/RF.jpg",
+              "width": "12",
+              "description": "",
+              "bg_color": "#fefefe",
+              "colordef": "#ffffff",
+              "opacity_bg": 0,
+              "style_btn": "btn-underline btn-underline-white",
+              "button_text": "",
+              "button_icon": "",
+              "button_link": "",
+              "vertical": "bottom",
+              "horizontal": "center",
+              "text_align": "center"
+            }
+          }
+        },
+        "block_order": [
+          "banner_4ihpW9"
+        ],
+        "name": "Grid banner",
+        "settings": {
+          "animation": "",
+          "paddingsection": "0px 0px 0px 0px",
+          "paddingmobile": "0px 0px 0px 0px",
+          "marginsection": "0px 0px 0px 0px",
+          "marginmobile": "0px 0px 0px 0px",
+          "bgsection": "#fefefe",
+          "bgstyle": false,
+          "bgbefore": "#e3c9b8",
+          "title_top": "",
+          "title": "",
+          "des": "",
+          "setwidth": "container-fluid",
+          "no_gutter": false,
+          "show_overlay": true,
+          "gradient_overlay": true,
+          "bg_overlay": "#000",
+          "opacity_overlay": 0.4
+        }
+      },
+      "grid_banner_e8Ec9L": {
+        "type": "grid-banner",
+        "blocks": {
+          "banner_jG7fmc": {
+            "type": "banner",
+            "disabled": true,
+            "settings": {
+              "image": "shopify://shop_images/Social_Media_Banner.jpg",
+              "image_mobile": "shopify://shop_images/SOCMED.jpg",
+              "width": "12",
+              "description": "",
+              "bg_color": "#fefefe",
+              "colordef": "#ffffff",
+              "opacity_bg": 0,
+              "style_btn": "btn-underline btn-underline-white",
+              "button_text": "",
+              "button_icon": "",
+              "button_link": "",
+              "vertical": "bottom",
+              "horizontal": "center",
+              "text_align": "center"
+            }
+          }
+        },
+        "block_order": [
+          "banner_jG7fmc"
+        ],
+        "name": "Grid banner",
+        "settings": {
+          "animation": "",
+          "paddingsection": "0px 0px 0px 0px",
+          "paddingmobile": "0px 0px 0px 0px",
+          "marginsection": "0px 0px 0px 0px",
+          "marginmobile": "0px 0px 0px 0px",
+          "bgsection": "#fefefe",
+          "bgstyle": false,
+          "bgbefore": "#e3c9b8",
+          "title_top": "",
+          "title": "",
+          "des": "",
+          "setwidth": "container-fluid",
+          "no_gutter": false,
+          "show_overlay": true,
+          "gradient_overlay": true,
+          "bg_overlay": "#000",
+          "opacity_overlay": 0.4
+        }
       }
     },
     "content_for_index": [
       "backgroundvideo_6xFEyb",
       "vio_motion_support_UzHM3B",
-      "grid_banner_3_qnq49Q"
+      "grid_banner_3_qnq49Q",
+      "grid_banner_3_KPBigq",
+      "grid_banner_xkMVWd",
+      "vio_motion_support_v2_j7kmBK",
+      "grid_banner_e8Ec9L"
     ],
     "blocks": {
       "11691081583687840098": {

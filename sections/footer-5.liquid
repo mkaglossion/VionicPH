@@ -77,12 +77,300 @@
   .section-footer-email .social-icons li span{display: none;}
   .section-footer-email .social-icons li i{color:var(--footer-title)}
   .section-footer-email .social-icons li:not(:last-child){margin-right: 1.5rem;}
+  .site-footer__desktop-content{
+    display: block;
+  }
+  .site-footer__mobile-content{
+    display: none;
+  }
+  @media only screen and (max-width: 749px){
+    .site-footer{
+      padding-top: 60px;
+    }
+    .site-footer__desktop-content{
+      display: none;
+    }
+    .site-footer__mobile-content{
+      display: block;
+    }
+    .site-footer .row.pb-5 > [class*="col-"]{
+      margin-bottom: 0 !important;
+    }
+    .site-footer__mobile-accordion-item{
+      width: 100%;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      text-align: left;
+    }
+    .site-footer__mobile-accordion-item:last-child{
+      border-bottom: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    .site-footer__mobile-accordion-trigger{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 0 14px;
+      cursor: pointer;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .site-footer__mobile-accordion-trigger:focus{
+      outline: none;
+    }
+    .site-footer__mobile-accordion-trigger::-moz-focus-inner{
+      border: 0;
+    }
+    .site-footer__mobile-accordion-trigger .site-footer__section-title{
+      margin-bottom: 0;
+    }
+    .site-footer__mobile-accordion-icon{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      flex: 0 0 24px;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .site-footer__mobile-accordion-icon-minus{
+      display: none;
+    }
+    .site-footer__mobile-accordion-panel{
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transition: max-height .25s ease, opacity .2s ease, visibility 0s linear .25s;
+    }
+    .site-footer__mobile-accordion-item.is-open .site-footer__mobile-accordion-panel{
+      max-height: 1000px;
+      opacity: 1;
+      visibility: visible;
+      transition: max-height .25s ease, opacity .2s ease;
+    }
+    .site-footer__mobile-accordion-item.is-open .site-footer__mobile-accordion-icon-plus{
+      display: none;
+    }
+    .site-footer__mobile-accordion-item.is-open .site-footer__mobile-accordion-icon-minus{
+      display: inline-flex;
+    }
+    .site-footer__mobile-accordion-item .site-footer__section{
+      padding-bottom: 0;
+    }
+  }
+  @media only screen and (min-width: 750px){
+    .site-footer__mobile-accordion-panel{
+      max-height: none !important;
+      overflow: visible;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
 </style>
 
 <footer class="site-footer {% if section.settings.image_bg != blank %} lazyload {% endif %}" role="contentinfo" 
-style="{% if section.settings.image_bg != blank %}background-image:url({%- include 'srcBlank' -%}){% endif %}"    data-bg="{{ section.settings.image_bg | img_url:"1920x" }}">
+style="{% if section.settings.image_bg != blank %}background-image:url({%- include 'srcBlank' -%}){% endif %}"    data-bg="{{ section.settings.image_bg | img_url:"1920x" }}" data-footer-accordion-section="{{ section.id }}">
   <div class="{{ section.settings.setwidth }} text-center">
-    <div class="row pb-5">
+    <div class="site-footer__mobile-content">
+      <div class="row pb-5">
+        {%- for block in section.blocks -%}
+        {%- case block.settings.width -%}
+        {%- when '16%' -%}
+        {%- assign block_width = 'col-lg-2 col-md-4' -%}
+        {%- when '25%' -%}
+        {%- assign block_width = 'col-lg-3 col-md-6' -%}
+        {%- when '33%' -%}
+        {%- assign block_width = 'col-lg-4 col-md-6' -%}
+        {%- when '50%' -%}
+        {%- assign block_width = 'col-lg-6' -%}
+        {%- when '66%' -%}
+        {%- assign block_width = 'col-lg-8 col-md-12' -%}
+        {%- when '75%' -%}
+        {%- assign block_width = 'col-lg-9 col-md-12' -%}
+        {%- when '100%' -%}
+        {%- assign block_width = 'col-12' -%}
+        {%- endcase -%}
+        {%- if block.type != 'menu' or linklists[block.settings.link_list].links.size > 0 -%}
+        <div class="{{block_width}} {% if forloop.last == true %} mb-0 mb-lg-0 {% else %} mb-4 mb-lg-0 {% endif%}}" {{ block.shopify_attributes }}>
+          <div class="site-footer__mobile-accordion-item">
+            <button
+              class="site-footer__mobile-accordion-trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls="FooterAccordionMobile-{{ section.id }}-{{ block.id }}">
+              <span class="site-footer__section-title">
+                {%- case block.type -%}
+                {%- when 'social' -%}
+                  {{ block.settings.title | default: 'Follow us' | escape }}
+                {%- when 'menu' -%}
+                  {{ linklists[block.settings.link_list].title | default: 'Menu' | escape }}
+                {%- when 'text' -%}
+                  {{ block.settings.title | default: 'About us' | escape }}
+                {%- when 'newsletter' -%}
+                  {{ block.settings.title | default: 'Newsletter' | escape }}
+                {%- endcase -%}
+              </span>
+              <span class="site-footer__mobile-accordion-icon" aria-hidden="true">
+                <span class="site-footer__mobile-accordion-icon-plus">+</span>
+                <span class="site-footer__mobile-accordion-icon-minus">-</span>
+              </span>
+            </button>
+            <div id="FooterAccordionMobile-{{ section.id }}-{{ block.id }}" class="site-footer__mobile-accordion-panel">
+              {%- case block.type -%}
+              {%- when 'social' -%}
+              <div class="site-footer__section">
+                <ul class="list-inline social-icons text-{{ block.settings.align }}">
+                  {%- include 'footer-socical' -%}
+                </ul>
+              </div>
+              {%- when 'menu' -%}
+              <div class="site-footer__section">
+                <ul class="site-footer__list">
+                  {%- for link in linklists[block.settings.link_list].links -%}
+                  <li class="site-footer__list-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+              {%- when 'text' -%}
+              <div class="site-footer__section">
+                {%- if block.settings.logofooter != blank -%}
+                {%- assign logo = block.settings.logofooter -%}
+                <div class="image-content__image-container logofooter" style="width: {{block.settings.widthlogofooter}}px;">
+                  <a class="image-content__image-wrapper" href="/" style="padding-top:{{ 1 | divided_by: logo.aspect_ratio | times: 100}}%;" >
+                    {%- assign img_url = logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                    <img
+                      class="lazyload transition img-logo"
+                      data-srcset="{{ img_url }}"
+                      data-widths="[360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                      data-aspectratio="{{ logo.aspect_ratio }}"
+                      data-sizes="auto"
+                      src="{%- include 'srcBlank' -%}" />
+                  </a>
+                </div>
+                {%- endif -%}
+                <div class="rte-setting">{{ block.settings.text }}</div>
+              </div>
+              {%- when 'newsletter' -%}
+              <div class="site-footer__section section-footer-email">
+                {%- if block.settings.title != blank -%}
+                <h3 class="h3 site-footer__section-title">
+                  {{ block.settings.title | escape }}
+                </h3>
+                {%- endif -%}
+                <div class="form-vertical footer-email">
+                  {%- form 'customer' -%}
+                  {{ form.errors | default_errors }}
+                  {%- if form.posted_successfully? -%}
+                  <p class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                  {%- else -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  {%- if block.settings.subheading != blank -%}
+                  <label for="NewsletterEmail-{{ block.id }}" class="site-footer__newsletter-label">
+                    {{ block.settings.subheading }}
+                  </label>
+                  {%- endif -%}
+                  <div class="input-group mt-3">
+                    <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="contact[email]" id="NewsletterEmail-{{ block.id }}" class="form-control" autocorrect="off" autocapitalize="off"
+                    style="background-color:{{block.settings.bg_new}};border-color:{{block.settings.border_new}}">
+                    <div class="pl-lg-3">
+                      <button type="submit" class="btn btn-theme px-3" name="commit">
+                       {{ 'general.newsletter_form.submit' | t }}
+                      </button>
+                    </div>
+                  </div>
+                  {%- endif -%}
+                  {%- endform -%}
+                </div>
+                {% if block.settings.enablesocial %}
+                <ul class="list-inline social-icons">
+                  {%- if settings.social_facebook_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+                      {%- include 'icon-facebook' -%}
+                      <span >Fb</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if settings.social_twitter_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+                      {%- include 'icon-twitter' -%}
+                      <span >Tw</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if settings.social_pinterest_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+                      {%- include 'icon-pinterest' -%}
+                      <span>Pin</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if settings.social_instagram_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+                      {%- include 'icon-instagram' -%}
+                      <span >Ins</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if settings.social_tumblr_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+                      {%- include 'icon-tumblr' -%}
+                      <span >Tum</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if settings.social_snapchat_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_snapchat_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+                      {%- include 'icon-snapchat' -%}
+                      <span >Snap</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if settings.social_youtube_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+                      {%- include 'icon-youtube' -%}
+                      <span class="icon__fallback-text">You</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if settings.social_vimeo_link != blank -%}
+                  <li class="list-inline-item">
+                    <a href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+                      {%- include 'icon-vimeo' -%}
+                      <span >Vim</span>
+                    </a>
+                  </li>
+                  {%- endif -%}
+                </ul>
+                {% endif %}
+              </div>
+              {%- endcase -%}
+            </div>
+          </div>
+        </div>
+        {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="site-footer__desktop-content">
+      <div class="row pb-5">
       {%- for block in section.blocks -%}
       {%- case block.settings.width -%}
       {%- when '16%' -%}
@@ -100,7 +388,7 @@ style="{% if section.settings.image_bg != blank %}background-image:url({%- inclu
       {%- when '100%' -%}
       {%- assign block_width = 'col-12' -%}
       {%- endcase -%}
-      <div class="{{block_width}} {% if forloop.last == true %} mb-0 mb-lg-0 {% else %} mb-4 mb-lg-0 {% endif%}" {{ block.shopify_attributes }}>
+      <div class="{{block_width}} {% if forloop.last == true %} mb-0 mb-lg-0 {% else %} mb-4 mb-lg-0 {% endif%}}" {{ block.shopify_attributes }}>
         {%- case block.type -%}
         {%- when 'social' -%}
         <div class="site-footer__section">
@@ -136,15 +424,15 @@ style="{% if section.settings.image_bg != blank %}background-image:url({%- inclu
           <div class="image-content__image-container logofooter" style="width: {{block.settings.widthlogofooter}}px;">
             <a class="image-content__image-wrapper" href="/" style="padding-top:{{ 1 | divided_by: logo.aspect_ratio | times: 100}}%;" >
               {%- assign img_url = logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-              <img 
-              class="lazyload transition img-logo" 
+              <img
+              class="lazyload transition img-logo"
               data-srcset="{{ img_url }}"
               data-widths="[360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
               data-aspectratio="{{ logo.aspect_ratio }}"
               data-sizes="auto"
               src="{%- include 'srcBlank' -%}"  />
             </a>
-            
+
           </div>
           {%- endif -%}
           <div class="rte-setting">{{ block.settings.text }}</div>
@@ -253,6 +541,7 @@ style="{% if section.settings.image_bg != blank %}background-image:url({%- inclu
         {%- endcase -%}
       </div>
       {%- endfor -%}
+      </div>
     </div>
   </div>
   <div class="site-footer__copyright" >
@@ -311,6 +600,26 @@ style="{% if section.settings.image_bg != blank %}background-image:url({%- inclu
     </div>
   </div>
 </footer>
+<script>
+  (function() {
+    var section = document.querySelector('[data-footer-accordion-section="{{ section.id }}"]');
+    if (!section) return;
+
+    var items = Array.prototype.slice.call(section.querySelectorAll('.site-footer__mobile-accordion-item'));
+    if (!items.length) return;
+
+    items.forEach(function(item) {
+      var trigger = item.querySelector('.site-footer__mobile-accordion-trigger');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', function() {
+        var isOpen = item.classList.contains('is-open');
+        item.classList.toggle('is-open', !isOpen);
+        trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      });
+    });
+  })();
+</script>
 {% schema %}
 {
   "name": "Footer 5",

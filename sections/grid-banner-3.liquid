@@ -254,9 +254,48 @@
 
   .gb3-{{ section.id }} .gb3-product-price {
     margin-top: 4px;
-    font-size: 12px;
+    font-size: clamp(13px, 0.95vw, 15px);
+    line-height: 1.35;
     color: #222;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-thumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-thumb-wrap {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-thumb[data-tooltip="true"] {
+    cursor: pointer;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-thumb img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-thumb-label {
+    display: none;
+    max-width: 100%;
+    font-size: 10px;
+    line-height: 1.2;
     font-weight: 500;
+    letter-spacing: .02em;
+    color: #6f6f6f;
+    text-transform: none;
+    white-space: nowrap;
   }
 
   .gb3-{{ section.id }} .gb3-products-slider.swiper {
@@ -337,6 +376,29 @@
       height: auto;
     }
 
+    .gb3-{{ section.id }} .gb3-product-thumb {
+      margin-top: 6px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-thumb img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-thumb-label {
+      display: block;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-price {
+      font-size: 14px;
+    }
+
+  }
+
+  @media (hover: none) {
+    .gb3-{{ section.id }} .gb3-product-thumb-label {
+      display: block;
+    }
   }
 </style>
 
@@ -463,6 +525,35 @@
                 <div class="gb3-product-meta">
                   <p class="gb3-product-title">{{ product.title }}</p>
                   <div class="gb3-product-price">{{ product.price | money }}</div>
+                  {% assign gb3_thumb_image = product.featured_image %}
+                  {% assign gb3_variant_label = product.selected_or_first_available_variant.title | strip %}
+                  {% if product.has_only_default_variant or gb3_variant_label == blank or gb3_variant_label == 'Default Title' %}
+                    {% assign gb3_variant_label = blank %}
+                  {% endif %}
+                  {% if gb3_thumb_image != blank %}
+                    <div class="gb3-product-thumb-wrap">
+                      <span
+                        class="gb3-product-thumb"
+                        {% if gb3_variant_label != blank %}
+                          data-tooltip="true"
+                          data-tooltipalltimes="true"
+                          data-placement="top"
+                          title="{{ gb3_variant_label | escape }}"
+                        {% endif %}
+                      >
+                        <img
+                          src="{{ gb3_thumb_image | image_url: width: 80 }}"
+                          alt="{{ gb3_thumb_image.alt | default: product.title | escape }}"
+                          width="22"
+                          height="22"
+                          loading="lazy"
+                        >
+                      </span>
+                      {% if gb3_variant_label != blank %}
+                        <span class="gb3-product-thumb-label">{{ gb3_variant_label }}</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
                 </div>
               </a>
             </div>

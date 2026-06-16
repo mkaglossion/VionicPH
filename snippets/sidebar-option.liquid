@@ -1,4 +1,4 @@
-<div class="humberger-right d-lg-flex align-items-center d-none" >
+<div class="humberger-right d-inline-flex align-items-center" >
     <a href="#" id="sidebarCollapse" onclick="myFunction(this)" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle humberger align-items-center d-inline-flex disabled-anchor">
         <span class="">
             <span class="bar1"></span>
@@ -16,7 +16,13 @@
             </div>
             <div class="col-6 text-right">
                 {%- if section.settings.sidebar_heart -%}
-                    {%- render 'block-wishlist' -%}
+                    {%- assign wishlist_page = pages[settings.page_wishlist] -%}
+                    {%- if settings.enable_wishlsit and wishlist_page != blank -%}
+                      <a href="{{ wishlist_page.url }}" class="js-wishlist-link humbergerbar__wishlist" title="{{ 'products.product.wishlist_text' | t }}" aria-label="{{ 'products.product.wishlist_text' | t }}">
+                        {%- render 'icon-heart' -%}
+                        <span class="js-wishlist-count" aria-hidden="true"></span>
+                      </a>
+                    {%- endif -%}
                 {%- endif -%}
                 {%- if section.settings.sidebar_compare -%}
                     {%- render 'block-compare' -%}

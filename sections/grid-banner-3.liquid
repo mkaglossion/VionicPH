@@ -3,6 +3,30 @@
 {% if gb3_placeholder_bg == blank or gb3_placeholder_bg == 'rgba(0,0,0,0)' or gb3_placeholder_bg == 'transparent' %}
   {% assign gb3_placeholder_bg = '#8f949c' %}
 {% endif %}
+{% assign gb3_card_title_size = section.settings.card_title_size | plus: 0 %}
+{% if gb3_card_title_size < 18 %}
+  {% assign gb3_card_title_size = 18 %}
+{% endif %}
+{% assign gb3_card_title_size_mobile = section.settings.card_title_size_mobile | plus: 0 %}
+{% if gb3_card_title_size_mobile < 16 %}
+  {% assign gb3_card_title_size_mobile = 16 %}
+{% endif %}
+{% assign gb3_card_variant_size = section.settings.card_variant_size | plus: 0 %}
+{% if gb3_card_variant_size < 12 %}
+  {% assign gb3_card_variant_size = 12 %}
+{% endif %}
+{% assign gb3_card_variant_size_mobile = section.settings.card_variant_size_mobile | plus: 0 %}
+{% if gb3_card_variant_size_mobile < 11 %}
+  {% assign gb3_card_variant_size_mobile = 11 %}
+{% endif %}
+{% assign gb3_card_price_size = section.settings.card_price_size | plus: 0 %}
+{% if gb3_card_price_size < 15 %}
+  {% assign gb3_card_price_size = 15 %}
+{% endif %}
+{% assign gb3_card_price_size_mobile = section.settings.card_price_size_mobile | plus: 0 %}
+{% if gb3_card_price_size_mobile < 14 %}
+  {% assign gb3_card_price_size_mobile = 14 %}
+{% endif %}
 <style>
   .gb3-{{ section.id }} {
     padding: {{ section.settings.paddingsection }};
@@ -222,11 +246,18 @@
   }
 
   .gb3-{{ section.id }} .gb3-product-media {
+    position: relative;
     width: 100%;
     height: {{ section.settings.card_height }}px;
     border-radius: {{ section.settings.item_border_radius }}px;
     overflow: hidden;
     background: transparent;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .gb3-{{ section.id }} .gb3-product-media img {
@@ -237,66 +268,151 @@
     display: block;
   }
 
+  .gb3-{{ section.id }} .gb3-product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+    display: inline-block;
+    padding: 4px 10px;
+    min-height: 24px;
+    border-radius: 2px;
+    font-size: {{ section.settings.card_badge_size }}px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: .01em;
+    text-transform: none;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-badge--sale {
+    background: #6f7480;
+    color: #ffffff;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-badge--new {
+    background: #efefef;
+    color: #222;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-wishlist {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    appearance: none;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+    cursor: pointer;
+    opacity: 1;
+    transform: none;
+    transition: opacity .2s ease, transform .2s ease, background-color .2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,.08);
+    font-size: 0;
+    line-height: 1;
+    z-index: 2;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-wishlist svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-wishlist:hover {
+    background: #fff;
+  }
+
   .gb3-{{ section.id }} .gb3-product-meta {
     text-align: center;
-    margin-top: 6px;
-    padding: 0 4px;
+    margin-top: 16px;
+    padding: 0 8px;
   }
 
   .gb3-{{ section.id }} .gb3-product-title {
     margin: 0;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 1.35;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    font-size: {{ gb3_card_title_size }}px;
+    font-weight: 400;
+    line-height: 1.2;
     color: #222;
     text-transform: uppercase;
-    letter-spacing: .02em;
+    letter-spacing: 0;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-title a {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-variant {
+    margin-top: 6px;
+    font-size: {{ gb3_card_variant_size }}px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: .06em;
   }
 
   .gb3-{{ section.id }} .gb3-product-price {
     margin-top: 2px;
-    font-size: clamp(12px, 0.9vw, 14px);
+    font-size: {{ gb3_card_price_size }}px;
     line-height: 1.35;
     color: #222;
-    font-weight: 600;
+    font-weight: 400;
     letter-spacing: .01em;
-  }
-
-  .gb3-{{ section.id }} .gb3-product-thumb {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 8px;
   }
 
   .gb3-{{ section.id }} .gb3-product-thumb-wrap {
     display: inline-flex;
-    flex-direction: column;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    margin-top: 10px;
   }
 
-  .gb3-{{ section.id }} .gb3-product-thumb[data-tooltip="true"] {
+  .gb3-{{ section.id }} .gb3-product-thumb {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
   }
 
   .gb3-{{ section.id }} .gb3-product-thumb img {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
     display: block;
+    transition: transform .18s ease, opacity .18s ease, filter .18s ease;
+  }
+
+  .gb3-{{ section.id }} .gb3-product-thumb:hover img {
+    transform: scale(1.08);
+    opacity: .95;
+    filter: saturate(1.05);
   }
 
   .gb3-{{ section.id }} .gb3-product-thumb-label {
     display: none;
-    max-width: 100%;
-    font-size: 10px;
-    line-height: 1.2;
-    font-weight: 500;
-    letter-spacing: .02em;
-    color: #6f6f6f;
-    text-transform: none;
-    white-space: nowrap;
   }
 
   .gb3-{{ section.id }} .gb3-products-slider.swiper {
@@ -409,28 +525,65 @@
       height: {{ section.settings.card_height_mobile }}px;
     }
 
-    .gb3-{{ section.id }} .gb3-product-thumb {
-      margin-top: 6px;
+    .gb3-{{ section.id }} .gb3-product-price {
+      font-size: {{ section.settings.card_price_size_mobile }}px;
     }
 
+    .gb3-{{ section.id }} .gb3-product-wishlist {
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      opacity: 1;
+      transform: none;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-wishlist svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-meta {
+      margin-top: 14px;
+      padding: 0 6px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-title {
+      font-size: {{ gb3_card_title_size_mobile }}px;
+      line-height: 1.2;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-variant {
+      font-size: {{ gb3_card_variant_size_mobile }}px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-price {
+      font-size: {{ gb3_card_price_size_mobile }}px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-badge {
+      top: 8px;
+      left: 8px;
+      padding: 3px 8px;
+      min-height: 20px;
+      font-size: {{ section.settings.card_badge_size_mobile }}px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-thumb-wrap {
+      margin-top: 8px;
+    }
+
+    .gb3-{{ section.id }} .gb3-product-thumb,
     .gb3-{{ section.id }} .gb3-product-thumb img {
       width: 20px;
       height: 20px;
     }
-
-    .gb3-{{ section.id }} .gb3-product-thumb-label {
-      display: block;
-    }
-
-    .gb3-{{ section.id }} .gb3-product-price {
-      font-size: 12px;
-    }
-
   }
 
   @media (hover: none) {
-    .gb3-{{ section.id }} .gb3-product-thumb-label {
-      display: block;
+    .gb3-{{ section.id }} .gb3-product-wishlist {
+      opacity: 1;
+      transform: none;
     }
   }
 </style>
@@ -555,54 +708,95 @@
     {% if use_collection %}
       <div class="gb3-products-grid" style="grid-template-columns: repeat({{ cards_limit }}, minmax(0, 1fr));">
         {% for product in cards_collection_obj.products limit: cards_limit %}
-          <a href="{{ product.url | within: cards_collection_obj }}" class="gb3-product-card">
+          <div class="gb3-product-card">
             <div class="gb3-product-media">
-              {% if product.featured_image != blank %}
-                <img
-                  src="{{ product.featured_image | image_url: width: 800 }}"
-                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                  width="800"
-                  height="800"
-                  loading="lazy"
-                >
+              {% assign gb3_badge_text = blank %}
+              {% assign gb3_badge_class = blank %}
+              {% if product.compare_at_price > product.price and product.available %}
+                {% assign gb3_sale_minus = product.compare_at_price_min | minus: product.price_min %}
+                {% assign gb3_sale_percent = gb3_sale_minus | times: 100 | divided_by: product.compare_at_price_min %}
+                {% assign gb3_badge_text = gb3_sale_percent | append: '% Off' %}
+                {% assign gb3_badge_class = 'gb3-product-badge--sale' %}
               {% else %}
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% assign gb3_new_count = settings.new_label_day | default: 30 | plus: 0 %}
+                {% assign gb3_date_published_year = product.published_at | date: '%Y' %}
+                {% assign gb3_date_published_month = product.published_at | date: '%m' %}
+                {% assign gb3_date_published_day = product.published_at | date: '%d' %}
+                {% assign gb3_date_now_year = 'now' | date: '%Y' %}
+                {% assign gb3_date_now_month = 'now' | date: '%m' %}
+                {% assign gb3_date_now_day = 'now' | date: '%d' %}
+                {% assign gb3_day_year = gb3_date_now_year | minus: gb3_date_published_year | times: 365 %}
+                {% assign gb3_day_month = gb3_date_now_month | minus: gb3_date_published_month | times: 30 %}
+                {% assign gb3_day_day = gb3_date_now_day | minus: gb3_date_published_day %}
+                {% assign gb3_date_difference = gb3_day_year | plus: gb3_day_month | plus: gb3_day_day %}
+                {% if gb3_date_difference <= gb3_new_count or product.tags contains 'new' %}
+                  {% assign gb3_badge_text = 'New' %}
+                  {% assign gb3_badge_class = 'gb3-product-badge--new' %}
+                {% endif %}
+              {% endif %}
+
+              <a href="{{ product.url | within: cards_collection_obj }}" class="gb3-product-image-link" aria-label="{{ product.title | escape }}">
+                {% if product.featured_image != blank %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                    width="800"
+                    height="800"
+                    loading="lazy"
+                  >
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+              {% if gb3_badge_text != blank %}
+                <span class="gb3-product-badge {{ gb3_badge_class }}">{{ gb3_badge_text }}</span>
+              {% endif %}
+              {% if settings.enable_wishlsit %}
+                <button type="button" data-toggle="tooltip" data-placement="left" data-tooltipalltimes="true" class="gb3-product-wishlist js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" data-handle="{{ product.handle }}" aria-label="{{ 'products.product.wishlist_text' | t }}">
+                  {%- include 'icon-heart' -%}
+                </button>
               {% endif %}
             </div>
             <div class="gb3-product-meta">
-              <p class="gb3-product-title">{{ product.title }}</p>
-              <div class="gb3-product-price">{{ product.price | money }}</div>
-              {% assign gb3_thumb_image = product.featured_image %}
-              {% assign gb3_variant_label = product.selected_or_first_available_variant.title | strip %}
+              {% assign gb3_variant_label = product.selected_or_first_available_variant.option1 | strip %}
               {% if product.has_only_default_variant or gb3_variant_label == blank or gb3_variant_label == 'Default Title' %}
                 {% assign gb3_variant_label = blank %}
               {% endif %}
+              {% assign gb3_display_title = product.title %}
+              {% if gb3_variant_label != blank %}
+                {% assign gb3_title_suffix = ' ' | append: gb3_variant_label %}
+                {% assign gb3_title_suffix_slash = ' / ' | append: gb3_variant_label %}
+                {% assign gb3_display_title = gb3_display_title | replace: gb3_title_suffix_slash, '' %}
+                {% assign gb3_display_title = gb3_display_title | replace: gb3_title_suffix, '' %}
+              {% endif %}
+              {% assign gb3_display_title = gb3_display_title | replace: '-', '' | strip %}
+              <p class="gb3-product-title"><a href="{{ product.url | within: cards_collection_obj }}">{{ gb3_display_title }}</a></p>
+              {% if gb3_variant_label != blank %}
+                <div class="gb3-product-variant">{{ gb3_variant_label }}</div>
+              {% endif %}
+              <div class="gb3-product-price">{{ product.price | money }}</div>
+              {% assign gb3_thumb_image = product.selected_or_first_available_variant.image | default: product.featured_image %}
               {% if gb3_thumb_image != blank %}
                 <div class="gb3-product-thumb-wrap">
                   <span
                     class="gb3-product-thumb"
-                    {% if gb3_variant_label != blank %}
-                      data-tooltip="true"
-                      data-tooltipalltimes="true"
-                      data-placement="top"
-                      title="{{ gb3_variant_label | escape }}"
-                    {% endif %}
+                    data-tooltip="true"
+                    data-tooltipalltimes="true"
+                    data-placement="top"
+                    title="{{ gb3_variant_label | default: product.title | escape }}"
                   >
                     <img
                       src="{{ gb3_thumb_image | image_url: width: 80 }}"
                       alt="{{ gb3_thumb_image.alt | default: product.title | escape }}"
-                      width="22"
-                      height="22"
+                      width="24"
+                      height="24"
                       loading="lazy"
                     >
                   </span>
-                  {% if gb3_variant_label != blank %}
-                    <span class="gb3-product-thumb-label">{{ gb3_variant_label }}</span>
-                  {% endif %}
                 </div>
               {% endif %}
             </div>
-          </a>
+          </div>
         {% endfor %}
       </div>
 
@@ -611,54 +805,95 @@
           <div class="swiper-wrapper">
             {% for product in cards_collection_obj.products limit: cards_limit %}
               <div class="swiper-slide">
-                <a href="{{ product.url | within: cards_collection_obj }}" class="gb3-product-card">
+                <div class="gb3-product-card">
                   <div class="gb3-product-media">
-                    {% if product.featured_image != blank %}
-                      <img
-                        src="{{ product.featured_image | image_url: width: 800 }}"
-                        alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                        width="800"
-                        height="800"
-                        loading="lazy"
-                      >
+                    {% assign gb3_badge_text = blank %}
+                    {% assign gb3_badge_class = blank %}
+                    {% if product.compare_at_price > product.price and product.available %}
+                      {% assign gb3_sale_minus = product.compare_at_price_min | minus: product.price_min %}
+                      {% assign gb3_sale_percent = gb3_sale_minus | times: 100 | divided_by: product.compare_at_price_min %}
+                      {% assign gb3_badge_text = gb3_sale_percent | append: '% Off' %}
+                      {% assign gb3_badge_class = 'gb3-product-badge--sale' %}
                     {% else %}
-                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% assign gb3_new_count = settings.new_label_day | default: 30 | plus: 0 %}
+                      {% assign gb3_date_published_year = product.published_at | date: '%Y' %}
+                      {% assign gb3_date_published_month = product.published_at | date: '%m' %}
+                      {% assign gb3_date_published_day = product.published_at | date: '%d' %}
+                      {% assign gb3_date_now_year = 'now' | date: '%Y' %}
+                      {% assign gb3_date_now_month = 'now' | date: '%m' %}
+                      {% assign gb3_date_now_day = 'now' | date: '%d' %}
+                      {% assign gb3_day_year = gb3_date_now_year | minus: gb3_date_published_year | times: 365 %}
+                      {% assign gb3_day_month = gb3_date_now_month | minus: gb3_date_published_month | times: 30 %}
+                      {% assign gb3_day_day = gb3_date_now_day | minus: gb3_date_published_day %}
+                      {% assign gb3_date_difference = gb3_day_year | plus: gb3_day_month | plus: gb3_day_day %}
+                      {% if gb3_date_difference <= gb3_new_count or product.tags contains 'new' %}
+                        {% assign gb3_badge_text = 'New' %}
+                        {% assign gb3_badge_class = 'gb3-product-badge--new' %}
+                      {% endif %}
+                    {% endif %}
+
+                    <a href="{{ product.url | within: cards_collection_obj }}" class="gb3-product-image-link" aria-label="{{ product.title | escape }}">
+                      {% if product.featured_image != blank %}
+                        <img
+                          src="{{ product.featured_image | image_url: width: 800 }}"
+                          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                          width="800"
+                          height="800"
+                          loading="lazy"
+                        >
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </a>
+                    {% if gb3_badge_text != blank %}
+                      <span class="gb3-product-badge {{ gb3_badge_class }}">{{ gb3_badge_text }}</span>
+                    {% endif %}
+                    {% if settings.enable_wishlsit %}
+                      <button type="button" data-toggle="tooltip" data-placement="left" data-tooltipalltimes="true" class="gb3-product-wishlist js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" data-handle="{{ product.handle }}" aria-label="{{ 'products.product.wishlist_text' | t }}">
+                        {%- include 'icon-heart' -%}
+                      </button>
                     {% endif %}
                   </div>
                   <div class="gb3-product-meta">
-                    <p class="gb3-product-title">{{ product.title }}</p>
-                    <div class="gb3-product-price">{{ product.price | money }}</div>
-                    {% assign gb3_thumb_image = product.featured_image %}
-                    {% assign gb3_variant_label = product.selected_or_first_available_variant.title | strip %}
+                    {% assign gb3_variant_label = product.selected_or_first_available_variant.option1 | strip %}
                     {% if product.has_only_default_variant or gb3_variant_label == blank or gb3_variant_label == 'Default Title' %}
                       {% assign gb3_variant_label = blank %}
                     {% endif %}
+                    {% assign gb3_display_title = product.title %}
+                    {% if gb3_variant_label != blank %}
+                      {% assign gb3_title_suffix = ' ' | append: gb3_variant_label %}
+                      {% assign gb3_title_suffix_slash = ' / ' | append: gb3_variant_label %}
+                      {% assign gb3_display_title = gb3_display_title | replace: gb3_title_suffix_slash, '' %}
+                      {% assign gb3_display_title = gb3_display_title | replace: gb3_title_suffix, '' %}
+                    {% endif %}
+                    {% assign gb3_display_title = gb3_display_title | replace: '-', '' | strip %}
+                    <p class="gb3-product-title"><a href="{{ product.url | within: cards_collection_obj }}">{{ gb3_display_title }}</a></p>
+                    {% if gb3_variant_label != blank %}
+                      <div class="gb3-product-variant">{{ gb3_variant_label }}</div>
+                    {% endif %}
+                    <div class="gb3-product-price">{{ product.price | money }}</div>
+                    {% assign gb3_thumb_image = product.selected_or_first_available_variant.image | default: product.featured_image %}
                     {% if gb3_thumb_image != blank %}
                       <div class="gb3-product-thumb-wrap">
                         <span
                           class="gb3-product-thumb"
-                          {% if gb3_variant_label != blank %}
-                            data-tooltip="true"
-                            data-tooltipalltimes="true"
-                            data-placement="top"
-                            title="{{ gb3_variant_label | escape }}"
-                          {% endif %}
+                          data-tooltip="true"
+                          data-tooltipalltimes="true"
+                          data-placement="top"
+                          title="{{ gb3_variant_label | default: product.title | escape }}"
                         >
                           <img
                             src="{{ gb3_thumb_image | image_url: width: 80 }}"
                             alt="{{ gb3_thumb_image.alt | default: product.title | escape }}"
-                            width="22"
-                            height="22"
+                            width="24"
+                            height="24"
                             loading="lazy"
                           >
                         </span>
-                        {% if gb3_variant_label != blank %}
-                          <span class="gb3-product-thumb-label">{{ gb3_variant_label }}</span>
-                        {% endif %}
                       </div>
                     {% endif %}
                   </div>
-                </a>
+                </div>
               </div>
             {% endfor %}
           </div>
@@ -935,6 +1170,86 @@
       "max": 500,
       "step": 10,
       "default": 210,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card Title Size (Desktop)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size_mobile",
+      "label": "Card Title Size (Mobile)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_variant_size",
+      "label": "Card Variant Size (Desktop)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_variant_size_mobile",
+      "label": "Card Variant Size (Mobile)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_price_size",
+      "label": "Card Price Size (Desktop)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_price_size_mobile",
+      "label": "Card Price Size (Mobile)",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_badge_size",
+      "label": "Card Badge Size (Desktop)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_badge_size_mobile",
+      "label": "Card Badge Size (Mobile)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 11,
       "unit": "px"
     },
     {

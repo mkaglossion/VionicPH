@@ -1,8 +1,8 @@
-{%- capture iconWishlist -%}{%- include 'icon-heart' -%}{%- endcapture -%}
-{%- capture iconWishlistAdded -%}{%- include 'icon-heart-solid' -%}{%- endcapture -%}
-{%- capture iconCompare -%}{%- include 'icon-exchange' -%}{%- endcapture -%}
-{%- capture iconRemove -%}{%- include 'icon-close' -%}{%- endcapture -%}
-{%- capture iconCart -%}{%- include 'icon-cart' -%}{%- endcapture -%}
+{%- capture iconWishlist -%}{%- render 'icon-heart' -%}{%- endcapture -%}
+{%- capture iconWishlistAdded -%}{%- render 'icon-heart-solid' -%}{%- endcapture -%}
+{%- capture iconCompare -%}{%- render 'icon-exchange' -%}{%- endcapture -%}
+{%- capture iconRemove -%}{%- render 'icon-close' -%}{%- endcapture -%}
+{%- capture iconCart -%}{%- render 'icon-cart' -%}{%- endcapture -%}
 <script>
   // Global variable use in theme.js
   window.theme = window.theme || {};

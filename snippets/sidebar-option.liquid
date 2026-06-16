@@ -10,7 +10,7 @@
         <a id="dismiss" href="#" class="text-secondary small">
             {% render 'icon-close' %}
         </a>
-        <div class="row pb-5 align-items-center justify-content-between">
+        <div class="row pb-5 align-items-center justify-content-between humbergerbar__top">
             <div class="col-6">
                 {%- render 'site-logo' -%}
             </div>
@@ -24,15 +24,15 @@
             </div>
         </div>
         {%- if section.settings.timeopen != blank -%}
-        <div class="time-open font-family-2">
+        <div class="time-open font-family-2 humbergerbar__time">
             {{section.settings.timeopen}}
         </div>
         {%- endif -%}
         {%- if section.settings.istahead != blank -%}
-        <h5 class="mt-5 mb-4 font-weight-bold">{{section.settings.istahead}}</h5>
+        <h5 class="mt-5 mb-4 font-weight-bold humbergerbar__title">{{section.settings.istahead}}</h5>
         {%- endif -%}
         {%- if section.settings.enable_insta -%}
-        <div class="instagram row mb-5 dots-negative {% if section.settings.radius %} instagram-radius{% endif %}" id="Instagram-{{ section.id }}"
+        <div class="instagram row mb-5 dots-negative humbergerbar__instagram {% if section.settings.radius %} instagram-radius{% endif %}" id="Instagram-{{ section.id }}"
             data-style="carousel"
             data-accesstoken="{{section.settings.accesstoken}}"
             data-limit="{{ section.settings.limit }}" 
@@ -47,14 +47,14 @@
         </div>
         {%- endif -%}
         {%- if linklists[section.settings.link_list_head].title != blank -%}
-        <ul class="site-head__list list-group list-group-flush mb-5">
+        <ul class="site-head__list list-group list-group-flush mb-5 humbergerbar__links">
             {%- for link in linklists[section.settings.link_list_head].links -%}
             <li class="site-head__list__list-item list-group-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
             {%- endfor -%}
         </ul>
         {%- endif -%}
         {% if section.settings.email_sidebar %}
-            <div class="mb-4">
+            <div class="mb-4 humbergerbar__newsletter">
                 {% if section.settings.email_sidebar_title != blank %}
                 <h4 class="mb-4 ">
                 {{section.settings.email_sidebar_title | escape}}

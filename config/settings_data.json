@@ -3379,7 +3379,7 @@
           "align_menu": "center",
           "text_topbar": "<a href=\"/pages/help\">Help</a>",
           "enablesidebar": true,
-          "sidebar_heart": false,
+          "sidebar_heart": true,
           "sidebar_compare": false,
           "timeopen": "",
           "enable_insta": false,

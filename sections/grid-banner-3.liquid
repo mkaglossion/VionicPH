@@ -201,12 +201,14 @@
   }
 
   .gb3-{{ section.id }} .gb3-products-grid {
-    display: none;
+    display: grid;
+    gap: {{ section.settings.gap }}px;
+    margin-top: 0;
   }
 
   .gb3-{{ section.id }} .gb3-products-slider {
-    display: block;
-    margin-top: {{ section.settings.gap }}px;
+    display: none;
+    margin-top: 0;
   }
 
   .gb3-{{ section.id }} .gb3-products-slider .swiper-slide {
@@ -221,8 +223,7 @@
 
   .gb3-{{ section.id }} .gb3-product-media {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    height: auto;
+    height: {{ section.settings.card_height }}px;
     border-radius: {{ section.settings.item_border_radius }}px;
     overflow: hidden;
     background: transparent;
@@ -231,20 +232,20 @@
   .gb3-{{ section.id }} .gb3-product-media img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     display: block;
   }
 
   .gb3-{{ section.id }} .gb3-product-meta {
     text-align: center;
-    margin-top: 10px;
-    padding: 0 6px;
+    margin-top: 6px;
+    padding: 0 4px;
   }
 
   .gb3-{{ section.id }} .gb3-product-title {
     margin: 0;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     line-height: 1.35;
     color: #222;
@@ -253,8 +254,8 @@
   }
 
   .gb3-{{ section.id }} .gb3-product-price {
-    margin-top: 4px;
-    font-size: clamp(13px, 0.95vw, 15px);
+    margin-top: 2px;
+    font-size: clamp(12px, 0.9vw, 14px);
     line-height: 1.35;
     color: #222;
     font-weight: 600;
@@ -303,6 +304,25 @@
     width: 100%;
     overflow: hidden;
     padding-bottom: 26px;
+  }
+
+  .gb3-{{ section.id }} .gb3-pagination {
+    display: none;
+    position: relative;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .gb3-{{ section.id }} .gb3-pagination .swiper-pagination-bullet {
+    width: 7px;
+    height: 7px;
+    margin: 0 4px;
+    background: #c8c1b9;
+    opacity: 1;
+  }
+
+  .gb3-{{ section.id }} .gb3-pagination .swiper-pagination-bullet-active {
+    background: #222;
   }
 
   .gb3-{{ section.id }} .swiper-button-prev,
@@ -367,13 +387,26 @@
       display: block;
     }
 
-    .gb3-{{ section.id }} .gb3-products-slider {
-      margin-top: {{ section.settings.gap_mobile }}px;
+    .gb3-{{ section.id }}.gb3-mobile-carousel-enabled .gb3-products-grid {
+      display: none;
+    }
+
+    .gb3-{{ section.id }}.gb3-mobile-carousel-enabled .gb3-products-slider {
+      display: block;
+      margin-top: 0;
+    }
+
+    .gb3-{{ section.id }}.gb3-mobile-carousel-enabled .gb3-pagination {
+      display: block;
+    }
+
+    .gb3-{{ section.id }}:not(.gb3-mobile-carousel-enabled) .gb3-products-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: {{ section.settings.gap_mobile }}px;
     }
 
     .gb3-{{ section.id }} .gb3-products-slider .gb3-product-media {
-      aspect-ratio: 1 / 1;
-      height: auto;
+      height: {{ section.settings.card_height_mobile }}px;
     }
 
     .gb3-{{ section.id }} .gb3-product-thumb {
@@ -390,7 +423,7 @@
     }
 
     .gb3-{{ section.id }} .gb3-product-price {
-      font-size: 14px;
+      font-size: 12px;
     }
 
   }
@@ -402,7 +435,23 @@
   }
 </style>
 
-<section class="gb3-{{ section.id }}" data-aos="{{ section.settings.animation }}">
+{% assign gb3_mobile_carousel_enabled = false %}
+{% assign gb3_cards_collection_obj = blank %}
+{% assign gb3_cards_per_view_desktop = section.settings.collection_cards_limit | default: 4 | at_least: 1 | at_most: 4 %}
+{% assign gb3_cards_limit = 0 %}
+{% assign gb3_rendered_cards_count = 0 %}
+{% if section.settings.cards_collection != blank %}
+  {% assign gb3_cards_collection_obj = collections[section.settings.cards_collection] %}
+  {% if gb3_cards_collection_obj != blank and gb3_cards_collection_obj.products_count > 0 %}
+    {% assign gb3_cards_limit = gb3_cards_collection_obj.products_count | at_most: gb3_cards_per_view_desktop %}
+    {% assign gb3_rendered_cards_count = gb3_cards_limit %}
+    {% if section.settings.enable_mobile_carousel and gb3_rendered_cards_count > 1 %}
+      {% assign gb3_mobile_carousel_enabled = true %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+<section class="gb3-{{ section.id }}{% if gb3_mobile_carousel_enabled %} gb3-mobile-carousel-enabled{% endif %}" data-aos="{{ section.settings.animation }}">
   <div class="gb3-container {{ section.settings.setwidth }}">
     {% assign has_banner_image = false %}
     {% if section.settings.banner_image != blank or section.settings.banner_image_mobile != blank %}
@@ -497,69 +546,127 @@
       {% endif %}
     </a>
 
-    {% if use_collection and section.settings.show_view_all %}
+    {% if use_collection and section.settings.show_view_all and cards_collection_obj.products_count > cards_limit %}
       <div class="gb3-collection-actions">
         <a class="gb3-view-all" href="{{ cards_collection_obj.url }}">{{ 'collections.general.view_all' | t }}</a>
       </div>
     {% endif %}
 
     {% if use_collection %}
-      <div class="gb3-products-slider swiper gb3-swiper-{{ section.id }}">
-        <div class="swiper-wrapper">
-          {% for product in cards_collection_obj.products limit: cards_limit %}
-            <div class="swiper-slide">
-              <a href="{{ product.url | within: cards_collection_obj }}" class="gb3-product-card">
-                <div class="gb3-product-media">
-                  {% if product.featured_image != blank %}
+      <div class="gb3-products-grid" style="grid-template-columns: repeat({{ cards_limit }}, minmax(0, 1fr));">
+        {% for product in cards_collection_obj.products limit: cards_limit %}
+          <a href="{{ product.url | within: cards_collection_obj }}" class="gb3-product-card">
+            <div class="gb3-product-media">
+              {% if product.featured_image != blank %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 800 }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+            <div class="gb3-product-meta">
+              <p class="gb3-product-title">{{ product.title }}</p>
+              <div class="gb3-product-price">{{ product.price | money }}</div>
+              {% assign gb3_thumb_image = product.featured_image %}
+              {% assign gb3_variant_label = product.selected_or_first_available_variant.title | strip %}
+              {% if product.has_only_default_variant or gb3_variant_label == blank or gb3_variant_label == 'Default Title' %}
+                {% assign gb3_variant_label = blank %}
+              {% endif %}
+              {% if gb3_thumb_image != blank %}
+                <div class="gb3-product-thumb-wrap">
+                  <span
+                    class="gb3-product-thumb"
+                    {% if gb3_variant_label != blank %}
+                      data-tooltip="true"
+                      data-tooltipalltimes="true"
+                      data-placement="top"
+                      title="{{ gb3_variant_label | escape }}"
+                    {% endif %}
+                  >
                     <img
-                      src="{{ product.featured_image | image_url: width: 800 }}"
-                      alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                      width="800"
-                      height="800"
+                      src="{{ gb3_thumb_image | image_url: width: 80 }}"
+                      alt="{{ gb3_thumb_image.alt | default: product.title | escape }}"
+                      width="22"
+                      height="22"
                       loading="lazy"
                     >
-                  {% else %}
-                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </span>
+                  {% if gb3_variant_label != blank %}
+                    <span class="gb3-product-thumb-label">{{ gb3_variant_label }}</span>
                   {% endif %}
                 </div>
-                <div class="gb3-product-meta">
-                  <p class="gb3-product-title">{{ product.title }}</p>
-                  <div class="gb3-product-price">{{ product.price | money }}</div>
-                  {% assign gb3_thumb_image = product.featured_image %}
-                  {% assign gb3_variant_label = product.selected_or_first_available_variant.title | strip %}
-                  {% if product.has_only_default_variant or gb3_variant_label == blank or gb3_variant_label == 'Default Title' %}
-                    {% assign gb3_variant_label = blank %}
-                  {% endif %}
-                  {% if gb3_thumb_image != blank %}
-                    <div class="gb3-product-thumb-wrap">
-                      <span
-                        class="gb3-product-thumb"
-                        {% if gb3_variant_label != blank %}
-                          data-tooltip="true"
-                          data-tooltipalltimes="true"
-                          data-placement="top"
-                          title="{{ gb3_variant_label | escape }}"
-                        {% endif %}
-                      >
-                        <img
-                          src="{{ gb3_thumb_image | image_url: width: 80 }}"
-                          alt="{{ gb3_thumb_image.alt | default: product.title | escape }}"
-                          width="22"
-                          height="22"
-                          loading="lazy"
-                        >
-                      </span>
-                      {% if gb3_variant_label != blank %}
-                        <span class="gb3-product-thumb-label">{{ gb3_variant_label }}</span>
-                      {% endif %}
-                    </div>
-                  {% endif %}
-                </div>
-              </a>
+              {% endif %}
             </div>
-          {% endfor %}
-        </div>
+          </a>
+        {% endfor %}
       </div>
+
+      {% if gb3_mobile_carousel_enabled %}
+        <div class="gb3-products-slider swiper gb3-swiper-{{ section.id }}">
+          <div class="swiper-wrapper">
+            {% for product in cards_collection_obj.products limit: cards_limit %}
+              <div class="swiper-slide">
+                <a href="{{ product.url | within: cards_collection_obj }}" class="gb3-product-card">
+                  <div class="gb3-product-media">
+                    {% if product.featured_image != blank %}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 800 }}"
+                        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                        width="800"
+                        height="800"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                  <div class="gb3-product-meta">
+                    <p class="gb3-product-title">{{ product.title }}</p>
+                    <div class="gb3-product-price">{{ product.price | money }}</div>
+                    {% assign gb3_thumb_image = product.featured_image %}
+                    {% assign gb3_variant_label = product.selected_or_first_available_variant.title | strip %}
+                    {% if product.has_only_default_variant or gb3_variant_label == blank or gb3_variant_label == 'Default Title' %}
+                      {% assign gb3_variant_label = blank %}
+                    {% endif %}
+                    {% if gb3_thumb_image != blank %}
+                      <div class="gb3-product-thumb-wrap">
+                        <span
+                          class="gb3-product-thumb"
+                          {% if gb3_variant_label != blank %}
+                            data-tooltip="true"
+                            data-tooltipalltimes="true"
+                            data-placement="top"
+                            title="{{ gb3_variant_label | escape }}"
+                          {% endif %}
+                        >
+                          <img
+                            src="{{ gb3_thumb_image | image_url: width: 80 }}"
+                            alt="{{ gb3_thumb_image.alt | default: product.title | escape }}"
+                            width="22"
+                            height="22"
+                            loading="lazy"
+                          >
+                        </span>
+                        {% if gb3_variant_label != blank %}
+                          <span class="gb3-product-thumb-label">{{ gb3_variant_label }}</span>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+          {% if section.settings.show_mobile_pagination %}
+            <div class="gb3-pagination swiper-pagination gb3-pagination-{{ section.id }}"></div>
+          {% endif %}
+        </div>
+      {% endif %}
     {% endif %}
   </div>
 </section>
@@ -570,34 +677,38 @@
   document.addEventListener('DOMContentLoaded', function () {
     var slider = document.querySelector('.gb3-swiper-{{ section.id }}');
     if (slider) {
-      var nextEl = slider.querySelector('.gb3-slider-next-{{ section.id }}');
-      var prevEl = slider.querySelector('.gb3-slider-prev-{{ section.id }}');
-      new Swiper(slider, {
-        slidesPerView: 1,
-        spaceBetween: {{ section.settings.gap_mobile }},
-        loop: {% if rendered_cards_count > 1 %}{{ section.settings.carousel_loop | default: false }}{% else %}false{% endif %},
-        watchOverflow: false,
-        navigation: nextEl && prevEl
-          ? {
-              nextEl: nextEl,
-              prevEl: prevEl
-            }
-          : false,
-        breakpoints: {
-          768: {
-            slidesPerView: 2,
-            spaceBetween: {{ section.settings.gap }}
-          },
-          992: {
-            slidesPerView: 3,
-            spaceBetween: {{ section.settings.gap }}
-          },
-          1200: {
-            slidesPerView: {{ cards_per_view_desktop }},
-            spaceBetween: {{ section.settings.gap }}
-          }
+      var paginationEl = slider.querySelector('.gb3-pagination-{{ section.id }}');
+      var mobileQuery = window.matchMedia('(max-width: 767px)');
+      var swiperInstance = null;
+
+      function buildSwiper() {
+        if (swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
         }
-      });
+
+        if (!mobileQuery.matches) {
+          return;
+        }
+
+        swiperInstance = new Swiper(slider, {
+          slidesPerView: 1,
+          spaceBetween: {{ section.settings.gap_mobile }},
+          loop: {% if rendered_cards_count > 1 and section.settings.carousel_loop %}true{% else %}false{% endif %},
+          watchOverflow: false,
+          pagination: {% if rendered_cards_count > 1 and section.settings.show_mobile_pagination %}paginationEl ? {
+            el: paginationEl,
+            clickable: true
+          } : false{% else %}false{% endif %}
+        });
+      }
+
+      buildSwiper();
+      if (mobileQuery.addEventListener) {
+        mobileQuery.addEventListener('change', buildSwiper);
+      } else if (mobileQuery.addListener) {
+        mobileQuery.addListener(buildSwiper);
+      }
     }
   });
 </script>
@@ -781,9 +892,21 @@
     },
     {
       "type": "checkbox",
+      "id": "enable_mobile_carousel",
+      "label": "Enable Mobile Carousel",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_pagination",
+      "label": "Show Mobile Pagination",
+      "default": true
+    },
+    {
+      "type": "checkbox",
       "id": "show_view_all",
       "label": "Show View All",
-      "default": false
+      "default": true
     },
     {
       "type": "range",
@@ -801,7 +924,7 @@
       "min": 180,
       "max": 500,
       "step": 10,
-      "default": 260,
+      "default": 230,
       "unit": "px"
     },
     {
@@ -811,7 +934,7 @@
       "min": 180,
       "max": 500,
       "step": 10,
-      "default": 280,
+      "default": 210,
       "unit": "px"
     },
     {
@@ -902,7 +1025,7 @@
     {
       "type": "checkbox",
       "id": "carousel_loop",
-      "label": "Enable Loop",
+      "label": "Enable Loop (Mobile Only)",
       "default": true
     },
     {

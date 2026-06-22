@@ -1,1 +1,217 @@
-{"sections":{"main":{"type":"main-page","settings":{}},"grid_banner_YVQq6b":{"type":"grid-banner","blocks":{"banner_czw74w":{"type":"banner","settings":{"image":"shopify:\/\/shop_images\/Desktop_Main_banner_b5672505-da43-4381-b40c-86581bbfb6e2.jpg","image_mobile":"shopify:\/\/shop_images\/Mobile_Main_banner_c5e8043f-4cdf-44fe-8505-960982d75b5a.jpg","width":"12","description":"","bg_color":"rgba(0,0,0,0)","colordef":"rgba(0,0,0,0)","opacity_bg":0,"style_btn":"btn-underline btn-underline-white","button_text":"","button_icon":"","button_link":"","vertical":"mid","horizontal":"center","text_align":"center"}}},"block_order":["banner_czw74w"],"disabled":true,"name":"Grid banner","settings":{"animation":"","paddingsection":"0px 0px 0px 0px","paddingmobile":"0px 0px 0px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px","bgsection":"rgba(0,0,0,0)","bgstyle":false,"bgbefore":"rgba(0,0,0,0)","title_top":"","title":"","des":"","setwidth":"full","no_gutter":false,"show_overlay":false,"gradient_overlay":false,"bg_overlay":"rgba(0,0,0,0)","opacity_overlay":0}},"advanced_content_Bi66JM":{"type":"advanced-content","blocks":{"html_KhML6X":{"type":"html","disabled":true,"settings":{"code":"","width":"100%","align":"auto"}}},"block_order":["html_KhML6X"],"disabled":true,"name":"Custom HTML","settings":{"animation":"","paddingsection":"0px 0px 30px 0px","paddingmobile":"0px 0px 30px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px","zindex":"0","title_top":"","title":"","des":"<body>\n\n\n    <meta charset=\"UTF-8\">\n    <title>Vionic - APMA Accepted<\/title>\n    <style>\n        body {\n            line-height: 1.5rem;\n        }\n        #moreText {\n            display: none;\n        }\n        #readMoreBtn {\n            color: black;\n            text-decoration: underline;\n            cursor: pointer;\n            background: none;\n            border: none;\n            padding: 0;\n            margin-top: 1rem;\n            font-size: 1.2rem;\n        }\n        h1{\n            margin: 2rem;\n            font-size: 1.5rem;\n        }\n        p{\n            font-size: 1rem;\n        }\n    <\/style>\n\n\n    <h1>CERTIFIED FOOT HEALTH BENIFITS<\/h1>\n    <p>The American Podiatric Medical Association (APMA) is the leading resource for foot health information, representing 15,000 podiatrists across the United States. Many Vionic products carry the APMA Seal of Acceptance, which certifies that they are beneficial in promoting foot health. Vionic is one of the few footwear brands with demonstrated ability to provide proper support.<\/p>\n    <div id=\"moreText\">\n        <p>In order to earn the Seal of Acceptance, each product is reviewed by a group of APMA podiatrists to ensure its safety and<\/p>\n        <p>overall quality, as well as its effectiveness.<\/p>\n    <\/div>\n\n    <button id=\"readMoreBtn\" onclick=\"toggleText()\">Read More<\/button>\n\n    <script>\n        function toggleText() {\n            const moreText = document.getElementById(\"moreText\");\n            const btn = document.getElementById(\"readMoreBtn\");\n\n            if (moreText.style.display === \"none\") {\n                moreText.style.display = \"block\";\n                btn.textContent = \"Read Less\";\n            } else {\n                moreText.style.display = \"none\";\n                btn.textContent = \"Read More\";\n            }\n        }\n    <\/script>\n\n<\/body>","setwidth":"full","padding":false,"col_center":false,"bgsection":"rgba(0,0,0,0)","rangebg":0,"bgbefore":"rgba(0,0,0,0)","e_size":"auto","e_repeat":"no-repeat"}},"advanced_content_frCRJb":{"type":"advanced-content","blocks":{"html_CLVeYw":{"type":"html","settings":{"code":"","width":"100%","align":"auto"}}},"block_order":["html_CLVeYw"],"disabled":true,"name":"Custom HTML","settings":{"animation":"","paddingsection":"0px 0px 30px 0px","paddingmobile":"0px 0px 30px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px","zindex":"0","title_top":"","title":"","des":"<body>\n\n\n  <meta charset=\"UTF-8\">\n  <title>Vionic - Comfortable Shoes for Women<\/title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <style>\n    body { \n      line-height: 1.5; \n      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; \n      padding: 1rem; \n    }\n    h1 { margin: 2rem 0 1rem; font-size: 1.5rem; }\n    h2 { margin: 1.5rem 0 .75rem; font-size: 1.25rem; }\n    p { font-size: 1rem; margin: 0 0 1rem; }\n\n    .is-hidden { display: none; }\n\n    \/* Modern button styling *\/\n    #toggleContentBtn {\n      display: inline-block;\n      background-color: #000;      \/* Black button *\/\n      color: #fff;                 \/* White text *\/\n      padding: 0.5rem 1.25rem;\n      font-size: 1rem;\n      border: none;\n      border-radius: 25px;         \/* Rounded pill shape *\/\n      cursor: pointer;\n      transition: background-color 0.3s ease, transform 0.2s ease;\n    }\n    #toggleContentBtn:hover {\n      background-color: #444;      \/* Dark gray on hover *\/\n      transform: translateY(-2px); \/* Slight lift effect *\/\n    }\n    #toggleContentBtn:active {\n      transform: translateY(0);    \/* Reset on click *\/\n    }\n  <\/style>\n\n\n\n  <h1>DISCOVER VIONIC’S APMA-ACCEPTED SHOES<\/h1>\n  <p>\n    At Vionic, we take pride in offering a collection of APMA shoes that meet the standards set by\n    the American Podiatric Medical Association's committee of experts. Carefully evaluated and\n    granted the prestigious Seal of Acceptance, these shoes are thoughtfully designed to support a\n    variety of foot types, including high and low arches, while ensuring both comfort and style.\n  <\/p>\n\n  <div id=\"moreText\" class=\"is-hidden\">\n    <p>\n      Whether you’re looking for casual options, active footwear, or professional styles, our\n      collection has something for everyone. Each pair is meticulously crafted to align with your\n      lifestyle needs, making them ideal for walking, working, and everyday activities. Discover\n      APMA-accepted men’s and women’s shoes—from versatile sneakers to polished flats—each awarded\n      the APMA Seal of Acceptance for promoting good foot health.\n    <\/p>\n\n    <h2>WHY APMA ACCEPTANCE MATTERS<\/h2>\n    <p>\n      The APMA Seal of Acceptance is awarded to footwear that has been rigorously reviewed and meets\n      the criteria for promoting good foot health. Vionic’s shoes, including our popular walking\n      sneakers and supportive sandals, are engineered with foot health in mind.\n    <\/p>\n    <p>\n      The Seal isn’t just a label—it’s a mark of quality. These shoes are a smart choice for anyone\n      seeking comfort and support without compromising on style. Whether you need walking sneakers\n      for women, women’s sandals, or men’s boots, the APMA Seal ensures you’re choosing footwear you\n      can trust.\n    <\/p>\n  <\/div>\n\n  <button id=\"toggleContentBtn\" type=\"button\" aria-expanded=\"false\" aria-controls=\"moreText\">\n    Read More\n  <\/button>\n\n  <script>\n    const moreText = document.getElementById(\"moreText\");\n    const btn = document.getElementById(\"toggleContentBtn\");\n\n    function toggleText() {\n      const isHidden = moreText.classList.toggle(\"is-hidden\");\n      btn.textContent = isHidden ? \"Read More\" : \"Read Less\";\n      btn.setAttribute(\"aria-expanded\", String(!isHidden));\n    }\n\n    btn.addEventListener(\"click\", toggleText);\n  <\/script>\n\n\n<\/body>","setwidth":"full","padding":false,"col_center":false,"bgsection":"rgba(0,0,0,0)","rangebg":0,"bgbefore":"rgba(0,0,0,0)","e_size":"auto","e_repeat":"no-repeat"}},"grid_banner_riTkEz":{"type":"grid-banner","blocks":{"banner_yMfemg":{"type":"banner","settings":{"image":"shopify:\/\/shop_images\/VioMotion_Footer_-_Product_Listing.jpg","width":"12","description":"","bg_color":"rgba(0,0,0,0)","colordef":"rgba(0,0,0,0)","opacity_bg":0,"style_btn":"btn-underline btn-underline-white","button_text":"","button_icon":"","button_link":"","vertical":"mid","horizontal":"center","text_align":"center"}}},"block_order":["banner_yMfemg"],"name":"Grid banner","settings":{"animation":"","paddingsection":"0px 0px 0px 0px","paddingmobile":"0px 0px 0px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px","bgsection":"rgba(0,0,0,0)","bgstyle":false,"bgbefore":"rgba(0,0,0,0)","title_top":"","title":"","des":"","setwidth":"full","no_gutter":false,"show_overlay":false,"gradient_overlay":false,"bg_overlay":"rgba(0,0,0,0)","opacity_overlay":0}},"advanced_content_YyNVTp":{"type":"advanced-content","blocks":{"html_4zeEka":{"type":"html","settings":{"code":"<body>\n\n\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Footer<\/title>\n    <style>\n        \/* Main footer styling *\/\n        .footer {\n            background-color: #333;\n            color: #fff;\n            display: flex;\n            justify-content: space-between;\n            padding: 20px;\n            font-family: Arial, sans-serif;\n        }\n\n        .footer-section {\n            flex: 1;\n            margin: 0 10px;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            text-align: center;\n        }\n\n        .footer-section h2 {\n            font-size: 18px;\n            margin-bottom: 10px;\n            color: #fff;\n        }\n\n        .footer-section p {\n            font-size: 14px;\n            margin: 5px 0;\n            color: #fff;\n        }\n\n        .footer-section a {\n            color: #8FA19A;\n            text-decoration: none;\n            font-size: 14px;\n            margin-top: 10px;\n            display: inline-block;\n        }\n\n        .footer-section form {\n            display: flex;\n            align-items: center;\n            margin-top: 20px;\n            border: 1px solid #8FA19A;\n        }\n\n        .footer-section input[type=\"email\"] {\n            padding: 10px;\n            border: none;\n            flex: 1;\n            font-size: 14px;\n            color: #333;\n        }\n\n        .footer-section button {\n            padding: 10px 20px;\n            background-color: #8FA19A;\n            color: #fff;\n            border: none;\n            cursor: pointer;\n            font-size: 14px;\n        }\n\n        .footer-section .social-icons {\n            display: flex;\n            align-items: center;\n            margin-top: 10px;\n        }\n\n        .footer-section .social-icons a {\n            margin-right: 10px;\n        }\n\n        .footer-section .social-icons img {\n            width: 24px;\n            height: 24px;\n        }\n\n        .footer .vertical-line {\n            width: 1px;\n            background-color: #fff;\n            margin: 0 20px;\n        }\n\n        \/* Mobile footer styling *\/\n        .mobile-footer {\n            display: none;\n        }\n\n        @media (max-width: 768px) {\n            .footer {\n                display: none;\n            }\n\n            .mobile-footer {\n                display: block;\n                text-align: center;\n                padding: 20px;\n                background-color: #333;\n                color: #fff;\n                font-family: Arial, sans-serif;\n            }\n\n            .mobile-footer h2 {\n                font-size: 18px;\n                margin-bottom: 5px;\n                color: #fff;\n            }\n\n            .mobile-footer p {\n                font-size: 14px;\n                margin: 5px 0;\n                color: #fff;\n            }\n\n            .mobile-footer p.phone-number {\n                font-size: 16px;\n                font-weight: bold;\n            }\n\n            .mobile-footer p.operating-hours {\n                font-size: 15px;\n                margin-top: 5px;\n                margin-bottom: 15px;\n            }\n\n            .mobile-footer h2.follow-us {\n                margin-bottom: 0px;\n            }\n\n            .mobile-footer a {\n                display: block;\n                padding: 10px;\n                margin: 10px 0;\n                background-color: transparent;\n                border: 1px solid #8FA19A;\n                color: #8FA19A;\n                text-decoration: none;\n                font-size: 16px;\n            }\n\n            .mobile-footer .social-icons {\n                display: flex;\n                justify-content: center;\n                margin-top: 0px;\n            }\n\n            .mobile-footer .social-icons a {\n                margin: 0 0px;\n                border: none;\n            }\n\n            .mobile-footer .social-icons img {\n                width: 32px;\n                height: 32px;\n            }\n\n            .mobile-footer .spacing-links {\n                margin: 35px 0;\n                margin-left: auto;\n                margin-right: auto;\n                width: 200px;\n            }\n\n            .mobile-footer a.spacing-links {\n                width: 200px;\n            }\n\n            .mobile-footer .email-signup-form {\n                display: flex;\n                flex-direction: column;\n                align-items: center;\n                margin-top: 20px;\n            }\n\n            .mobile-footer .email-signup-form p {\n                margin-bottom: 10px;\n            }\n\n            .mobile-footer .email-signup-form form {\n                display: flex;\n                width: 100%;\n                max-width: 300px;\n                justify-content: center;\n                align-items: center;\n                border: 1px solid #8FA19A;\n            }\n\n            .mobile-footer .email-signup-form input[type=\"email\"] {\n                padding: 10px;\n                margin-right: 0;\n                flex: 1;\n                border: none;\n                width: 70%;\n                font-size: 14px;\n                color: #333;\n            }\n\n            .mobile-footer .email-signup-form button {\n                padding: 10px 20px;\n                background-color: #8FA19A;\n                color: #fff;\n                border: none;\n                cursor: pointer;\n                width: 30%;\n                font-size: 14px;\n            }\n        }\n    <\/style>\n\n\n    <div class=\"footer\">\n        <div class=\"footer-section\">\n            <h2>AT YOUR SERVICE<\/h2>\n            <p>GIVE US A RING<\/p>\n            <p>+639177013367 or +639177018367 and +639171023218<\/p>\n            <p>Monday to Sunday<\/p>\n            <p style=\"margin-top: 20px;\">DROP US A NOTE<\/p>\n            <p><a href=\"mailto:customerservice@vionicshoes.com.ph\" style=\"color: #fff; text-decoration: underline;\">customerservice@vionicshoes.com.ph<\/a><\/p>\n        <\/div>\n        <div class=\"vertical-line\"><\/div>\n        <div class=\"footer-section\">\n            <h2>FIND A STORE<\/h2>\n            <a href=\"\/pages\/store-locations\">Visit one of our stores nationwide.<\/a>\n            <h2 style=\"margin-top: 20px;\">FOLLOW US<\/h2>\n            <p>@vionicshoesph<\/p>\n            <div class=\"social-icons\">\n                <a href=\"https:\/\/www.facebook.com\/vionicshoesph\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0553\/5590\/0092\/files\/icon_facebook_1.webp\" alt=\"Facebook\"><\/a>\n                <a href=\"https:\/\/www.instagram.com\/vionicshoesph\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0553\/5590\/0092\/files\/icon_instagram_1.webp\" alt=\"Instagram\"><\/a>\n            <\/div>\n        <\/div>\n        <div class=\"vertical-line\"><\/div>\n        <div class=\"footer-section\">\n            <h2>Sign up for our email list.<\/h2>\n            <p>You'll be the first to know about the latest styles and promotions.<\/p>\n            <form action=\"\/contact#contact_form\" method=\"post\" id=\"contact_form\" accept-charset=\"UTF-8\" class=\"contact-form\">\n                <input type=\"hidden\" name=\"form_type\" value=\"customer\">\n                <input type=\"hidden\" name=\"utf8\" value=\"✓\">\n                <input type=\"email\" name=\"contact[email]\" id=\"Email\" placeholder=\"Enter email\" aria-label=\"Enter email\" required>\n                <button type=\"submit\" name=\"commit\">SUBMIT<\/button>\n            <\/form>\n            <div id=\"thank-you-message\" style=\"display:none;\">\n                Thank you for signing up for emails!\n            <\/div>\n        <\/div>\n    <\/div>\n\n    <div class=\"mobile-footer\">\n        <h2>AT YOUR SERVICE<\/h2>\n        <p>CUSTOMER CARE<\/p>\n        <p class=\"phone-number\">+639177013367 or +639177018367 and +639171023218<\/p>\n        <p class=\"operating-hours\">Monday to Sunday <\/p>\n        <a href=\"mailto:customerservice@vionicshoes.com.ph\" class=\"spacing-links\">DROP US A NOTE<\/a>\n        <a href=\"\/pages\/store-locations\" class=\"spacing-links\">FIND A STORE<\/a>\n        <div class=\"email-signup-form\">\n            <p>Sign up for our email list.<\/p>\n            <p>You'll be the first to know about the latest styles and promotions.<\/p>\n            <form action=\"\/contact#contact_form\" method=\"post\" id=\"mobile-contact_form\" accept-charset=\"UTF-8\" class=\"contact-form\">\n                <input type=\"hidden\" name=\"form_type\" value=\"customer\">\n                <input type=\"hidden\" name=\"utf8\" value=\"✓\">\n                <input type=\"email\" name=\"contact[email]\" id=\"mobile-Email\" placeholder=\"Enter email\" aria-label=\"Enter email\" required>\n                <button type=\"submit\" name=\"commit\">SUBMIT<\/button>\n            <\/form>\n            <div id=\"mobile-thank-you-message\" style=\"display:none;\">\n                Thank you for signing up for emails!\n            <\/div>\n        <\/div>\n        <h2 class=\"follow-us\" style=\"margin-top: 20px;\">FOLLOW US<\/h2>\n        <div class=\"social-icons\">\n            <a href=\"https:\/\/www.facebook.com\/vionicshoesph\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0553\/5590\/0092\/files\/icon_facebook_1.webp\" alt=\"Facebook\"><\/a>\n            <a href=\"https:\/\/www.instagram.com\/vionicshoesph\/\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0553\/5590\/0092\/files\/icon_instagram_1.webp\" alt=\"Instagram\"><\/a>\n        <\/div>\n    <\/div>\n\n    <script>\n        \/\/ JavaScript for Newsletter Signup Validation and Submission\n        document.getElementById('contact_form').addEventListener('submit', function(event) {\n            var emailInput = document.getElementById('Email');\n            if (!emailInput.value.includes('@')) {\n                alert('Please enter a valid email address.');\n                event.preventDefault();\n            }\n        });\n\n        \/\/ JavaScript for Mobile Newsletter Signup Validation and Submission\n        document.getElementById('mobile-contact_form').addEventListener('submit', function(event) {\n            var emailInput = document.getElementById('mobile-Email');\n            if (!emailInput.value.includes('@')) {\n                alert('Please enter a valid email address.');\n                event.preventDefault();\n            }\n        });\n\n        \/\/ Check URL for 'customer_posted=true' and display thank-you message\n        function checkUrlAndDisplayMessage() {\n            const urlParams = new URLSearchParams(window.location.search);\n            if (urlParams.get('customer_posted') === 'true') {\n                document.getElementById('thank-you-message').style.display = 'block';\n                document.querySelector('.footer-section').scrollIntoView({\n                    behavior: 'smooth' \/\/ Smoothly scroll to the footer section\n                });\n            }\n        }\n\n        function checkMobileUrlAndDisplayMessage() {\n            const urlParams = new URLSearchParams(window.location.search);\n            if (urlParams.get('customer_posted') === 'true') {\n                document.getElementById('mobile-thank-you-message').style.display = 'block';\n                document.querySelector('.mobile-footer').scrollIntoView({\n                    behavior: 'smooth' \/\/ Smoothly scroll to the mobile footer section\n                });\n            }\n        }\n\n        checkUrlAndDisplayMessage();\n        checkMobileUrlAndDisplayMessage();\n    <\/script>\n\n<\/body>","width":"100%","align":"auto"}}},"block_order":["html_4zeEka"],"name":"Custom HTML","settings":{"animation":"","paddingsection":"0px 0px 0px 0px","paddingmobile":"0px 0px 0px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px","zindex":"0","title_top":"","title":"","des":"","setwidth":"full","padding":false,"col_center":false,"bgsection":"rgba(0,0,0,0)","rangebg":0,"bgbefore":"rgba(0,0,0,0)","e_size":"auto","e_repeat":"no-repeat"}}},"order":["main","grid_banner_YVQq6b","advanced_content_Bi66JM","advanced_content_frCRJb","grid_banner_riTkEz","advanced_content_YyNVTp"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "grid_banner_YVQq6b": {
+      "type": "grid-banner",
+      "blocks": {
+        "banner_czw74w": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/Desktop_Main_banner_b5672505-da43-4381-b40c-86581bbfb6e2.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_Main_banner_c5e8043f-4cdf-44fe-8505-960982d75b5a.jpg",
+            "width": "12",
+            "description": "",
+            "bg_color": "rgba(0,0,0,0)",
+            "colordef": "rgba(0,0,0,0)",
+            "opacity_bg": 0,
+            "style_btn": "btn-underline btn-underline-white",
+            "button_text": "",
+            "button_icon": "",
+            "button_link": "",
+            "vertical": "mid",
+            "horizontal": "center",
+            "text_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "banner_czw74w"
+      ],
+      "disabled": true,
+      "name": "Grid banner",
+      "settings": {
+        "animation": "",
+        "paddingsection": "0px 0px 0px 0px",
+        "paddingmobile": "0px 0px 0px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px",
+        "bgsection": "rgba(0,0,0,0)",
+        "bgstyle": false,
+        "bgbefore": "rgba(0,0,0,0)",
+        "title_top": "",
+        "title": "",
+        "des": "",
+        "setwidth": "full",
+        "no_gutter": false,
+        "show_overlay": false,
+        "gradient_overlay": false,
+        "bg_overlay": "rgba(0,0,0,0)",
+        "opacity_overlay": 0
+      }
+    },
+    "advanced_content_Bi66JM": {
+      "type": "advanced-content",
+      "blocks": {
+        "html_KhML6X": {
+          "type": "html",
+          "disabled": true,
+          "settings": {
+            "code": "",
+            "width": "100%",
+            "align": "auto"
+          }
+        }
+      },
+      "block_order": [
+        "html_KhML6X"
+      ],
+      "disabled": true,
+      "name": "Custom HTML",
+      "settings": {
+        "animation": "",
+        "paddingsection": "0px 0px 30px 0px",
+        "paddingmobile": "0px 0px 30px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px",
+        "zindex": "0",
+        "title_top": "",
+        "title": "",
+        "des": "<body>\n\n\n    <meta charset=\"UTF-8\">\n    <title>Vionic - APMA Accepted</title>\n    <style>\n        body {\n            line-height: 1.5rem;\n        }\n        #moreText {\n            display: none;\n        }\n        #readMoreBtn {\n            color: black;\n            text-decoration: underline;\n            cursor: pointer;\n            background: none;\n            border: none;\n            padding: 0;\n            margin-top: 1rem;\n            font-size: 1.2rem;\n        }\n        h1{\n            margin: 2rem;\n            font-size: 1.5rem;\n        }\n        p{\n            font-size: 1rem;\n        }\n    </style>\n\n\n    <h1>CERTIFIED FOOT HEALTH BENIFITS</h1>\n    <p>The American Podiatric Medical Association (APMA) is the leading resource for foot health information, representing 15,000 podiatrists across the United States. Many Vionic products carry the APMA Seal of Acceptance, which certifies that they are beneficial in promoting foot health. Vionic is one of the few footwear brands with demonstrated ability to provide proper support.</p>\n    <div id=\"moreText\">\n        <p>In order to earn the Seal of Acceptance, each product is reviewed by a group of APMA podiatrists to ensure its safety and</p>\n        <p>overall quality, as well as its effectiveness.</p>\n    </div>\n\n    <button id=\"readMoreBtn\" onclick=\"toggleText()\">Read More</button>\n\n    <script>\n        function toggleText() {\n            const moreText = document.getElementById(\"moreText\");\n            const btn = document.getElementById(\"readMoreBtn\");\n\n            if (moreText.style.display === \"none\") {\n                moreText.style.display = \"block\";\n                btn.textContent = \"Read Less\";\n            } else {\n                moreText.style.display = \"none\";\n                btn.textContent = \"Read More\";\n            }\n        }\n    </script>\n\n</body>",
+        "setwidth": "full",
+        "padding": false,
+        "col_center": false,
+        "bgsection": "rgba(0,0,0,0)",
+        "rangebg": 0,
+        "bgbefore": "rgba(0,0,0,0)",
+        "e_size": "auto",
+        "e_repeat": "no-repeat"
+      }
+    },
+    "advanced_content_frCRJb": {
+      "type": "advanced-content",
+      "blocks": {
+        "html_CLVeYw": {
+          "type": "html",
+          "settings": {
+            "code": "",
+            "width": "100%",
+            "align": "auto"
+          }
+        }
+      },
+      "block_order": [
+        "html_CLVeYw"
+      ],
+      "disabled": true,
+      "name": "Custom HTML",
+      "settings": {
+        "animation": "",
+        "paddingsection": "0px 0px 30px 0px",
+        "paddingmobile": "0px 0px 30px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px",
+        "zindex": "0",
+        "title_top": "",
+        "title": "",
+        "des": "<body>\n\n\n  <meta charset=\"UTF-8\">\n  <title>Vionic - Comfortable Shoes for Women</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <style>\n    body { \n      line-height: 1.5; \n      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; \n      padding: 1rem; \n    }\n    h1 { margin: 2rem 0 1rem; font-size: 1.5rem; }\n    h2 { margin: 1.5rem 0 .75rem; font-size: 1.25rem; }\n    p { font-size: 1rem; margin: 0 0 1rem; }\n\n    .is-hidden { display: none; }\n\n    /* Modern button styling */\n    #toggleContentBtn {\n      display: inline-block;\n      background-color: #000;      /* Black button */\n      color: #fff;                 /* White text */\n      padding: 0.5rem 1.25rem;\n      font-size: 1rem;\n      border: none;\n      border-radius: 25px;         /* Rounded pill shape */\n      cursor: pointer;\n      transition: background-color 0.3s ease, transform 0.2s ease;\n    }\n    #toggleContentBtn:hover {\n      background-color: #444;      /* Dark gray on hover */\n      transform: translateY(-2px); /* Slight lift effect */\n    }\n    #toggleContentBtn:active {\n      transform: translateY(0);    /* Reset on click */\n    }\n  </style>\n\n\n\n  <h1>DISCOVER VIONIC’S APMA-ACCEPTED SHOES</h1>\n  <p>\n    At Vionic, we take pride in offering a collection of APMA shoes that meet the standards set by\n    the American Podiatric Medical Association's committee of experts. Carefully evaluated and\n    granted the prestigious Seal of Acceptance, these shoes are thoughtfully designed to support a\n    variety of foot types, including high and low arches, while ensuring both comfort and style.\n  </p>\n\n  <div id=\"moreText\" class=\"is-hidden\">\n    <p>\n      Whether you’re looking for casual options, active footwear, or professional styles, our\n      collection has something for everyone. Each pair is meticulously crafted to align with your\n      lifestyle needs, making them ideal for walking, working, and everyday activities. Discover\n      APMA-accepted men’s and women’s shoes—from versatile sneakers to polished flats—each awarded\n      the APMA Seal of Acceptance for promoting good foot health.\n    </p>\n\n    <h2>WHY APMA ACCEPTANCE MATTERS</h2>\n    <p>\n      The APMA Seal of Acceptance is awarded to footwear that has been rigorously reviewed and meets\n      the criteria for promoting good foot health. Vionic’s shoes, including our popular walking\n      sneakers and supportive sandals, are engineered with foot health in mind.\n    </p>\n    <p>\n      The Seal isn’t just a label—it’s a mark of quality. These shoes are a smart choice for anyone\n      seeking comfort and support without compromising on style. Whether you need walking sneakers\n      for women, women’s sandals, or men’s boots, the APMA Seal ensures you’re choosing footwear you\n      can trust.\n    </p>\n  </div>\n\n  <button id=\"toggleContentBtn\" type=\"button\" aria-expanded=\"false\" aria-controls=\"moreText\">\n    Read More\n  </button>\n\n  <script>\n    const moreText = document.getElementById(\"moreText\");\n    const btn = document.getElementById(\"toggleContentBtn\");\n\n    function toggleText() {\n      const isHidden = moreText.classList.toggle(\"is-hidden\");\n      btn.textContent = isHidden ? \"Read More\" : \"Read Less\";\n      btn.setAttribute(\"aria-expanded\", String(!isHidden));\n    }\n\n    btn.addEventListener(\"click\", toggleText);\n  </script>\n\n\n</body>",
+        "setwidth": "full",
+        "padding": false,
+        "col_center": false,
+        "bgsection": "rgba(0,0,0,0)",
+        "rangebg": 0,
+        "bgbefore": "rgba(0,0,0,0)",
+        "e_size": "auto",
+        "e_repeat": "no-repeat"
+      }
+    },
+    "grid_banner_riTkEz": {
+      "type": "grid-banner",
+      "blocks": {
+        "banner_yMfemg": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/VioMotion_Footer_-_Product_Listing.jpg",
+            "width": "12",
+            "description": "",
+            "bg_color": "rgba(0,0,0,0)",
+            "colordef": "rgba(0,0,0,0)",
+            "opacity_bg": 0,
+            "style_btn": "btn-underline btn-underline-white",
+            "button_text": "",
+            "button_icon": "",
+            "button_link": "",
+            "vertical": "mid",
+            "horizontal": "center",
+            "text_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "banner_yMfemg"
+      ],
+      "name": "Grid banner",
+      "settings": {
+        "animation": "",
+        "paddingsection": "0px 0px 0px 0px",
+        "paddingmobile": "0px 0px 0px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px",
+        "bgsection": "rgba(0,0,0,0)",
+        "bgstyle": false,
+        "bgbefore": "rgba(0,0,0,0)",
+        "title_top": "",
+        "title": "",
+        "des": "",
+        "setwidth": "full",
+        "no_gutter": false,
+        "show_overlay": false,
+        "gradient_overlay": false,
+        "bg_overlay": "rgba(0,0,0,0)",
+        "opacity_overlay": 0
+      }
+    },
+    "advanced_content_YyNVTp": {
+      "type": "advanced-content",
+      "name": "Custom HTML",
+      "settings": {
+        "animation": "",
+        "paddingsection": "0px 0px 0px 0px",
+        "paddingmobile": "0px 0px 0px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px",
+        "zindex": "0",
+        "title_top": "",
+        "title": "",
+        "des": "",
+        "setwidth": "full",
+        "padding": false,
+        "col_center": false,
+        "bgsection": "rgba(0,0,0,0)",
+        "rangebg": 0,
+        "bgbefore": "rgba(0,0,0,0)",
+        "e_size": "auto",
+        "e_repeat": "no-repeat"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "grid_banner_YVQq6b",
+    "advanced_content_Bi66JM",
+    "advanced_content_frCRJb",
+    "grid_banner_riTkEz",
+    "advanced_content_YyNVTp"
+  ]
+}

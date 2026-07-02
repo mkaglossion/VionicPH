@@ -3358,7 +3358,7 @@
           "enable_login": true,
           "enable_social": false,
           "enablemoney": false,
-          "topbartext": "<a href=\"/collections/all\">NEW + NOW - Shop Spring '26 Trends</a><a href=\"/pages/store-locations\">Find a store</a>",
+          "topbartext": "<a href=\"/collections/all\">NEW + NOW - Shop Spring '26 Trends</a><a href=\"/pages/store-locations\"></a>",
           "topbarbg": "#7c7c7c",
           "rightborderbg": "#ffffff40",
           "topborderbg": "#ffffff40",
@@ -3749,14 +3749,14 @@
         "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
         "disabled": true,
         "settings": {
+          "greeting_message": "👋 Hi, message us with any questions. We're happy to help!",
           "button_color": "#202a36",
           "secondary_color": "#FFFFFF",
           "ternary_color": "#6A6A6A",
           "button_icon": "chat_bubble",
           "button_text": "no_text",
           "button_horizontal_position": "bottom_left",
-          "button_vertical_position": "lowest",
-          "greeting_message": "👋 Hi, message us with any questions. We're happy to help!"
+          "button_vertical_position": "lowest"
         }
       },
       "11691007085786627848": {

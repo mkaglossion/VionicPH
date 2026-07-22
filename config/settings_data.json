@@ -3352,7 +3352,7 @@
           "enable_transparent": false,
           "hover_transparent": false,
           "enable_white": false,
-          "enable_sticky": false,
+          "enable_sticky": true,
           "enable_dropdownfull": false,
           "enabletopbar": true,
           "enable_login": true,

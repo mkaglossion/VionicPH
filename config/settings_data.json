@@ -764,7 +764,7 @@
             "settings": {
               "image": "shopify://shop_images/Own_Web_Desktop_Banner_1ec99381-e94d-43d6-a084-fddd94215cfe.jpg",
               "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_5272633b-214b-4df2-ad5c-69571d20290a.jpg",
-              "image_link": "",
+              "image_link": "shopify://products/rest-reese-womens-sandals-black",
               "alignment": "center top",
               "text_alignment": "center center",
               "bgwrap": "#f8ede7",

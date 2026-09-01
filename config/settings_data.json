@@ -732,8 +732,37 @@
       "slideshow-1": {
         "type": "slideshow-1",
         "blocks": {
+          "image_KqPHRK": {
+            "type": "image",
+            "name": "Sept Banner",
+            "settings": {
+              "image": "shopify://shop_images/Own_Web_Desktop_Banner_1ec99381-e94d-43d6-a084-fddd94215cfe.jpg",
+              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_5272633b-214b-4df2-ad5c-69571d20290a.jpg",
+              "image_link": "shopify://collections/rest-renee",
+              "alignment": "center top",
+              "text_alignment": "center center",
+              "bgwrap": "#f8ede7",
+              "slide_toptitle": "Design by Shopifytemplate",
+              "slide_toptitle_color": "#999999",
+              "slide_title": "Image slide",
+              "slide_title_color": "#ffffff",
+              "subheading": "Tell your brand's story through images",
+              "subheading_color": "#ffffff",
+              "button_label": "",
+              "button_link": "",
+              "stylebtns": "default",
+              "bg_button": "#000000",
+              "solid_button": "#000000",
+              "color_button": "#ffffff",
+              "bg_button_hover": "#b6813c",
+              "solid_button_hover": "#b6813c",
+              "color_button_hover": "#ffffff"
+            }
+          },
           "image_hQR9By": {
             "type": "image",
+            "name": "Aug Banner",
+            "disabled": true,
             "settings": {
               "image": "shopify://shop_images/Own_Web_Desktop_Banner_ef62fc0e-4650-4ff4-8607-49c5244e1202.jpg",
               "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_bfd20268-9b86-49ac-b2c0-44f88f204946.jpg",
@@ -757,38 +786,11 @@
               "solid_button_hover": "#b6813c",
               "color_button_hover": "#ffffff"
             }
-          },
-          "image_KqPHRK": {
-            "type": "image",
-            "disabled": true,
-            "settings": {
-              "image": "shopify://shop_images/Own_Web_Desktop_Banner_1ec99381-e94d-43d6-a084-fddd94215cfe.jpg",
-              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_5272633b-214b-4df2-ad5c-69571d20290a.jpg",
-              "image_link": "shopify://products/rest-reese-womens-sandals-black",
-              "alignment": "center top",
-              "text_alignment": "center center",
-              "bgwrap": "#f8ede7",
-              "slide_toptitle": "Design by Shopifytemplate",
-              "slide_toptitle_color": "#999999",
-              "slide_title": "Image slide",
-              "slide_title_color": "#ffffff",
-              "subheading": "Tell your brand's story through images",
-              "subheading_color": "#ffffff",
-              "button_label": "",
-              "button_link": "",
-              "stylebtns": "default",
-              "bg_button": "#000000",
-              "solid_button": "#000000",
-              "color_button": "#ffffff",
-              "bg_button_hover": "#b6813c",
-              "solid_button_hover": "#b6813c",
-              "color_button_hover": "#ffffff"
-            }
           }
         },
         "block_order": [
-          "image_hQR9By",
-          "image_KqPHRK"
+          "image_KqPHRK",
+          "image_hQR9By"
         ],
         "custom_css": [],
         "settings": {

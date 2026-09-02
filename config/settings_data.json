@@ -732,12 +732,41 @@
       "slideshow-1": {
         "type": "slideshow-1",
         "blocks": {
+          "image_KqPHRK": {
+            "type": "image",
+            "name": "Sept Banner",
+            "settings": {
+              "image": "shopify://shop_images/Own_Web_Desktop_Banner_1ec99381-e94d-43d6-a084-fddd94215cfe.jpg",
+              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_5272633b-214b-4df2-ad5c-69571d20290a.jpg",
+              "image_link": "shopify://collections/rest-renee",
+              "alignment": "center top",
+              "text_alignment": "center center",
+              "bgwrap": "#f8ede7",
+              "slide_toptitle": "Design by Shopifytemplate",
+              "slide_toptitle_color": "#999999",
+              "slide_title": "Image slide",
+              "slide_title_color": "#ffffff",
+              "subheading": "Tell your brand's story through images",
+              "subheading_color": "#ffffff",
+              "button_label": "",
+              "button_link": "",
+              "stylebtns": "default",
+              "bg_button": "#000000",
+              "solid_button": "#000000",
+              "color_button": "#ffffff",
+              "bg_button_hover": "#b6813c",
+              "solid_button_hover": "#b6813c",
+              "color_button_hover": "#ffffff"
+            }
+          },
           "image_hQR9By": {
             "type": "image",
+            "name": "Aug Banner",
+            "disabled": true,
             "settings": {
-              "image": "shopify://shop_images/Own_Web_Desktop_Banner_7ec1b52b-7ff7-4d7d-93d8-857cb0b624d8.jpg",
-              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_29a5a112-6f71-4de5-b9ac-73131adc07da.jpg",
-              "image_link": "shopify://collections/azalea-collection",
+              "image": "shopify://shop_images/Own_Web_Desktop_Banner_ef62fc0e-4650-4ff4-8607-49c5244e1202.jpg",
+              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_bfd20268-9b86-49ac-b2c0-44f88f204946.jpg",
+              "image_link": "shopify://products/spark-sidney-womens-flats-shoes-cameo-rose",
               "alignment": "center top",
               "text_alignment": "center center",
               "bgwrap": "#f8ede7",
@@ -760,6 +789,7 @@
           }
         },
         "block_order": [
+          "image_KqPHRK",
           "image_hQR9By"
         ],
         "custom_css": [],
@@ -3352,7 +3382,7 @@
           "enable_transparent": false,
           "hover_transparent": false,
           "enable_white": false,
-          "enable_sticky": false,
+          "enable_sticky": true,
           "enable_dropdownfull": false,
           "enabletopbar": true,
           "enable_login": true,
@@ -3377,9 +3407,9 @@
           "mobile_drawer_bg": "#ffffff",
           "mobile_drawer_text": "#000000",
           "align_menu": "center",
-          "text_topbar": "<a href=\"/pages/help\">Help</a>",
-          "enablesidebar": true,
-          "sidebar_heart": true,
+          "text_topbar": "<a href=\"/pages/help\"></a>",
+          "enablesidebar": false,
+          "sidebar_heart": false,
           "sidebar_compare": false,
           "timeopen": "",
           "enable_insta": false,
@@ -3431,7 +3461,7 @@
           "card_4RgkgU": {
             "type": "card",
             "settings": {
-              "logo_image": "shopify://shop_images/logo-apma.png",
+              "logo_image": "shopify://shop_images/logo-apma-1.png",
               "logo_image_url": "",
               "logo_alt": "American Podiatric Medical Association Seal of Acceptance",
               "card_title": "Trusted by Podiatric Specialist",
@@ -3558,7 +3588,7 @@
           "heading": "",
           "body_text": "Wear your new shoes in, out, and all around. Really. You've got 30 days to put the Vio Motion Technology to the test. Wear them whenever, wherever, and as often as you please. We know you'll love the relief and confidence you gain from wearing shoes that make your feet feel good all day long. But if you're not satisfied within 30 days for any reason, we'll give you your money back.",
           "button_text": "LEARN MORE",
-          "button_link": "",
+          "button_link": "shopify://pages/30-day-guarantee",
           "text_max_width": 1000,
           "padding_desktop": "48px 24px 36px",
           "padding_mobile": "32px 16px 26px",
@@ -3749,14 +3779,12 @@
         "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
         "disabled": true,
         "settings": {
+          "greeting_message": "👋 Hi, message us with any questions. We're happy to help!",
           "button_color": "#202a36",
-          "secondary_color": "#FFFFFF",
-          "ternary_color": "#6A6A6A",
           "button_icon": "chat_bubble",
           "button_text": "no_text",
           "button_horizontal_position": "bottom_left",
-          "button_vertical_position": "lowest",
-          "greeting_message": "👋 Hi, message us with any questions. We're happy to help!"
+          "button_vertical_position": "lowest"
         }
       },
       "11691007085786627848": {

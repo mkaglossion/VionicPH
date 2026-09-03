@@ -1,1 +1,43 @@
-{"sections":{"main":{"type":"main-wishlist","settings":{}},"1649745127f3c8b2aa":{"type":"product-list-swiper","settings":{"animation":"","paddingsection":"0px 0px 0px 0px","paddingmobile":"60px 0px 60px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px","bgsection":"#ffffff","setwidth":"container","title_top":"Sub Title Top","title":"New Arrivals","des":"","collection":"new-arrivals","limit":10,"perviewDesktop":4,"spaceBetween":30,"nowrap":true,"arrows":true,"scrollbar":true}}},"order":["main","1649745127f3c8b2aa"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-wishlist",
+      "settings": {}
+    },
+    "1649745127f3c8b2aa": {
+      "type": "product-list-swiper",
+      "settings": {
+        "animation": "",
+        "paddingsection": "0px 0px 0px 0px",
+        "paddingmobile": "60px 0px 60px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px",
+        "bgsection": "#ffffff",
+        "setwidth": "container",
+        "title_top": "",
+        "title": "New Arrivals",
+        "des": "",
+        "collection": "new-arrivals",
+        "limit": 10,
+        "perviewDesktop": 4,
+        "spaceBetween": 30,
+        "nowrap": true,
+        "arrows": true,
+        "scrollbar": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1649745127f3c8b2aa"
+  ]
+}

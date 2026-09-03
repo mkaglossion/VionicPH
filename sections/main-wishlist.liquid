@@ -1,7 +1,60 @@
-<div class="container container--wishlist">
-    <h1 class="text-center h3 mb-3 text-capitalize">{{ page.title }}</h1>
-    <div class="content-block">
-      <div class="row js-wishlist-content">
+<section class="wishlist-page" aria-labelledby="WishlistTitle">
+  <div class="container container--wishlist">
+    <header class="wishlist-page__header">
+      <div class="wishlist-page__intro">
+        <p class="wishlist-page__eyebrow">Saved for later</p>
+        <h1 id="WishlistTitle" class="wishlist-page__title">{{ page.title }}</h1>
+        <p class="wishlist-page__description">
+          Keep the styles you love in one place. Select your options, add them to your bag, or remove them anytime.
+        </p>
+      </div>
+
+      <aside class="wishlist-summary" aria-label="Wishlist summary">
+        <span class="wishlist-summary__eyebrow">Items saved</span>
+        <p class="wishlist-summary__count">
+          <strong class="js-wishlist-summary-count">0</strong>
+          <span class="js-wishlist-summary-label">products</span>
+        </p>
+        <p class="wishlist-summary__note">Saved on this device so you can come back and review them later.</p>
+      </aside>
+    </header>
+
+    <div class="wishlist-page__links">
+      <a class="wishlist-button wishlist-button--primary" href="{{ routes.all_products_collection_url }}">
+        {{ 'cart.general.continue_browsing' | t }}
+      </a>
+      <a class="wishlist-button wishlist-button--secondary" href="{{ routes.search_url }}">
+        {{ 'general.search.submit' | t }} products
+      </a>
+    </div>
+
+    <div class="wishlist-toolbar js-wishlist-toolbar" hidden>
+      <label class="wishlist-toolbar__select-all" for="WishlistSelectAll">
+        <input id="WishlistSelectAll" class="js-wishlist-select-all" type="checkbox" aria-controls="WishlistItems">
+        <span>Select all</span>
+        <small class="js-wishlist-selected-count">0 selected</small>
+      </label>
+
+      <div class="wishlist-toolbar__actions">
+        <button class="wishlist-button wishlist-button--secondary js-wishlist-remove-selected" type="button" disabled>
+          Remove selected
+        </button>
+        <button class="wishlist-button wishlist-button--primary js-wishlist-add-selected" type="button" disabled>
+          Add selected to bag
+        </button>
+        <button class="wishlist-button wishlist-button--secondary js-wishlist-checkout-selected" type="button" disabled>
+          Checkout selected
+        </button>
       </div>
     </div>
+
+    <p class="wishlist-page__status js-wishlist-status" role="status" aria-live="polite"></p>
+
+    <div
+      id="WishlistItems"
+      class="wishlist-grid js-wishlist-content"
+      aria-live="polite"
+      aria-busy="false"
+    ></div>
   </div>
+</section>

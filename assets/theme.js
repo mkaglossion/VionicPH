@@ -3454,54 +3454,191 @@ theme.cssVar = (function() {
 
 // Ajax search https://gist.github.com/awojtczyk/53d74c8af5f893841f33979b0cdcd6fe
 theme.ajaxSearch = (function() {
-  var $inputSearch = '.js-ajaxsearch',
-      $resultsList = '.search-results',
-      $input = $($inputSearch).find('input[name="q"]'),
-      $currentAjaxRequest,
-      $displayProducts = 6;
+  var formSelector = '.js-ajaxsearch',
+      displayProducts = 5,
+      minimumCharacters = 3,
+      debounceDelay = 250;
 
-  $($inputSearch).css('position', 'relative').each(function() {
-    $input.attr('autocomplete', 'off').bind('keyup change', function() {
-      var term = $(this).val(),
-          form = $(this).closest('form'),
-          searchURL = '/search?type=product&q=*' + term + '*';
-      if (term.length > 2 && term !== $(this).attr('data-old-term')) {
-        $(this).attr('data-old-term', term);
-        if ($currentAjaxRequest !== undefined) $currentAjaxRequest.abort();
-        $currentAjaxRequest = $.getJSON(searchURL + '&view=json', function(data) {
-          $($resultsList).empty();
+  function setExpanded($input, $results, expanded) {
+    $input.attr('aria-expanded', expanded ? 'true' : 'false');
 
-          if (data.results_count === 0) {
-            $($resultsList).html('<p class="text-center">'+ theme.strings.ajaxSearchNoResult +'</p>')
-          } else {
-            $.each(data.results, function(index, item) {
-              if (index < $displayProducts){
-                var itemPrice = theme.Currency.formatMoney(item.price, theme.moneyFormat);
-                var link = $('<a class="d-inline-flex '+index+'"></a>')
-                .attr('href', item.url)
-                .append('<span class="image"><img src="' + item.thumbnail + '" /></span>')
-                .append('<div class="meta"><p class="title">' + item.title + '</p>'+itemPrice+'</div>')
-                .wrap('<div class="ajax-search-item"></div>');
-                $($resultsList).append(link.parent());
-                theme.updateCurrencies();
-              }
-            });
-            if (data.results_count > $displayProducts) {
-              $($resultsList).append('<a class="btn btn--full" href="' + searchURL + '">'+ theme.strings.ajaxSearchViewAll +' (' + data.results_count + ')</a>');
+    if (expanded) {
+      $results.addClass('active').stop(true, true).fadeIn(160);
+    } else {
+      $results.attr('aria-busy', 'false').removeClass('active').stop(true, true).hide();
+    }
+  }
+
+  function renderStatus($results, message, loading) {
+    var $status = $('<p>', {
+      'class': 'search-results__status' + (loading ? ' search-results__status--loading' : ''),
+      text: message
+    });
+
+    $results.empty().append($status).attr('aria-busy', loading ? 'true' : 'false');
+  }
+
+  function buildTitleSearchQuery(term) {
+    return term.split(/\s+/).map(function(token) {
+      var safeToken = token
+        .replace(/\*/g, '')
+        .replace(/([:\\()])/g, '\\$1');
+
+      return safeToken ? 'title:' + safeToken + '*' : '';
+    }).filter(Boolean).join(' ');
+  }
+
+  $(formSelector).each(function() {
+    var $form = $(this),
+        $input = $form.find('input[name="q"]').first(),
+        $results = $form.find('.search-results').first(),
+        currentRequest,
+        debounceTimer;
+
+    if (!$results.length) {
+      $results = $form.siblings('.search-results').first();
+    }
+    if (!$input.length || !$results.length) return;
+
+    $form.css('position', 'relative');
+    $input.attr('autocomplete', 'off').on('input', function() {
+      var term = $.trim($input.val()),
+          action = $form.attr('action') || '/search',
+          titleQuery = buildTitleSearchQuery(term),
+          searchURL = action + '?type=product&q=' + encodeURIComponent(titleQuery);
+
+      window.clearTimeout(debounceTimer);
+      if (currentRequest && currentRequest.readyState !== 4) currentRequest.abort();
+
+      if (term.length < minimumCharacters || !titleQuery) {
+        $results.empty();
+        setExpanded($input, $results, false);
+        return;
+      }
+
+      renderStatus($results, 'Searching…', true);
+      setExpanded($input, $results, true);
+
+      debounceTimer = window.setTimeout(function() {
+        currentRequest = $.getJSON(searchURL + '&view=json')
+          .done(function(data) {
+            $results.empty();
+
+            if (!data.results_count) {
+              renderStatus($results, theme.strings.ajaxSearchNoResult, false);
+              setExpanded($input, $results, true);
+              return;
             }
-          }
-          $($resultsList).addClass('active').fadeIn(200);
-        });
+
+            var $list = $('<div>', {
+              'class': 'search-results__list',
+              role: 'listbox',
+              'aria-label': $results.attr('aria-label') || 'Search results'
+            });
+
+            $.each(data.results.slice(0, displayProducts), function(index, item) {
+              var itemPrice = theme.Currency.formatMoney(item.price, theme.moneyFormat),
+                  $item = $('<div>', { 'class': 'ajax-search-item' }),
+                  $link = $('<a>', {
+                    'class': 'ajax-search-item__link',
+                    href: item.url,
+                    role: 'option'
+                  }),
+                  $image = $('<span>', { 'class': 'image' }),
+                  $meta = $('<span>', { 'class': 'meta' }),
+                  $title = $('<span>', { 'class': 'title', text: item.title }),
+                  $price = $('<span>', { 'class': 'price money' }).html(itemPrice);
+
+              if (item.thumbnail) {
+                $image.append($('<img>', {
+                  src: item.thumbnail,
+                  alt: '',
+                  width: 72,
+                  height: 72,
+                  loading: 'lazy'
+                }));
+              }
+
+              $meta.append($title, $price);
+              $link.append($image, $meta);
+              $item.append($link);
+              $list.append($item);
+            });
+
+            var viewAllLabel = theme.strings.ajaxSearchViewAll + ' (' + data.results_count + ')',
+                $viewAll = $('<a>', {
+                  'class': 'search-results__view-all',
+                  href: searchURL,
+                  text: viewAllLabel
+                });
+
+            $results.attr('aria-busy', 'false').append($list, $viewAll);
+            theme.updateCurrencies();
+            setExpanded($input, $results, true);
+          })
+          .fail(function(request, status) {
+            if (status !== 'abort') setExpanded($input, $results, false);
+          });
+      }, debounceDelay);
+    });
+
+    $form.on('submit', function(event) {
+      var term = $.trim($input.val()),
+          titleQuery = buildTitleSearchQuery(term);
+
+      if (!titleQuery) return;
+
+      event.preventDefault();
+      window.location.assign(($form.attr('action') || '/search') +
+        '?type=product&q=' + encodeURIComponent(titleQuery));
+    });
+
+    $input.on('focus', function() {
+      if ($.trim($input.val()).length >= minimumCharacters && $results.children().length) {
+        setExpanded($input, $results, true);
+      }
+    });
+
+    $input.on('keydown', function(event) {
+      if (event.key === 'Escape') {
+        setExpanded($input, $results, false);
+      }
+      if (event.key === 'ArrowDown' && $results.hasClass('active')) {
+        var $firstResult = $results.find('a').first();
+        if ($firstResult.length) {
+          event.preventDefault();
+          $firstResult.trigger('focus');
+        }
+      }
+    });
+
+    $results.on('keydown', 'a', function(event) {
+      var $links = $results.find('a'),
+          currentIndex = $links.index(this);
+
+      if (event.key === 'ArrowDown' && currentIndex < $links.length - 1) {
+        event.preventDefault();
+        $links.eq(currentIndex + 1).trigger('focus');
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (currentIndex > 0) {
+          $links.eq(currentIndex - 1).trigger('focus');
+        } else {
+          $input.trigger('focus');
+        }
+      } else if (event.key === 'Escape') {
+        event.preventDefault();
+        setExpanded($input, $results, false);
+        $input.trigger('focus');
       }
     });
   });
 
-  //escape when click somethings
-  $(document).click(function(event) {
-    var target = event.target;
-    if (!$(target).is($inputSearch) && !$(target).parents().is($inputSearch)) {
-      $($resultsList).slideUp(300);
-    }
+  $(document).on('click.ajaxSearch', function(event) {
+    if ($(event.target).closest(formSelector + ', .search-results').length) return;
+
+    $('.search-results').removeClass('active').stop(true, true).hide().attr('aria-busy', 'false');
+    $(formSelector).find('input[name="q"]').attr('aria-expanded', 'false');
   });
 })();
 
@@ -4197,69 +4334,524 @@ theme.wishlist = (function (){
       wishlistRemoveButtonClass = '.js-remove-wishlist',
       $wishlistCount = $('.js-wishlist-count'),
       $wishlistContainer = $('.js-wishlist-content'),
-      wishlistObject = JSON.parse(localStorage.getItem('localWishlist')) || [],
-      wishlistPageUrl = $('.js-wishlist-link').attr('href'),
+      $wishlistToolbar = $('.js-wishlist-toolbar'),
+      $wishlistSelectAll = $('.js-wishlist-select-all'),
+      $wishlistSelectedCount = $('.js-wishlist-selected-count'),
+      $wishlistRemoveSelected = $('.js-wishlist-remove-selected'),
+      $wishlistAddSelected = $('.js-wishlist-add-selected'),
+      $wishlistCheckoutSelected = $('.js-wishlist-checkout-selected'),
+      $wishlistStatus = $('.js-wishlist-status'),
+      wishlistStorageKey = 'localWishlist',
+      wishlistObject = getStoredWishlist(),
+      wishlistLoadId = 0,
       loadNoResult = function (){
-        $wishlistContainer.html('<div class="col text-center"><div class="alert alert-warning d-inline-block">'+ theme.strings.wishlistNoResult + '</div></div>');
+        $wishlistContainer.attr('aria-busy', 'false');
+        $wishlistContainer.html('<div class="wishlist-empty">'+ theme.strings.wishlistNoResult + '</div>');
+        $wishlistToolbar.prop('hidden', true);
+        setWishlistStatus('');
+        updateSelectionControls();
       };
 
+  function getStoredWishlist() {
+    var storedWishlist;
+
+    try {
+      storedWishlist = JSON.parse(localStorage.getItem(wishlistStorageKey));
+    } catch (error) {
+      storedWishlist = [];
+    }
+
+    if (!Array.isArray(storedWishlist)) {
+      return [];
+    }
+
+    return storedWishlist.reduce(function (handles, handle) {
+      if (typeof handle === 'number') {
+        handle = String(handle);
+      }
+      if (typeof handle !== 'string') {
+        return handles;
+      }
+
+      handle = handle.trim();
+      if (handle && $.inArray(handle, handles) === -1) {
+        handles.push(handle);
+      }
+
+      return handles;
+    }, []);
+  }
+
+  function saveWishlist() {
+    try {
+      localStorage.setItem(wishlistStorageKey, JSON.stringify(wishlistObject));
+    } catch (error) {
+      // Keep the in-memory wishlist usable when storage is unavailable.
+    }
+
+    $wishlistCount.text(wishlistObject.length);
+    $('.js-wishlist-summary-count').text(wishlistObject.length);
+    $('.js-wishlist-summary-label').text(wishlistObject.length === 1 ? 'product' : 'products');
+  }
+
+  function setWishlistStatus(message, isError) {
+    $wishlistStatus
+      .text(message || '')
+      .toggleClass('wishlist-page__status--error', Boolean(isError));
+  }
+
+  function updateSelectionControls() {
+    var $items = $wishlistContainer.find('.js-wishlist-select-item'),
+        $selectedItems = $items.filter(':checked'),
+        selectedCount = $selectedItems.length,
+        hasItems = $items.length > 0,
+        allSelected = hasItems && selectedCount === $items.length;
+
+    $wishlistSelectedCount.text(selectedCount + ' selected');
+    $wishlistSelectAll
+      .prop('checked', allSelected)
+      .prop('indeterminate', selectedCount > 0 && !allSelected)
+      .prop('disabled', !hasItems);
+    $wishlistRemoveSelected.text(allSelected ? 'Remove all' : 'Remove selected');
+    $wishlistRemoveSelected.add($wishlistAddSelected).add($wishlistCheckoutSelected)
+      .prop('disabled', selectedCount === 0)
+      .attr('aria-disabled', selectedCount === 0 ? 'true' : 'false');
+  }
+
+  function removeWishlistHandles(handles) {
+    if (!handles.length) {
+      return;
+    }
+
+    wishlistObject = $.grep(wishlistObject, function (handle) {
+      return $.inArray(handle, handles) === -1;
+    });
+    saveWishlist();
+    updateWishlistButtons();
+
+    $.each(handles, function (index, handle) {
+      $wishlistContainer
+        .find('.js-wishlist-item[data-handle="'+ handle +'"]')
+        .remove();
+    });
+
+    setWishlistStatus('');
+    if (wishlistObject.length === 0) {
+      loadNoResult();
+    } else {
+      updateSelectionControls();
+    }
+  }
+
+  function escapeHtml(value) {
+    return $('<div>').text(value == null ? '' : value).html();
+  }
+
+  function getProductUrl(productHandle) {
+    var rootUrl = window.Shopify && window.Shopify.routes && window.Shopify.routes.root ? window.Shopify.routes.root : '/';
+    return rootUrl + 'products/' + encodeURIComponent(productHandle) + '.js';
+  }
+
+  function requestWishlistProduct(productHandle, index, retryCount, forceFresh) {
+    var request = $.Deferred();
+
+    $.ajax({
+      type: 'GET',
+      url: getProductUrl(productHandle),
+      dataType: 'json',
+      cache: !forceFresh,
+      timeout: 10000
+    }).done(function (product) {
+      request.resolve({
+        handle: productHandle,
+        index: index,
+        product: product
+      });
+    }).fail(function (xhr) {
+      if (xhr.status !== 404 && retryCount > 0) {
+        requestWishlistProduct(productHandle, index, retryCount - 1, forceFresh).done(function (result) {
+          request.resolve(result);
+        });
+        return;
+      }
+
+      request.resolve({
+        handle: productHandle,
+        index: index,
+        status: xhr.status || 0
+      });
+    });
+
+    return request.promise();
+  }
+
+  function renderWishlistProduct(product) {
+    var productTitle = escapeHtml(product.title),
+        productUrl = escapeHtml(product.url),
+        productHandle = escapeHtml(product.handle),
+        productImage = escapeHtml(product.featured_image),
+        productVendor = escapeHtml(product.vendor || 'Vionic Philippines'),
+        productPrice = product.price_varies ? 'from ' + theme.Currency.formatMoney(product.price_min, theme.moneyFormat) : theme.Currency.formatMoney(product.price, theme.moneyFormat),
+        productComparePrice = product.compare_at_price_min && product.compare_at_price_min > product.price_min ? theme.Currency.formatMoney(product.compare_at_price_min, theme.moneyFormat) : '',
+        availableVariants = $.grep(product.variants || [], function (variant) { return variant.available; }),
+        hasOnlyDefaultVariant = product.variants && product.variants.length === 1 && product.variants[0].title === 'Default Title',
+        defaultVariant = hasOnlyDefaultVariant && availableVariants.length ? availableVariants[0] : null,
+        variantOptions = '',
+        htmlProduct = '';
+
+    $.each(availableVariants, function (index, variant) {
+      var variantImage = variant.featured_image && variant.featured_image.src ? variant.featured_image.src : '',
+          comparePrice = variant.compare_at_price || 0;
+
+      variantOptions += '<option value="'+ escapeHtml(variant.id) +'" data-price="'+ escapeHtml(variant.price) +'" data-compare-price="'+ escapeHtml(comparePrice) +'" data-image="'+ escapeHtml(variantImage) +'">'+ escapeHtml(variant.title) +'</option>';
+    });
+
+    htmlProduct += '<article class="js-wishlist-item" data-handle="'+ productHandle +'" data-variant-id="'+ (defaultVariant ? escapeHtml(defaultVariant.id) : '') +'" data-available="'+ (availableVariants.length ? 'true' : 'false') +'">';
+    htmlProduct += '<div class="js-wishlist-itembox">';
+    htmlProduct += '<div class="wishlist-card__media">';
+    htmlProduct += '<label class="wishlist-card__check"><input class="js-wishlist-select-item" type="checkbox" aria-label="Select '+ productTitle +'"/><span class="visually-hidden">Select '+ productTitle +'</span></label>';
+    htmlProduct += '<button type="button" class="btn js-remove-wishlist" data-handle="'+ productHandle +'" aria-label="Remove '+ productTitle +' from wishlist">'+ theme.strings.wishlistRemove +'</button>';
+    htmlProduct += '<a class="wishlist-card__image-link" href="'+ productUrl +'">';
+    if (productImage) {
+      htmlProduct += '<img class="js-wishlist-product-image" src="'+ productImage +'" alt="'+ productTitle +'" loading="lazy" width="420" height="320"/>';
+    }
+    htmlProduct += '</a>';
+    htmlProduct += '</div>';
+    htmlProduct += '<div class="wishlist-card__body">';
+    htmlProduct += '<span class="wishlist-card__vendor">'+ productVendor +'</span>';
+    htmlProduct += '<a href="'+ productUrl +'" class="wishlist-card__title">'+ productTitle +'</a>';
+    htmlProduct += '<div class="wishlist-card__price-row"><span class="js-wishlist-price">'+ productPrice +'</span>';
+    if (productComparePrice) {
+      htmlProduct += '<s class="js-wishlist-compare-price">'+ productComparePrice +'</s>';
+    }
+    htmlProduct += '</div>';
+    if (!hasOnlyDefaultVariant && availableVariants.length) {
+      htmlProduct += '<label class="wishlist-card__option-label" for="WishlistVariant-'+ productHandle +'">Choose size / option</label>';
+      htmlProduct += '<select id="WishlistVariant-'+ productHandle +'" class="wishlist-card__variant js-wishlist-variant" aria-label="Choose an option for '+ productTitle +'">';
+      htmlProduct += '<option value="">Select an available size / option</option>'+ variantOptions;
+      htmlProduct += '</select>';
+    } else if (!availableVariants.length) {
+      htmlProduct += '<p class="wishlist-card__availability">Currently unavailable</p>';
+    }
+    htmlProduct += '</div>';
+    htmlProduct += '</div>';
+    htmlProduct += '</article>';
+
+    return htmlProduct;
+  }
+
+  function renderUnavailableWishlistItem(productHandle) {
+    var safeHandle = escapeHtml(productHandle),
+        htmlProduct = '';
+
+    htmlProduct += '<article class="js-wishlist-item" data-handle="'+ safeHandle +'" data-available="false">';
+    htmlProduct += '<div class="js-wishlist-itembox">';
+    htmlProduct += '<div class="wishlist-card__media">';
+    htmlProduct += '<label class="wishlist-card__check"><input class="js-wishlist-select-item" type="checkbox" aria-label="Select unavailable item"/><span class="visually-hidden">Select unavailable item</span></label>';
+    htmlProduct += '<button type="button" class="btn js-remove-wishlist" data-handle="'+ safeHandle +'" aria-label="Remove unavailable item from wishlist">'+ theme.strings.wishlistRemove +'</button>';
+    htmlProduct += '</div>';
+    htmlProduct += '<div class="wishlist-card__body"><p class="mb-1">This item could not be loaded.</p><small>Please refresh to try again.</small></div>';
+    htmlProduct += '</div>';
+    htmlProduct += '</article>';
+
+    return htmlProduct;
+  }
+
+  function getWishlistCartItems() {
+    var items = [],
+        selections = [],
+        $invalidItem;
+
+    $wishlistContainer.find('.js-wishlist-select-item:checked').each(function () {
+      var $card = $(this).closest('.js-wishlist-item'),
+          $variantSelect = $card.find('.js-wishlist-variant'),
+          variantId = $variantSelect.length ? $variantSelect.val() : $card.attr('data-variant-id'),
+          numericVariantId = parseInt(variantId, 10);
+
+      $variantSelect.removeAttr('aria-invalid');
+      if ($card.attr('data-available') !== 'true' || !variantId || isNaN(numericVariantId)) {
+        if (!$invalidItem) {
+          $invalidItem = $variantSelect.length ? $variantSelect : $card;
+        }
+        if ($variantSelect.length) {
+          $variantSelect.attr('aria-invalid', 'true');
+        }
+        return;
+      }
+
+      items.push({
+        id: numericVariantId,
+        quantity: 1
+      });
+      selections.push({
+        handle: $card.attr('data-handle'),
+        variantId: numericVariantId,
+        $card: $card,
+        $variantSelect: $variantSelect
+      });
+    });
+
+    return {
+      items: items,
+      selections: selections,
+      $invalidItem: $invalidItem
+    };
+  }
+
+  function validateWishlistSelections(selections) {
+    var validation = $.Deferred(),
+        productRequests = $.map(selections, function (selection, index) {
+          return requestWishlistProduct(selection.handle, index, 0, true);
+        });
+
+    $.when.apply($, productRequests).done(function () {
+      var results = productRequests.length === 1 ? [arguments[0]] : Array.prototype.slice.call(arguments),
+          firstUnavailable,
+          couldNotVerify = false;
+
+      $.each(results, function (index, result) {
+        var selection = selections[result.index],
+            selectedVariant;
+
+        if (!result.product) {
+          couldNotVerify = true;
+          return;
+        }
+
+        selectedVariant = $.grep(result.product.variants || [], function (variant) {
+          return parseInt(variant.id, 10) === selection.variantId;
+        })[0];
+
+        if (selectedVariant && selectedVariant.available) {
+          return;
+        }
+
+        if (!firstUnavailable) {
+          firstUnavailable = selection;
+        }
+
+        selection.$card.attr('data-variant-id', '');
+        if (selection.$variantSelect.length) {
+          selection.$variantSelect
+            .val('')
+            .attr('aria-invalid', 'true')
+            .find('option')
+            .filter(function () {
+              return parseInt(this.value, 10) === selection.variantId;
+            })
+            .prop('disabled', true)
+            .each(function () {
+              if ($(this).text().indexOf(' — Sold out') === -1) {
+                $(this).text($(this).text() + ' — Sold out');
+              }
+            });
+        } else {
+          selection.$card.attr('data-available', 'false');
+          if (!selection.$card.find('.wishlist-card__availability').length) {
+            selection.$card.find('.wishlist-card__body').append('<p class="wishlist-card__availability">Currently unavailable</p>');
+          }
+        }
+      });
+
+      validation.resolve({
+        couldNotVerify: couldNotVerify,
+        firstUnavailable: firstUnavailable
+      });
+    });
+
+    return validation.promise();
+  }
+
+  function setWishlistActionBusy(isBusy) {
+    $wishlistToolbar.attr('aria-busy', isBusy ? 'true' : 'false');
+    if (isBusy) {
+      $wishlistRemoveSelected.add($wishlistAddSelected).add($wishlistCheckoutSelected).prop('disabled', true);
+    } else {
+      updateSelectionControls();
+    }
+  }
+
+  function getWishlistErrorMessage(xhr) {
+    var response = xhr.responseJSON;
+
+    if (!response && xhr.responseText) {
+      try {
+        response = JSON.parse(xhr.responseText);
+      } catch (error) {
+        response = null;
+      }
+    }
+
+    return response && (response.description || response.message) ? response.description || response.message : 'We could not add the selected items. Please try again.';
+  }
+
+  function addSelectedWishlistItems(redirectToCheckout) {
+    var selection = getWishlistCartItems(),
+        rootUrl = window.Shopify && window.Shopify.routes && window.Shopify.routes.root ? window.Shopify.routes.root : '/';
+
+    if (selection.$invalidItem) {
+      setWishlistStatus('Choose a size or available option for every selected item.', true);
+      if (selection.$invalidItem.is('select')) {
+        selection.$invalidItem.trigger('focus');
+      }
+      return;
+    }
+
+    if (!selection.items.length) {
+      setWishlistStatus('Select at least one item first.', true);
+      return;
+    }
+
+    setWishlistStatus('Checking current availability...');
+    setWishlistActionBusy(true);
+
+    validateWishlistSelections(selection.selections).done(function (validation) {
+      if (validation.couldNotVerify) {
+        setWishlistStatus('We could not verify current stock. Please try again.', true);
+        setWishlistActionBusy(false);
+        return;
+      }
+
+      if (validation.firstUnavailable) {
+        setWishlistStatus('That size or option is no longer available. Please choose another available option.', true);
+        if (validation.firstUnavailable.$variantSelect.length) {
+          validation.firstUnavailable.$variantSelect.trigger('focus');
+        }
+        setWishlistActionBusy(false);
+        return;
+      }
+
+      setWishlistStatus('Adding selected items to your bag...');
+      $.ajax({
+        type: 'POST',
+        url: rootUrl + 'cart/add.js',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({ items: selection.items })
+      }).done(function () {
+        theme.miniCart.bumpCount(selection.items.length);
+
+        if (redirectToCheckout) {
+          window.location.assign(rootUrl + 'checkout');
+          return;
+        }
+
+        theme.miniCart.refresh(0);
+        $wishlistContainer.find('.js-wishlist-select-item').prop('checked', false);
+        setWishlistStatus(selection.items.length + (selection.items.length === 1 ? ' item added to your bag.' : ' items added to your bag.'));
+      }).fail(function (xhr) {
+        setWishlistStatus(getWishlistErrorMessage(xhr), true);
+      }).always(function () {
+        setWishlistActionBusy(false);
+      });
+    });
+  }
+
+  function updateWishlistButtons() {
+    $(wishlistButtonClass).each(function(){
+      var productHandle = $(this).attr('data-handle'),
+          isAdded = $.inArray(productHandle, wishlistObject) !== -1,
+          iconWishlist = isAdded ? theme.strings.wishlistIconAdded : theme.strings.wishlistIcon,
+          textWishlist = isAdded ? 'Remove from wishlist' : theme.strings.wishlistText;
+
+      var $button = $(this),
+          isCardButton = $button.hasClass('product-card__overlay-btn') || $button.hasClass('gb3-product-wishlist'),
+          visibleText = isCardButton ? '' : '<span class="wishlist-text">'+ escapeHtml(textWishlist) +'</span>';
+
+      $button
+        .html(iconWishlist+visibleText)
+        .toggleClass('is-wishlist-active', isAdded)
+        .attr({
+          'title': textWishlist,
+          'aria-label': textWishlist,
+          'aria-pressed': isAdded ? 'true' : 'false',
+          'data-original-title': textWishlist
+        });
+    });
+  }
+
   function updateWishlist(self) {
-    var productHandle = $(self).data('handle'),
-        allSimilarProduct = $(wishlistButtonClass+'[data-handle="'+productHandle+'"]');
+    var productHandle = $(self).attr('data-handle');
+
+    if (!productHandle || !productHandle.trim()) {
+      return;
+    }
+
+    productHandle = productHandle.trim();
     var isAdded = $.inArray(productHandle,wishlistObject) !== -1 ? true:false;
     if (isAdded) {
-      // go to wishlist page
-      window.location.href = wishlistPageUrl;
+      removeWishlistHandles([productHandle]);
     }else{
       wishlistObject.push(productHandle);
-      allSimilarProduct.fadeOut('slow').fadeIn('fast').html(theme.strings.wishlistIconAdded + theme.strings.wishlistTextAdded);
-      //change tooltip
-      allSimilarProduct.attr('data-original-title',theme.strings.wishlistTextAdded); 
-      $('.tooltip-inner').text(theme.strings.wishlistTextAdded);
+      saveWishlist();
+      updateWishlistButtons();
     }
-    localStorage.setItem('localWishlist', JSON.stringify(wishlistObject)); 
-    $wishlistCount.text(wishlistObject.length);
   };
   function loadWishlist(){
-    $wishlistContainer.html('');
-    //page wishlist
-    if (wishlistObject.length > 0){
-      for (var i = 0; i < wishlistObject.length; i++) { 
-        var productHandle = wishlistObject[i];
-        Shopify.getProduct(productHandle,function(product){
-          var htmlProduct = '';
-          var productPrice = product.price_varies? 'from ' + theme.Currency.formatMoney(product.price_min, theme.moneyFormat) : theme.Currency.formatMoney(product.price, theme.moneyFormat);
-          var productComparePrice = product.compare_at_price_min !== 0? theme.Currency.formatMoney(product.compare_at_price_min, theme.moneyFormat) : '';
-          htmlProduct += '<div class="js-wishlist-item col-md-4 col-sm-6 col-xs-6 col-12 mb-4">';
-          htmlProduct += '<div class="js-wishlist-itembox">';
-          htmlProduct += '<div class=" d-flex flex-row p-4">';
-          htmlProduct += '	<a class="d-inline-block mr-4 " href="'+ product.url +'">';
-          htmlProduct += '		<img src="'+ product.featured_image +'"/>';
-          htmlProduct += '	</a>';
-          htmlProduct += '	<div><a href="'+ product.url +'" class="title-prouct d-block h5 text-body" >'+ product.title +'</a>';
-          htmlProduct += '	<span> '+ productPrice +'</span>';
-          htmlProduct += '	 <s>'+ productComparePrice +'</s></div>';
-          htmlProduct += '<button class="btn js-remove-wishlist" data-handle="'+product.handle+'">'+ theme.strings.wishlistRemove +'</button>';
-          htmlProduct += '</div>';
-          htmlProduct += '</div>';
-          htmlProduct += '</div>';
-          $wishlistContainer.append(htmlProduct); 
-          theme.updateCurrencies();
-        });
-      }
-    }else{
-      loadNoResult();
+    var currentLoadId = ++wishlistLoadId,
+        productHandles = wishlistObject.slice(),
+        productRequests;
+
+    saveWishlist();
+    updateWishlistButtons();
+
+    // Product details are only needed on the wishlist page.
+    if (!$wishlistContainer.length) {
+      return;
     }
 
-    //count items
-    $wishlistCount.text(wishlistObject.length);
+    $wishlistToolbar.prop('hidden', true);
+    setWishlistStatus('Loading your wishlist...');
+    $wishlistContainer.empty().attr('aria-busy', 'true');
+    if (productHandles.length === 0) {
+      loadNoResult();
+      return;
+    }
 
-    //button text
-    $(wishlistButtonClass).each(function(){
-      var productHandle = $(this).data('handle');
-      var iconWishlist = $.inArray(productHandle,wishlistObject) !== -1 ? theme.strings.wishlistIconAdded : theme.strings.wishlistIcon;
-      var textWishlist = $.inArray(productHandle,wishlistObject) !== -1 ? theme.strings.wishlistTextAdded : theme.strings.wishlistText;
-      $(this).html(iconWishlist+textWishlist).attr('title',textWishlist);
+    productRequests = $.map(productHandles, function (productHandle, index) {
+      return requestWishlistProduct(productHandle, index, 1, true);
+    });
+
+    $.when.apply($, productRequests).done(function () {
+      var results = productRequests.length === 1 ? [arguments[0]] : Array.prototype.slice.call(arguments),
+          unavailableHandles = [],
+          htmlProducts = '';
+
+      if (currentLoadId !== wishlistLoadId) {
+        return;
+      }
+
+      results.sort(function (first, second) {
+        return first.index - second.index;
+      });
+
+      $.each(results, function (index, result) {
+        if (result.product) {
+          htmlProducts += renderWishlistProduct(result.product);
+        } else if (result.status === 404) {
+          unavailableHandles.push(result.handle);
+        } else {
+          htmlProducts += renderUnavailableWishlistItem(result.handle);
+        }
+      });
+
+      if (unavailableHandles.length) {
+        wishlistObject = $.grep(wishlistObject, function (handle) {
+          return $.inArray(handle, unavailableHandles) === -1;
+        });
+        saveWishlist();
+        updateWishlistButtons();
+      }
+
+      $wishlistContainer.attr('aria-busy', 'false').html(htmlProducts);
+      if (!htmlProducts) {
+        loadNoResult();
+      } else {
+        $wishlistToolbar.prop('hidden', false);
+        setWishlistStatus('');
+        updateSelectionControls();
+        theme.updateCurrencies();
+      }
     });
   }
   
@@ -4267,25 +4859,75 @@ theme.wishlist = (function (){
     event.preventDefault();
     updateWishlist(this);
   });
-  $(document).on('click',wishlistRemoveButtonClass,function(){
-    var productHandle = $(this).data('handle'),
-    allSimilarProduct = $(wishlistButtonClass+'[data-handle="'+productHandle+'"]');
-    
-    //update button
-    allSimilarProduct.html(theme.strings.wishlistIcon + theme.strings.wishlistText);
-     //update tooltip
-    allSimilarProduct.attr('data-original-title',theme.strings.wishlistText);
-    $('.tooltip-inner').text(theme.strings.wishlistText);
-    //update Object
-    wishlistObject.splice(wishlistObject.indexOf(productHandle), 1);
-    localStorage.setItem('localWishlist', JSON.stringify(wishlistObject)); 
-    // Remove element
-    $(this).closest('.js-wishlist-item').fadeOut(); // or .remove()
-    //count
-    $wishlistCount.text(wishlistObject.length);
-    if (wishlistObject.length === 0) {
-      loadNoResult();
+  $(document).on('click',wishlistRemoveButtonClass,function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    removeWishlistHandles([$(this).attr('data-handle')]);
+  });
+
+  $(document).on('change', '.js-wishlist-select-item', function () {
+    setWishlistStatus('');
+    updateSelectionControls();
+  });
+
+  $(document).on('change', '.js-wishlist-select-all', function () {
+    $wishlistContainer.find('.js-wishlist-select-item').prop('checked', this.checked);
+    setWishlistStatus('');
+    updateSelectionControls();
+  });
+
+  $(document).on('change', '.js-wishlist-variant', function () {
+    var $select = $(this),
+        $card = $select.closest('.js-wishlist-item'),
+        $selectedOption = $select.find(':selected'),
+        variantId = $select.val(),
+        price = parseInt($selectedOption.attr('data-price'), 10),
+        comparePrice = parseInt($selectedOption.attr('data-compare-price'), 10),
+        variantImage = $selectedOption.attr('data-image'),
+        $comparePrice = $card.find('.js-wishlist-compare-price');
+
+    $card.attr('data-variant-id', variantId || '');
+    $select.removeAttr('aria-invalid');
+
+    if (variantId && !isNaN(price)) {
+      $card.find('.js-wishlist-price').html(theme.Currency.formatMoney(price, theme.moneyFormat));
+      if (!isNaN(comparePrice) && comparePrice > price) {
+        if (!$comparePrice.length) {
+          $comparePrice = $('<s>', { 'class': 'js-wishlist-compare-price' }).appendTo($card.find('.wishlist-card__price-row'));
+        }
+        $comparePrice.html(theme.Currency.formatMoney(comparePrice, theme.moneyFormat));
+      } else {
+        $comparePrice.remove();
+      }
+
+      if (variantImage) {
+        $card.find('.js-wishlist-product-image').attr('src', variantImage);
+      }
+      theme.updateCurrencies();
     }
+
+    setWishlistStatus('');
+  });
+
+  $(document).on('click', '.js-wishlist-remove-selected', function () {
+    var handles = [];
+
+    $wishlistContainer.find('.js-wishlist-select-item:checked').each(function () {
+      handles.push($(this).closest('.js-wishlist-item').attr('data-handle'));
+    });
+
+    removeWishlistHandles(handles);
+    if (handles.length) {
+      setWishlistStatus(handles.length + (handles.length === 1 ? ' item removed.' : ' items removed.'));
+    }
+  });
+
+  $(document).on('click', '.js-wishlist-add-selected', function () {
+    addSelectedWishlistItems(false);
+  });
+
+  $(document).on('click', '.js-wishlist-checkout-selected', function () {
+    addSelectedWishlistItems(true);
   });
 
   loadWishlist();

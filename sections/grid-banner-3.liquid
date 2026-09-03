@@ -752,7 +752,7 @@
                 <span class="gb3-product-badge {{ gb3_badge_class }}">{{ gb3_badge_text }}</span>
               {% endif %}
               {% if settings.enable_wishlsit %}
-                <button type="button" data-toggle="tooltip" data-placement="left" data-tooltipalltimes="true" class="gb3-product-wishlist js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" data-handle="{{ product.handle }}" aria-label="{{ 'products.product.wishlist_text' | t }}">
+                <button type="button" data-toggle="tooltip" data-placement="left" data-tooltipalltimes="true" class="gb3-product-wishlist js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" data-handle="{{ product.handle }}" aria-label="{{ 'products.product.wishlist_text' | t }}" aria-pressed="false">
                   {%- include 'icon-heart' -%}
                 </button>
               {% endif %}
@@ -849,7 +849,7 @@
                       <span class="gb3-product-badge {{ gb3_badge_class }}">{{ gb3_badge_text }}</span>
                     {% endif %}
                     {% if settings.enable_wishlsit %}
-                      <button type="button" data-toggle="tooltip" data-placement="left" data-tooltipalltimes="true" class="gb3-product-wishlist js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" data-handle="{{ product.handle }}" aria-label="{{ 'products.product.wishlist_text' | t }}">
+                      <button type="button" data-toggle="tooltip" data-placement="left" data-tooltipalltimes="true" class="gb3-product-wishlist js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" data-handle="{{ product.handle }}" aria-label="{{ 'products.product.wishlist_text' | t }}" aria-pressed="false">
                         {%- include 'icon-heart' -%}
                       </button>
                     {% endif %}

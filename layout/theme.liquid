@@ -136,7 +136,7 @@ comfortable boots, comfy boots" />
     
   {% endunless %}
 {% include 'pagefly-app-header' %}</head>
-  <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} body-theme {% if settings.productpage == 'product-2' or settings.productpage == 'product-6' or settings.productpage == 'product-7' %} product-hide-breadcrumb {% endif %}" >
+  <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} body-theme{% if template.suffix == 'wishlist' %} template-page-wishlist{% endif %} {% if settings.productpage == 'product-2' or settings.productpage == 'product-6' or settings.productpage == 'product-7' %} product-hide-breadcrumb {% endif %}" >
     {%- section 'announcement-bar' -%}
     {%- include 'loading' -%}
     {%- include 'header' -%}

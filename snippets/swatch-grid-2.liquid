@@ -82,9 +82,9 @@
       </span>
       {%- endif -%}
       {%- if settings.enable_wishlsit -%}
-      <span data-toggle="tooltip" data-placement="top" data-tooltipalltimes="true" class="btn gradient-theme-vertical product-card__overlay-btn js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" data-handle="{{product.handle}}">
+      <button type="button" data-toggle="tooltip" data-placement="top" data-tooltipalltimes="true" class="btn gradient-theme-vertical product-card__overlay-btn js-btn-wishlist" title="{{ 'products.product.wishlist_text' | t }}" aria-label="{{ 'products.product.wishlist_text' | t }}" aria-pressed="false" data-handle="{{product.handle}}">
         {%- include 'icon-heart' -%}
-      </span>
+      </button>
       {%- endif -%}
     </div>
   </div>

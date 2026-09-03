@@ -1,89 +1,113 @@
-<style>
-    .section-header__item{
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: end;
-      -ms-flex-align: end;
-      align-items: flex-end;
-    }
-    .section-header{
-      margin-bottom:30px;
-    }
-    .page-and-article{
-      padding:20px 0;
-    }
-  </style>
-  <!-- search.liquid  -->
-  {%- paginate search.results by 20 -%}
-  <div class="container">
-    <header class="row section-header small--text-center">
-      <div class="col-md-9 section-header__item">
-        <h1 class="section-header__title h3">{{ 'general.search.title' | t }}</h1>
-  
-      </div>
-      <div class="col-md-3 section-header__item">
-        {%- if search.performed -%}
-        <p class="section-header__subtext">{{ 'general.search.results_count_html' | t: count: search.results_count, terms: search.terms }}</p>
-        {%- endif -%}
-      </div>
-    </header> 
-  
-    {%- if search.performed -%}
-  
-    {%- assign product_count = 0 -%}
-    {%- assign page_count = 0 -%}
-    {%- for item in search.results -%}
+{%- paginate search.results by 24 -%}
+  {%- assign display_terms = search.terms | remove_first: 'title:' | remove: '*' | strip -%}
+  {%- assign product_count = 0 -%}
+  {%- assign content_count = 0 -%}
+
+  {%- for item in search.results -%}
     {%- if item.object_type == 'product' -%}
-    {%- assign product_count = product_count | plus: 1 -%}
+      {%- assign product_count = product_count | plus: 1 -%}
     {%- else -%}
-    {%- assign page_count = page_count | plus: 1 -%}
+      {%- assign content_count = content_count | plus: 1 -%}
     {%- endif -%}
-    {%- endfor -%}
-  
-    {%- if product_count > 0 -%}
-    <h2 class="h4 small--text-center hide">{{ 'general.search.products' | t }}</h2>
-  
-    <div class="row">
-      {%- for item in search.results -%}
-      {%- if item.object_type == 'product' -%}
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        {%- include 'product-card', product: item -%}
-      </div>
-      {%- endif -%}
-      {%- endfor -%}
-    </div>
-    {%- endif -%}
-  
-    {%- if product_count and page_count -%}
-    <hr>
-    {%- endif -%}
-  
-    {%- if page_count > 0 -%}
-    <h4 class="small--text-center">{{ 'general.search.pages_and_articles' | t }}</h4>
-  
-    <div class="page-and-article">
-      <div class="row">
-        {%- for item in search.results -%}
-        {%- unless item.object_type == 'product' -%}
-        <div class="col-sm-6 col-md-4 content-block__item">
-          <h5>{{ item.title | link_to: item.url }}</h5>
-          <div class="rte">{{ item.content | strip_html | truncate: 150 }}</div>
-          <p><a href="{{ item.url }}"><strong>{{ 'general.search.read_more' | t }}</strong></a></p>
+  {%- endfor -%}
+
+  <section class="search-page" aria-labelledby="SearchPageTitle">
+    <div class="container">
+      <header class="search-page__hero">
+        <div class="search-page__heading">
+          <p class="search-page__eyebrow">Find your perfect pair</p>
+          <h1 id="SearchPageTitle" class="search-page__title">
+            {%- if search.performed and search.results_count > 0 -%}
+              Results for <span>&ldquo;{{ display_terms | escape }}&rdquo;</span>
+            {%- elsif search.performed -%}
+              No results for <span>&ldquo;{{ display_terms | escape }}&rdquo;</span>
+            {%- else -%}
+              Search Vionic
+            {%- endif -%}
+          </h1>
+          <p class="search-page__description">
+            {%- if search.performed and search.results_count > 0 -%}
+              {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} found. Explore supportive styles designed for all-day comfort.
+            {%- else -%}
+              Search by product name, style, or category.
+            {%- endif -%}
+          </p>
         </div>
-        {%- endunless -%}
-        {%- endfor -%}
-      </div>
+
+        <form class="search-page__form" action="{{ routes.search_url }}" method="get" role="search">
+          <label class="visually-hidden" for="SearchPageInput">Search products</label>
+          <div class="search-page__input-wrap">
+            <span class="search-page__input-icon" aria-hidden="true">{%- render 'icon-search' -%}</span>
+            <input
+              id="SearchPageInput"
+              class="search-page__input"
+              type="search"
+              name="q"
+              value="{{ display_terms | escape }}"
+              placeholder="Search shoes, sandals, insoles..."
+              autocomplete="off"
+            >
+            <input type="hidden" name="type" value="product">
+            <button class="search-page__submit" type="submit">Search</button>
+          </div>
+        </form>
+      </header>
+
+      {%- if search.performed and search.results_count > 0 -%}
+        <div class="search-page__bar">
+          <p>{{ search.results_count }} {{ search.results_count | pluralize: 'product', 'products' }}</p>
+          <a href="{{ routes.search_url }}">Clear search</a>
+        </div>
+
+        {%- if product_count > 0 -%}
+          <div class="search-page__grid" role="list">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                <div class="search-page__product" role="listitem">
+                  {%- include 'product-card', product: item -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if content_count > 0 -%}
+          <div class="search-page__content-results">
+            <h2>{{ 'general.search.pages_and_articles' | t }}</h2>
+            <div class="search-page__content-grid">
+              {%- for item in search.results -%}
+                {%- unless item.object_type == 'product' -%}
+                  <article class="search-page__content-card">
+                    <p class="search-page__content-type">{{ item.object_type }}</p>
+                    <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                    <p>{{ item.content | strip_html | truncatewords: 24 }}</p>
+                    <a class="search-page__read-more" href="{{ item.url }}">{{ 'general.search.read_more' | t }}</a>
+                  </article>
+                {%- endunless -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="search-page__pagination" aria-label="Search results pagination">
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+          </nav>
+        {%- endif -%}
+      {%- elsif search.performed -%}
+        <div class="search-page__empty">
+          <span aria-hidden="true">{%- render 'icon-search' -%}</span>
+          <h2>We couldn&rsquo;t find a match</h2>
+          <p>Check the spelling or try a broader product name or category.</p>
+          <a class="search-page__shop-all" href="{{ routes.all_products_collection_url }}">Shop all products</a>
+        </div>
+      {%- endif -%}
     </div>
-    {%- endif -%}
-  
-    {%- if paginate.pages > 1 -%}
-    <div class="pagination">
-      {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
-    </div>
-    {%- endif -%}
-  
-    {%- endif -%}
-  </div>
-  {% assign dm_paginate_by = paginate.page_size %}{%- endpaginate -%}
-  {% if dm_paginate_by %}{% render 'spurit_dmr_collection_template_snippet', paginate_by: dm_paginate_by %}{% endif %}
+  </section>
+
+  {%- assign dm_paginate_by = paginate.page_size -%}
+{%- endpaginate -%}
+
+{%- if dm_paginate_by -%}
+  {%- render 'spurit_dmr_collection_template_snippet', paginate_by: dm_paginate_by -%}
+{%- endif -%}

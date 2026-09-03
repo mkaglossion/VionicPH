@@ -128,6 +128,16 @@ data-parent-fit="cover" {% endunless%}>
     {{ blog.title | link_to: blog.url }}
     <span aria-hidden="true">/</span>
     <span>{{ article.title }}</span>
+    {% elsif template contains 'search' %}
+    {%- assign breadcrumb_search_terms = search.terms | remove_first: 'title:' | remove: '*' | strip -%}
+    <span aria-hidden="true">/</span>
+    <span>
+      {%- if search.performed and breadcrumb_search_terms != blank -%}
+        Search: {{ breadcrumb_search_terms }}
+      {%- else -%}
+        Search
+      {%- endif -%}
+    </span>
     {% else %}
     <span aria-hidden="true">/</span>
     <span>{{ page_title }}</span>

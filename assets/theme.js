@@ -4342,7 +4342,9 @@ theme.wishlist = (function (){
       $wishlistCheckoutSelected = $('.js-wishlist-checkout-selected'),
       $wishlistStatus = $('.js-wishlist-status'),
       wishlistStorageKey = 'localWishlist',
+      wishlistVariantStorageKey = 'localWishlistVariants',
       wishlistObject = getStoredWishlist(),
+      wishlistVariantSelections = getStoredWishlistVariants(),
       wishlistLoadId = 0,
       loadNoResult = function (){
         $wishlistContainer.attr('aria-busy', 'false');
@@ -4382,12 +4384,43 @@ theme.wishlist = (function (){
     }, []);
   }
 
+  function getStoredWishlistVariants() {
+    var storedVariants;
+
+    try {
+      storedVariants = JSON.parse(localStorage.getItem(wishlistVariantStorageKey));
+    } catch (error) {
+      storedVariants = {};
+    }
+
+    if (!storedVariants || Object.prototype.toString.call(storedVariants) !== '[object Object]') {
+      return {};
+    }
+
+    return storedVariants;
+  }
+
+  function saveWishlistVariantSelections() {
+    try {
+      localStorage.setItem(wishlistVariantStorageKey, JSON.stringify(wishlistVariantSelections));
+    } catch (error) {
+      // Variant selection remains usable for the current page session.
+    }
+  }
+
   function saveWishlist() {
+    $.each(wishlistVariantSelections, function (handle) {
+      if ($.inArray(handle, wishlistObject) === -1) {
+        delete wishlistVariantSelections[handle];
+      }
+    });
+
     try {
       localStorage.setItem(wishlistStorageKey, JSON.stringify(wishlistObject));
     } catch (error) {
       // Keep the in-memory wishlist usable when storage is unavailable.
     }
+    saveWishlistVariantSelections();
 
     $wishlistCount.text(wishlistObject.length);
     $('.js-wishlist-summary-count').text(wishlistObject.length);
@@ -4485,6 +4518,51 @@ theme.wishlist = (function (){
     return request.promise();
   }
 
+  function getWishlistOptionDetails(product, availableVariants) {
+    var sizePosition = 0,
+        hasVaryingNonSizeOption = false;
+
+    $.each(product.options || [], function (index, option) {
+      var optionName = typeof option === 'string' ? option : option.name,
+          optionPosition = typeof option === 'string' ? index + 1 : option.position;
+
+      if (String(optionName).toLowerCase() === 'size') {
+        sizePosition = parseInt(optionPosition, 10);
+      }
+    });
+
+    if (sizePosition) {
+      $.each(product.options || [], function (index, option) {
+        var optionPosition = typeof option === 'string' ? index + 1 : parseInt(option.position, 10),
+            values = [];
+
+        if (optionPosition === sizePosition) {
+          return;
+        }
+
+        $.each(availableVariants, function (variantIndex, variant) {
+          var value = variant['option' + optionPosition];
+          if (value && $.inArray(value, values) === -1) {
+            values.push(value);
+          }
+        });
+
+        if (values.length > 1) {
+          hasVaryingNonSizeOption = true;
+          return false;
+        }
+      });
+    }
+
+    return {
+      isSizeOnly: Boolean(sizePosition && !hasVaryingNonSizeOption),
+      label: sizePosition && !hasVaryingNonSizeOption ? 'Available sizes' : 'Available options',
+      variantLabel: function (variant) {
+        return sizePosition && !hasVaryingNonSizeOption ? variant['option' + sizePosition] : variant.title;
+      }
+    };
+  }
+
   function renderWishlistProduct(product) {
     var productTitle = escapeHtml(product.title),
         productUrl = escapeHtml(product.url),
@@ -4496,17 +4574,37 @@ theme.wishlist = (function (){
         availableVariants = $.grep(product.variants || [], function (variant) { return variant.available; }),
         hasOnlyDefaultVariant = product.variants && product.variants.length === 1 && product.variants[0].title === 'Default Title',
         defaultVariant = hasOnlyDefaultVariant && availableVariants.length ? availableVariants[0] : null,
+        optionDetails = getWishlistOptionDetails(product, availableVariants),
+        savedVariantId = parseInt(wishlistVariantSelections[product.handle], 10),
+        selectedVariant = $.grep(availableVariants, function (variant) { return parseInt(variant.id, 10) === savedVariantId; })[0],
         variantOptions = '',
         htmlProduct = '';
 
+    if (!isNaN(savedVariantId) && !selectedVariant) {
+      delete wishlistVariantSelections[product.handle];
+      saveWishlistVariantSelections();
+    }
+
+    if (selectedVariant) {
+      productPrice = theme.Currency.formatMoney(selectedVariant.price, theme.moneyFormat);
+      productComparePrice = selectedVariant.compare_at_price && selectedVariant.compare_at_price > selectedVariant.price ? theme.Currency.formatMoney(selectedVariant.compare_at_price, theme.moneyFormat) : '';
+      if (selectedVariant.featured_image && selectedVariant.featured_image.src) {
+        productImage = escapeHtml(selectedVariant.featured_image.src);
+      }
+    }
+
     $.each(availableVariants, function (index, variant) {
       var variantImage = variant.featured_image && variant.featured_image.src ? variant.featured_image.src : '',
-          comparePrice = variant.compare_at_price || 0;
+          comparePrice = variant.compare_at_price || 0,
+          isSelected = selectedVariant && parseInt(selectedVariant.id, 10) === parseInt(variant.id, 10);
 
-      variantOptions += '<option value="'+ escapeHtml(variant.id) +'" data-price="'+ escapeHtml(variant.price) +'" data-compare-price="'+ escapeHtml(comparePrice) +'" data-image="'+ escapeHtml(variantImage) +'">'+ escapeHtml(variant.title) +'</option>';
+      variantOptions += '<label class="wishlist-card__option">';
+      variantOptions += '<input class="js-wishlist-variant" type="radio" name="WishlistVariant-'+ productHandle +'" value="'+ escapeHtml(variant.id) +'" data-price="'+ escapeHtml(variant.price) +'" data-compare-price="'+ escapeHtml(comparePrice) +'" data-image="'+ escapeHtml(variantImage) +'"'+ (isSelected ? ' checked' : '') +'/>';
+      variantOptions += '<span>'+ escapeHtml(optionDetails.variantLabel(variant)) +'</span>';
+      variantOptions += '</label>';
     });
 
-    htmlProduct += '<article class="js-wishlist-item" data-handle="'+ productHandle +'" data-variant-id="'+ (defaultVariant ? escapeHtml(defaultVariant.id) : '') +'" data-available="'+ (availableVariants.length ? 'true' : 'false') +'">';
+    htmlProduct += '<article class="js-wishlist-item" data-handle="'+ productHandle +'" data-variant-id="'+ (defaultVariant ? escapeHtml(defaultVariant.id) : selectedVariant ? escapeHtml(selectedVariant.id) : '') +'" data-available="'+ (availableVariants.length ? 'true' : 'false') +'">';
     htmlProduct += '<div class="js-wishlist-itembox">';
     htmlProduct += '<div class="wishlist-card__media">';
     htmlProduct += '<label class="wishlist-card__check"><input class="js-wishlist-select-item" type="checkbox" aria-label="Select '+ productTitle +'"/><span class="visually-hidden">Select '+ productTitle +'</span></label>';
@@ -4526,10 +4624,10 @@ theme.wishlist = (function (){
     }
     htmlProduct += '</div>';
     if (!hasOnlyDefaultVariant && availableVariants.length) {
-      htmlProduct += '<label class="wishlist-card__option-label" for="WishlistVariant-'+ productHandle +'">Choose size / option</label>';
-      htmlProduct += '<select id="WishlistVariant-'+ productHandle +'" class="wishlist-card__variant js-wishlist-variant" aria-label="Choose an option for '+ productTitle +'">';
-      htmlProduct += '<option value="">Select an available size / option</option>'+ variantOptions;
-      htmlProduct += '</select>';
+      htmlProduct += '<fieldset class="wishlist-card__options js-wishlist-options'+ (optionDetails.isSizeOnly ? ' wishlist-card__options--size' : '') +'">';
+      htmlProduct += '<legend class="wishlist-card__option-label">'+ optionDetails.label +'</legend>';
+      htmlProduct += '<div class="wishlist-card__option-list">'+ variantOptions +'</div>';
+      htmlProduct += '</fieldset>';
     } else if (!availableVariants.length) {
       htmlProduct += '<p class="wishlist-card__availability">Currently unavailable</p>';
     }
@@ -4564,17 +4662,19 @@ theme.wishlist = (function (){
 
     $wishlistContainer.find('.js-wishlist-select-item:checked').each(function () {
       var $card = $(this).closest('.js-wishlist-item'),
-          $variantSelect = $card.find('.js-wishlist-variant'),
-          variantId = $variantSelect.length ? $variantSelect.val() : $card.attr('data-variant-id'),
+          $variantInputs = $card.find('.js-wishlist-variant'),
+          $selectedVariant = $variantInputs.filter(':checked'),
+          $optionGroup = $card.find('.js-wishlist-options'),
+          variantId = $variantInputs.length ? $selectedVariant.val() : $card.attr('data-variant-id'),
           numericVariantId = parseInt(variantId, 10);
 
-      $variantSelect.removeAttr('aria-invalid');
+      $optionGroup.removeAttr('aria-invalid');
       if ($card.attr('data-available') !== 'true' || !variantId || isNaN(numericVariantId)) {
         if (!$invalidItem) {
-          $invalidItem = $variantSelect.length ? $variantSelect : $card;
+          $invalidItem = $variantInputs.length ? $variantInputs.filter(':enabled').first() : $card;
         }
-        if ($variantSelect.length) {
-          $variantSelect.attr('aria-invalid', 'true');
+        if ($optionGroup.length) {
+          $optionGroup.attr('aria-invalid', 'true');
         }
         return;
       }
@@ -4587,7 +4687,8 @@ theme.wishlist = (function (){
         handle: $card.attr('data-handle'),
         variantId: numericVariantId,
         $card: $card,
-        $variantSelect: $variantSelect
+        $variantInputs: $variantInputs,
+        $optionGroup: $optionGroup
       });
     });
 
@@ -4631,20 +4732,18 @@ theme.wishlist = (function (){
         }
 
         selection.$card.attr('data-variant-id', '');
-        if (selection.$variantSelect.length) {
-          selection.$variantSelect
-            .val('')
-            .attr('aria-invalid', 'true')
-            .find('option')
+        delete wishlistVariantSelections[selection.handle];
+        saveWishlistVariantSelections();
+        if (selection.$variantInputs.length) {
+          selection.$optionGroup.attr('aria-invalid', 'true');
+          selection.$variantInputs
             .filter(function () {
               return parseInt(this.value, 10) === selection.variantId;
             })
+            .prop('checked', false)
             .prop('disabled', true)
-            .each(function () {
-              if ($(this).text().indexOf(' — Sold out') === -1) {
-                $(this).text($(this).text() + ' — Sold out');
-              }
-            });
+            .closest('.wishlist-card__option')
+            .addClass('is-disabled');
         } else {
           selection.$card.attr('data-available', 'false');
           if (!selection.$card.find('.wishlist-card__availability').length) {
@@ -4691,7 +4790,7 @@ theme.wishlist = (function (){
 
     if (selection.$invalidItem) {
       setWishlistStatus('Choose a size or available option for every selected item.', true);
-      if (selection.$invalidItem.is('select')) {
+      if (selection.$invalidItem.is(':input')) {
         selection.$invalidItem.trigger('focus');
       }
       return;
@@ -4714,8 +4813,8 @@ theme.wishlist = (function (){
 
       if (validation.firstUnavailable) {
         setWishlistStatus('That size or option is no longer available. Please choose another available option.', true);
-        if (validation.firstUnavailable.$variantSelect.length) {
-          validation.firstUnavailable.$variantSelect.trigger('focus');
+        if (validation.firstUnavailable.$variantInputs.length) {
+          validation.firstUnavailable.$variantInputs.filter(':enabled').first().trigger('focus');
         }
         setWishlistActionBusy(false);
         return;
@@ -4877,17 +4976,22 @@ theme.wishlist = (function (){
   });
 
   $(document).on('change', '.js-wishlist-variant', function () {
-    var $select = $(this),
-        $card = $select.closest('.js-wishlist-item'),
-        $selectedOption = $select.find(':selected'),
-        variantId = $select.val(),
-        price = parseInt($selectedOption.attr('data-price'), 10),
-        comparePrice = parseInt($selectedOption.attr('data-compare-price'), 10),
-        variantImage = $selectedOption.attr('data-image'),
+    var $variantInput = $(this),
+        $card = $variantInput.closest('.js-wishlist-item'),
+        productHandle = $card.attr('data-handle'),
+        variantId = $variantInput.val(),
+        price = parseInt($variantInput.attr('data-price'), 10),
+        comparePrice = parseInt($variantInput.attr('data-compare-price'), 10),
+        variantImage = $variantInput.attr('data-image'),
         $comparePrice = $card.find('.js-wishlist-compare-price');
 
     $card.attr('data-variant-id', variantId || '');
-    $select.removeAttr('aria-invalid');
+    $card.find('.js-wishlist-options').removeAttr('aria-invalid');
+
+    if (productHandle && variantId) {
+      wishlistVariantSelections[productHandle] = String(variantId);
+      saveWishlistVariantSelections();
+    }
 
     if (variantId && !isNaN(price)) {
       $card.find('.js-wishlist-price').html(theme.Currency.formatMoney(price, theme.moneyFormat));

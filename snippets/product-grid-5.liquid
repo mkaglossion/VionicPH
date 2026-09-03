@@ -80,5 +80,14 @@
       </div>
       {%- endif -%}
       {%- include 'swatch-grid-1' -%}
+      <button
+        type="button"
+        class="product-card__add-to-cart js-grid-cart"
+        data-id="{{ product.selected_or_first_available_variant.id }}"
+        {% unless product.available %}disabled{% endunless %}
+      >
+        {% include 'icon-cart' %}
+        <span>{{ 'products.product.add_to_cart' | t }}</span>
+      </button>
     </div>
   </div>

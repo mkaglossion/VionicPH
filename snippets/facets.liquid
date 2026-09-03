@@ -106,8 +106,27 @@
                             </svg>
                             {%- if is_color -%}
                               {%- if value.param_name  contains 'color' or  value.param_name  contains 'colour'-%}
-                                {%- assign color_image = value.label | escape | handle | append: '.' | append: swatch_file_extension | asset_img_url: '50x50' | prepend: 'https:' | split: '?' | first -%}
-                                <span class="facets_bg" style="background-color:{{ value.label | escape | downcase }};background-image: url({{ color_image }})"></span>
+                                {%- assign color_name = value.label | downcase -%}
+                                {%- assign color_swatch = '#e2e2e2' -%}
+                                {%- if color_name contains 'black' and color_name contains 'nude' -%}
+                                  {%- assign color_swatch = 'linear-gradient(135deg, #111111 0 50%, #d8c3a5 50% 100%)' -%}
+                                {%- elsif color_name contains 'black' -%}{%- assign color_swatch = '#111111' -%}
+                                {%- elsif color_name contains 'white' -%}{%- assign color_swatch = '#ffffff' -%}
+                                {%- elsif color_name contains 'cream' or color_name contains 'ivory' -%}{%- assign color_swatch = '#f5f0e6' -%}
+                                {%- elsif color_name contains 'beige' or color_name contains 'nude' or color_name contains 'natural' or color_name contains 'taupe' -%}{%- assign color_swatch = '#d8c3a5' -%}
+                                {%- elsif color_name contains 'cobblestone' -%}{%- assign color_swatch = '#b8ad9e' -%}
+                                {%- elsif color_name contains 'hazelnut' -%}{%- assign color_swatch = '#9a5a3a' -%}
+                                {%- elsif color_name contains 'mocha' or color_name contains 'coffee' -%}{%- assign color_swatch = '#8b5e3c' -%}
+                                {%- elsif color_name contains 'sand' or color_name contains 'camel' or color_name contains 'tan' -%}{%- assign color_swatch = '#d2ae7a' -%}
+                                {%- elsif color_name contains 'brown' -%}{%- assign color_swatch = '#795548' -%}
+                                {%- elsif color_name contains 'red' or color_name contains 'burgundy' -%}{%- assign color_swatch = '#b3261e' -%}
+                                {%- elsif color_name contains 'blue' -%}{%- assign color_swatch = '#2864a5' -%}
+                                {%- elsif color_name contains 'navy' -%}{%- assign color_swatch = '#1d3557' -%}
+                                {%- elsif color_name contains 'grey' or color_name contains 'gray' -%}{%- assign color_swatch = '#8a8a8a' -%}
+                                {%- elsif color_name contains 'green' -%}{%- assign color_swatch = '#5d8064' -%}
+                                {%- elsif color_name contains 'pink' -%}{%- assign color_swatch = '#d99aaa' -%}
+                                {%- endif -%}
+                                <span class="facets_bg" style="background: {{ color_swatch }};"></span>
                               {%- endif -%}
                             {%- endif -%}
                             {{ value.label | escape }} ({{ value.count }})

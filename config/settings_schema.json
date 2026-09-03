@@ -379,6 +379,18 @@
         "default": "#348a5c"
       },
       {
+        "type": "color",
+        "id": "collection_card_button_bg",
+        "label": "Collection card add to cart background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "collection_card_button_text",
+        "label": "Collection card add to cart text",
+        "default": "#ffffff"
+      },
+      {
         "type": "header",
         "content": "Page"
       },

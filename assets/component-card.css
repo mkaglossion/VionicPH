@@ -5,6 +5,10 @@
   text-decoration: none;
 }
 
+.template-collection .card-wrapper .card {
+  border: 1px solid rgba(0, 0, 0, .12);
+}
+
 .card {
   text-align: var(--card-text-alignment);
   text-decoration: none;

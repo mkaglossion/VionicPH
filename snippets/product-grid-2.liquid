@@ -55,9 +55,9 @@
       {%- endif -%}
     </div>
     <!--   color swatch     -->
-{% if product.metafields.my_fields.other_colors != blank %}
+{% if product.metafields.custom.sibling_products != blank %}
 <ul class="recommended_products">
-  {% assign recommended_products =  product.metafields.my_fields.other_colors.value %}
+  {% assign recommended_products =  product.metafields.custom.sibling_products.value %}
   {% for product in recommended_products  %}     
     <li class="sku-color hovertext" data-hover="{{ product.title }}">
       <a href="{{ product.url }}">

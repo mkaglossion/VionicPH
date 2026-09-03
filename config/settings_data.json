@@ -31,6 +31,8 @@
     "color_primary": "#000000",
     "color_secondary": "#6c757d",
     "color_cta": "#000000",
+    "collection_card_button_bg": "#000000",
+    "collection_card_button_text": "#ffffff",
     "color_body_bg": "#ffffff",
     "color_content_bg": "#ffffff",
     "color_body_headings": "#000000",

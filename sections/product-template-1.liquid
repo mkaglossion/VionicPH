@@ -257,16 +257,25 @@
         </div>
         
          <!--    Other Colors      -->
-       {% if product.metafields.my_fields.other_colors != blank %}
+        {% assign sibling_metafield = product.metafields.custom.sibling_products %}
+        {% if sibling_metafield != blank %}
 <label for="SingleOptionSelector-template--15876510777561__main-0">Color</label>
 <ul class="recommended_products">
-  {% assign recommended_products =  product.metafields.my_fields.other_colors.value %}
-  {% for product in recommended_products  %}     
-    <li class="sku-color hovertext" data-hover="{{ product.title }}">
-      <a href="{{ product.url }}">
-        {{ product.featured_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+  {% for sibling_entry in sibling_metafield.value %}
+    {% assign sibling_product = blank %}
+    {% if sibling_metafield.type == 'list.product_reference' %}
+      {% assign sibling_product = sibling_entry %}
+    {% else %}
+      {% assign sibling_handle = sibling_entry | handleize %}
+      {% assign sibling_product = all_products[sibling_handle] %}
+    {% endif %}
+    {% if sibling_product != blank %}
+    <li class="sku-color hovertext" data-hover="{{ sibling_product.title }}">
+      <a href="{{ sibling_product.url }}">
+        {{ sibling_product.featured_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
       </a>
     </li>
+    {% endif %}
   {% endfor %}
 </ul>
 {% endif %}

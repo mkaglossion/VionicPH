@@ -63,7 +63,7 @@
         "variant_available_enable": false,
         "wailist": false,
         "product_selector": "radio",
-        "sizeguide_enable": true,
+        "sizeguide_enable": false,
         "sizeguide_title": "Size guide",
         "sizeguide_page": "",
         "fake_view_enable": true,

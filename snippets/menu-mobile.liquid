@@ -15,10 +15,15 @@
     <ul class="drawer__nav">
       {%- for link in linklists[settings.main_linklist].links -%}
       {%- assign child_list_handle = link.title | handleize -%}
+      {%- assign menu_link_url = link.url -%}
+      {%- assign menu_link_title = link.title | split: '[' | first | strip | downcase -%}
+      {%- if menu_link_title == 'insoles' and menu_link_url == routes.root_url -%}
+        {%- assign menu_link_url = collections['orthotic-inserts'].url | default: '/collections/orthotic-inserts' -%}
+      {%- endif -%}
       {%- if link.links != blank -%}
       <li class="drawer__nav-item">
         <div class="drawer__nav-has-sublist">
-          <a href="{{ link.url }}"
+          <a href="{{ menu_link_url }}"
              class="drawer__nav-link drawer__nav-link--top-level drawer__nav-link--split"
              id="DrawerLabel-{{ child_list_handle }}"
              {% if link.active %} aria-current="page"{% endif %}
@@ -43,7 +48,7 @@
       </li>
       {%- else -%}
       <li class="drawer__nav-item">
-        <a href="{{ link.url }}"
+        <a href="{{ menu_link_url }}"
            class="drawer__nav-link drawer__nav-link--top-level"
            {% if link.active %} aria-current="page"{% endif %}
            >

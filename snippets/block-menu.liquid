@@ -1,6 +1,11 @@
 <nav class="nav-bar d-none d-lg-block" role="navigation">
   <ul class="site-nav">
     {%- for link in linklists[settings.main_linklist].links -%}
+    {%- assign menu_link_url = link.url -%}
+    {%- assign menu_link_title = link.title | split: '[' | first | strip | downcase -%}
+    {%- if menu_link_title == 'insoles' and menu_link_url == routes.root_url -%}
+      {%- assign menu_link_url = collections['orthotic-inserts'].url | default: '/collections/orthotic-inserts' -%}
+    {%- endif -%}
     {%- assign hasMega = false -%}
     {%- assign titleCheckMega = link.title | escape | split: '[' | first | downcase -%}
     {%- for i in (1..5) -%}
@@ -20,7 +25,7 @@
     {%- assign isFullwidth = false -%}
     {%- endif -%}
     <li class="site-nav__item site-nav__item-mega {% unless isFullwidth %} site-nav__item-mega--custom{% endunless %} {% if link.active %} site-nav--active{% endif %}" data-width="{{widthMega}}">
-      <a href="{{ link.url }}" class="site-nav__link dropdown-toggle" {% if link.active %} aria-current="page"{% endif %}>
+      <a href="{{ menu_link_url }}" class="site-nav__link dropdown-toggle" {% if link.active %} aria-current="page"{% endif %}>
         <span class="site-nav__title">{%- render 'processMenuTitle', itemName: link.title -%}</span>
         {%- render 'processMenuLabel', itemName: link.title -%}
       </a>
@@ -30,7 +35,7 @@
     </li>
     {%- elsif link.links != blank -%}
     <li class="site-nav__item site-nav__item-normal {% if link.active %} site-nav--active{% endif %}">
-      <a href="{{ link.url }}" class="site-nav__link dropdown-toggle" {% if link.active %} aria-current="page"{% endif %}>
+      <a href="{{ menu_link_url }}" class="site-nav__link dropdown-toggle" {% if link.active %} aria-current="page"{% endif %}>
         <span class="site-nav__title">{%- render 'processMenuTitle', itemName: link.title -%}</span>
         {%- render 'processMenuLabel', itemName: link.title -%}
       </a>
@@ -42,7 +47,7 @@
     </li>
     {%- else -%}
     <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
-      <a href="{{ link.url }}" class="site-nav__link"{% if link.active %} aria-current="page"{% endif %}>
+      <a href="{{ menu_link_url }}" class="site-nav__link"{% if link.active %} aria-current="page"{% endif %}>
         <span class="site-nav__title">{%- if link.title contains '[' and link.title contains ']' -%}{{link.title | escape | split: '[' | first}}{%- else -%}{{link.title | escape}}{%- endif -%}</span>
         {%- if link.title contains '[' and link.title contains ']' -%}
           {%- assign labelName = link.title | escape | split:'[' | last | replace:']','' -%}
@@ -60,3 +65,74 @@
     {%- endfor -%}
   </ul>
 </nav>
+
+{%- comment -%}
+  Qikify renders a saved copy of the selected Shopify navigation. Keep the
+  newly-added Insoles destination available when that saved copy is stale.
+{%- endcomment -%}
+<script>
+  (function () {
+    var insoleUrl = {{ collections['orthotic-inserts'].url | default: '/collections/orthotic-inserts' | json }};
+
+    function normalizedTitle(item) {
+      var title = item.querySelector('.tmenu_item_text');
+      return title ? title.textContent.replace(/\s+/g, ' ').trim().toLowerCase() : '';
+    }
+
+    function addInsolesToQikify(menu) {
+      var items = Array.prototype.slice.call(menu.children);
+      var hasInsoles = items.some(function (item) {
+        return normalizedTitle(item) === 'insoles';
+      });
+
+      if (hasInsoles) return;
+
+      var item = document.createElement('li');
+      item.className = 'tmenu_item tmenu_item--root';
+
+      var link = document.createElement('a');
+      link.className = 'tmenu_item_link';
+      link.href = insoleUrl;
+
+      var title = document.createElement('span');
+      title.className = 'tmenu_item_text';
+      title.textContent = 'INSOLES';
+
+      link.appendChild(title);
+      item.appendChild(link);
+
+      var saleItem = items.find(function (candidate) {
+        return normalizedTitle(candidate) === 'sale';
+      });
+      menu.insertBefore(item, saleItem || null);
+    }
+
+    function syncQikifyMenus() {
+      var menus = document.querySelectorAll('.tmenu_navbar > .tmenu_nav');
+      var populatedMenus = Array.prototype.filter.call(menus, function (menu) {
+        return menu.children.length > 0;
+      });
+      Array.prototype.forEach.call(populatedMenus, addInsolesToQikify);
+      return populatedMenus.length > 0;
+    }
+
+    function initializeMenuSync() {
+      if (syncQikifyMenus()) return;
+
+      var observer = new MutationObserver(function () {
+        if (syncQikifyMenus()) observer.disconnect();
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      window.setTimeout(function () {
+        observer.disconnect();
+      }, 10000);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeMenuSync);
+    } else {
+      initializeMenuSync();
+    }
+  })();
+</script>

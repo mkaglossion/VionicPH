@@ -13,7 +13,7 @@
       "type": "collection-template-8",
       "settings": {
         "collection_width": "container-fluid",
-        "products_per_page": 20,
+        "products_per_page": 24,
         "collection_perrow": "3",
         "enable_filtering": true,
         "enable_sorting": true,

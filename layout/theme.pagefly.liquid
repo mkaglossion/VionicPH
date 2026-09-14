@@ -4,7 +4,7 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
 {% endcomment %}
 <!doctype html>
 <html class="no-js " lang="{{ shop.locale }}">
-  {%- assign is_local_preview = request.host contains '127.0.0.1' or request.host contains 'localhost' -%}
+  {%- assign is_local_preview = request.host -%}
   <head>
     <meta name="keywords" content="orthopedic shoes, comfortable shoes, comfy shoes, 
 comfortable heels, comfortable sandals, comfy heels, comfy sandals, athleisure, active sneakers,
@@ -144,3 +144,14 @@ comfortable boots, comfy boots" />
               {{ content_for_layout }}
             </div></body>
 </html> 
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- assign is_local_preview = request.host contains '127.0.0.1' or request.host
+    contains 'localhost' -%}"
+  to: "{%- assign is_local_preview = request.host -%}"
+  position: 341..387
+{% endcomment %}

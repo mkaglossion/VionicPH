@@ -734,6 +734,33 @@
       "slideshow-1": {
         "type": "slideshow-1",
         "blocks": {
+          "image_LGRB9d": {
+            "type": "image",
+            "name": "October Banner",
+            "settings": {
+              "image": "shopify://shop_images/Own_Web_Desktop_Banner_2188890d-c674-407a-a094-3371c65df58f.jpg",
+              "image_mobile": "shopify://shop_images/Own_Web_Mobile_Banner_34744973-a9b1-477d-bf6b-224d3597b86f.jpg",
+              "image_link": "shopify://products/gabriela-womens-flats-rugby-tan",
+              "alignment": "center center",
+              "text_alignment": "center center",
+              "bgwrap": "#f8ede7",
+              "slide_toptitle": "Design by Shopifytemplate",
+              "slide_toptitle_color": "#999999",
+              "slide_title": "Image slide",
+              "slide_title_color": "#ffffff",
+              "subheading": "Tell your brand's story through images",
+              "subheading_color": "#ffffff",
+              "button_label": "",
+              "button_link": "",
+              "stylebtns": "default",
+              "bg_button": "#000000",
+              "solid_button": "#000000",
+              "color_button": "#ffffff",
+              "bg_button_hover": "#b6813c",
+              "solid_button_hover": "#b6813c",
+              "color_button_hover": "#ffffff"
+            }
+          },
           "image_KqPHRK": {
             "type": "image",
             "name": "Sept Banner",
@@ -791,6 +818,7 @@
           }
         },
         "block_order": [
+          "image_LGRB9d",
           "image_KqPHRK",
           "image_hQR9By"
         ],
